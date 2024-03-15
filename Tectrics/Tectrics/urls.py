@@ -17,8 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import Main
+from Route.views import Road
+from Load.views import BoxLoad
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("",Main.as_view())
+    path("",Main.as_view()),
+    path("Route/road",Road.as_view()),
+    path("Load/boxload",BoxLoad.as_view()),
 ]
