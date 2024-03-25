@@ -19,10 +19,19 @@ from django.urls import path
 from .views import Main
 from Route.views import Road
 from Load.views import BoxLoad
+from Box.views import BoxList
+from Order.views import its
+from Order.views import upload_file 
+from Route.views import Map
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("",Main.as_view()),
     path("Route/road",Road.as_view()),
     path("Load/boxload",BoxLoad.as_view()),
+    path("Box/boxlist",BoxList.as_view()),
+    path('Route/map', Map.as_view()),
+    path('upload/', upload_file, name='upload_file'),
+    path("Order/itsdata",its.as_view())
 ]

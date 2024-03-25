@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 
-
-class Main(APIView):
+class BoxList(APIView):
     def get(self,request):
-        return render(request,"Tectrics/main.html")
+        return render(request,"Box/boxlist.html")
+    

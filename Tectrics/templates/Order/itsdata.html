@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>택트리스</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
+    <style>
+		.box{
+		  width: 400px;
+		  height: 50px; 
+  		  border: 1px solid black;
+		  overflow: hidden;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+	  	}
+		.box:hover{
+			background: #BEBEBE;
+        }
+
+        input[type="file"]::file-selector-button {
+           display:none
+          }
+          
+	  </style>
+
+</head>
+
+<body>
+<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
+	<div>Tectrics</div>
+	<div>로그인</div>
+</div>
+<div style="margin:120px; height:600px; border: 2px solid black;">
+	<div style=" display: flex; flex-direction: row ; text-align: center; justify-content: space-between">
+		<div class="box" style="background-color:#BEBEBE">상품 목록</div>
+		<div class="box"><a href="/Load/boxload" style="color:black;text-decoration-line:none">적재</a></div>
+		<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
+	</div>
+	<div>
+        <div style="height:70px; width:80px;text-align:center;float:right;padding-right:100px">
+            <div style="height:50px; width:50px;padding-left:10px;">
+                <span id="add_excel" class="material-symbols-outlined" style="font-size: 50px; cursor: pointer;">upload_file</span>
+                <input id="input-excel" type="file" id='excelupload' accept=".xlsx, .xls"> 
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Optional JavaScript; -->
+<script type="text/javascript">
+    var csrftoken = '{{ csrf_token }}';
+</script>
+
+<script>
+    $('#add_excel').click(function() {
+        // 'input-excel' 버튼을 프로그래매틱하게 클릭합니다.
+        document.getElementById('input-excel').click();
+    });
+
+    // 파일 선택 시의 이벤트 리스너
+    document.getElementById('input-excel').addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            console.log('선택된 파일:', this.files[0].name);
+            var formData = new FormData();
+            formData.append('file', this.files[0]);
+
+            // AJAX 요청을 통해 파일을 서버로 업로드
+            $.ajax({
+                url: '/upload/', // Django 애플리케이션의 엔드포인트, 끝에 슬래시를 주의하세요!
+                type: 'POST',
+                data: formData,
+                processData: false, // 데이터를 query string으로 변환하지 않도록 설정
+                contentType: false, // 컨텐트 타입 헤더를 multipart/form-data로 설정하지 않도록 설정
+                headers: {"X-CSRFToken": csrftoken}, // CSRF 토큰을 헤더에 포함
+                success: function(response) {
+                    console.log(response.message);
+                    // 파일이 성공적으로 업로드 되었을 때 로직
+                },
+                error: function(xhr, status, error) {
+                    // 오류 처리
+                    console.error(error);
+                }
+            });
+        }
+    });
+</script>
+
+
+
+
+</body>
+</html>
