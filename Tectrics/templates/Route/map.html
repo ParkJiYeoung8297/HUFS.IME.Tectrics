@@ -5,7 +5,7 @@
     <title>택트리스</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey={{ tmap_key }}"></script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
 			var map, marker1;
 			function initTmap() {
@@ -30,10 +30,15 @@
 						headers : headers,
 						url : "https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=json&callback=result",
 						async : false,
-						data : {
-							"coordType" : "WGS84GEO",
-							"fullAddr" : fullAddr
-						},
+						async: true, // 비동기 요청으로 변경
+						contentType: "application/json",
+						data:  // URL 쿼리 파라미터로 데이터 전송
+							{version: "1",
+							format: "json",
+							callback: "result",
+							coordType: "WGS84GEO",
+							fullAddr: fullAddr},
+							
 						success : function(response) {
 
 							var resultInfo = response.coordinateInfo; // .coordinate[0];
@@ -263,13 +268,27 @@
 		</script>
 	</head>
 	<body onload=initTmap();>
-		<p id="result"></p>
-		
-
-		<input type="text" class="text_custom" id="fullAddr"
-			name="fullAddr" value="서울시 마포구 와우산로29가길 69">
-		<div id="map_wrap" class="map_wrap">
-			<div id="map_div"></div>
+		<div style="display:flex;flex-direction:row;">
+			<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
+			<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
 		</div>
-		<div class="map_act_btn_wrap clear_box"></div>
+		<input type="text" class="text_custom" id="fullAddr"
+		name="fullAddr" value="서울시 마포구 와우산로29가길 69"> 
+		<div style="display:flex;display-direction:row;justify-content:space-between">
+			<div style="width:800px;height:600px;background-color:red">여기 지도
+				<div id="map_wrap" class="map_wrap" >
+					<div id="map_div"></div>
+				</div>
+				<div class="map_act_btn_wrap clear_box"></div>
+				<p id="result"></p>
+			</div>
+			<div style="width:320px;height:600px;background-color:green">정보</div>
+		</div>
+		<!-- Route/map.html -->
+		<ul>
+			{% for address in address_list %}
+				{{ address.road_address }} {{ address.detail_address }}
+			{% endfor %}
+		</ul>
+
 	</body>

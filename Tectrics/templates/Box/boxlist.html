@@ -9,41 +9,40 @@
     
     <style>
 		.box{
-		  width: 400px;
+		  width: 200px;
 		  height: 50px; 
-  		  border: 1px solid black;
 		  overflow: hidden;
 		  display: flex;
 		  justify-content: center;
 		  align-items: center;
 	  	}
 		.box:hover{
-			background: #BEBEBE;
+			background: #E1EAF8;
         }
 
         input[type="file"]::file-selector-button {
            display:none
           }
+		
+		
           
 	  </style>
 
 </head>
 
 <body>
-<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
-	<div>Tectrics</div>
-	<div>로그인</div>
+<div style="display:flex;flex-direction:row;">
+	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
+	<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
 </div>
-<div style="margin:120px; height:600px; border: 2px solid black;">
-	<div style=" display: flex; flex-direction: row ; text-align: center; justify-content: space-between">
-		<div class="box" style="background-color:#BEBEBE">상품 목록</div>
-		<div class="box"><a href="/Load/boxload" style="color:black;text-decoration-line:none">적재</a></div>
-		<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
-	</div>
-    
+<div style="height:70px;width:800px;display:flex;flex-direction:row;justify-content:space-between;text-align:center">
+	<div >배송순서 순</div>
+	<div>주소지 순</div>
+	<div>부피 순</div>
 </div>
-
-
-
+<div style="height:600px;width:1150px;display:flex;flex-direction:row;justify-content:space-between ">
+	<div style="width:800px; height:100%; background-color:red;">테이블</div>
+	<div style="width:300px;background-color:green;border: 1px solid black;">상세정보</div>
+</div>
 </body>
 </html>

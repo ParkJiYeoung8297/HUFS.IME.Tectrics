@@ -187,44 +187,28 @@
         }
     </script>
 
-	<style>
-		.box {
-		  width: 400px;
-		  height: 50px; 
-  		  border: 1px solid black;
-		  overflow: hidden;
-		  display: flex;
-		  justify-content: center;
-		  align-items: center;
-	  }
-      .box:hover{
-        background: #BEBEBE;
-    }
-	  </style>
-
 </head>
 
 <body onload="initTmap()">
-<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
-	<div>Tectrics</div>
-	<div>로그인</div>
+<div style="display:flex;flex-direction:row;">
+	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
+	<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
 </div>
-<div style="margin:120px; height:600px; border: 2px solid black;">
-	<div style=" display: flex; flex-direction: row ; text-align: center; justify-content: space-between">
-		<div class="box" ><a href="/Box/boxlist" style="color:black;text-decoration-line:none">상품 목록</a></div>
-        <div class="box"><a href="/Load/boxload" style="color:black;text-decoration-line:none">적재</a></div>
-		<div class="box" style="background-color:#BEBEBE">배송 경로</div>
-	</div>
-    <div style="display:flex; flex-direction: row ;">
-         
+
+<div style="display:flex;display-direction:row;justify-content:space-between">
+	<div style="width:800px;height:600px;background-color:red">여기 지도
 		<div style="width:100%; height:100%;">
 			<div id="map_wrap" class="map_wrap" style="display:flex;flex-direction: row ;">
 				<div id="map_div"></div>
 			</div>
 			<div id="result"></div> 
 		</div>
-        <div style="width:300px;">상품 리스트 들어가는 곳</div>
-    </div>
+	</div>
+	<div style="width:320px;height:600px;background-color:green">상품 리스트 들어가는 곳</div>
+</div>
+
+
+
 </div>
 </body>
 </html>

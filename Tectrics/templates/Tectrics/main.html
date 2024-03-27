@@ -4,35 +4,155 @@
     <meta charset="UTF-8">
     <title>택트리스</title>
 
-	<style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <style>
 		.box{
-		  width: 400px;
+		  width: 200px;
 		  height: 50px; 
-  		  border: 1px solid black;
 		  overflow: hidden;
 		  display: flex;
 		  justify-content: center;
 		  align-items: center;
 	  	}
 		.box:hover{
-			background: #BEBEBE;
-		}
+			background: #E1EAF8;
+        }
+
+        input[type="file"]::file-selector-button {
+           display:none
+          }
+          
 	  </style>
 
 </head>
 
 <body>
 <div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
-	<div>Tectrics</div>
+	<div ><a href=" " style="text-decoration-line:none" id="Home">Tectrics</a></div>
 	<div>로그인</div>
 </div>
-<div style="margin:120px; height:600px; border: 2px solid black;">
-	<div style=" display: flex; flex-direction: row ; text-align: center; justify-content: space-between">
-		<div class="box" ><a href="/Box/boxlist" style="color:black;text-decoration-line:none">상품 목록</a></div>
-		<div class="box"><a href="/Load/boxload" style="color:black;text-decoration-line:none">적재</a></div>
-		<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
+
+<div style=" display:flex;flex-direction: row;">
+	<div style="height:700px; width:200px; text-align: center; display: flex;flex-direction: column;justify-content:space-evenly;">
+		<div class="box" id="menu_button_boxlist" style="font-size:30px;font-weight: 600" >상품 목록</div>
+		<div class="box" id="menu_button_boxload" style="font-size:30px;font-weight: 600">적재</div>
+		<div >
+			<div class="box" id="menu_button_deliver" style="font-size:30px;font-weight: 600">배송</div>
+			<div class="box" id="menu_button_map" style="font-size:18px;font-weight: 600">지도</div>
+			<div class="box" id="menu_button_road" style="font-size:18px;font-weight: 600">배송 경로</div>
+		</div>		
 	</div>
-	<div></div>
-</div>
+	<div style="color:blue;width: 1500px;">
+		<div style="width:1150px;height:700px;content-align:center;margin:50px;background-color:#4676EF">
+			<div data-include-path=" " id="page_link"> </div>
+		</div>
+	</div>
+</div> 
+
+
+
+<script>
+
+	function updatePageLinkContent() {
+		var includePath = $('#page_link').attr('data-include-path');
+		if (includePath) {
+			$.ajax({
+				url: includePath,
+				type: 'GET',
+				success: function(response) {
+					// 응답으로 받은 HTML로 #page_link 요소의 내용을 업데이트합니다.
+					$('#page_link').html(response);
+				},
+				error: function(xhr, status, error) {
+					console.error("콘텐츠를 불러오는 데 실패했습니다:", error);
+				}
+			});
+		}
+	}
+
+	function updatePageLink() {
+		var includePath = $('#page_link').attr('data-include-path');
+		if (includePath) {
+			$.ajax({
+				url: includePath,
+				type: 'GET',
+				async: false, // 비동기를 false로 설정하여 동기식으로 변경
+				success: function(response) {
+					// 응답으로 받은 HTML로 #page_link 요소의 내용을 업데이트합니다.
+					$('#page_link').html(response);
+				},
+				error: function(xhr, status, error) {
+					console.error("콘텐츠를 불러오는 데 실패했습니다:", error);
+				}
+			});
+		}
+	}
+
+	$('#menu_button_boxlist').click(function(){
+		$(this).css({
+			'font-size': '30px',
+			'color': '#4676EF',
+			'font-weight': '600'
+		});
+		
+		$('#page_link').attr('data-include-path','/Box/boxlist');
+		console.log("클릭");
+		updatePageLinkContent();
+	});
+
+	$('#menu_button_boxload').click(function(){
+		$(this).css({
+			'font-size': '30px',
+			'color': '#4676EF',
+			'font-weight': '600'
+		});
+		$('#page_link').attr('data-include-path','/Load/boxload');
+		console.log("적재 클릭");
+		updatePageLinkContent();
+		
+	});
+	$('#menu_button_deliver').click(function(){
+		$(this).css({
+			'font-size': '30px',
+			'color': '#4676EF',
+			'font-weight': '600'
+		});
+		$('#page_link').attr('data-include-path','/Route/map');
+		console.log("적재 클릭");
+		updatePageLink();
+		
+	});
+
+
+	$('#menu_button_map').click(function(){
+		$(this).css({
+			'font-size': '18px',
+			'color': '#4676EF',
+			'font-weight': '600'
+		});
+		$('#page_link').attr('data-include-path','/Route/map');
+		console.log("적재 클릭");
+		updatePageLinkContent();
+		
+	});
+	$('#menu_button_road').click(function(){
+		$(this).css({
+			'font-size': '18px',
+			'color': '#4676EF',
+			'font-weight': '600'
+		});
+		$('#page_link').attr('data-include-path','/Route/road');
+		console.log("적재 클릭");
+		updatePageLinkContent();
+		
+	});
+
+
+
+</script>
+
+
 </body>
 </html>

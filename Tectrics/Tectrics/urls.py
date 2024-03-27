@@ -33,5 +33,5 @@ urlpatterns = [
     path("Box/boxlist",BoxList.as_view()),
     path('Route/map', Map.as_view()),
     path('upload/', upload_file, name='upload_file'),
-    path("Order/itsdata",its.as_view())
+    path("Order/itsdata",its.as_view()),
 ]

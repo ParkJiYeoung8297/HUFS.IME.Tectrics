@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
+from Order.models import Order
 
 class Road(APIView):
     def get(self,request):
@@ -10,4 +11,8 @@ class Road(APIView):
 class Map(APIView):
     def get(self,request):
         tmap_key = open("TmapRestKey.txt", "r").read()
-        return render(request,"Route/map.html",{'tmap_key': tmap_key})
+        address_list = Order.objects.values("road_address", "detail_address")
+        context = {"address_list": address_list,'tmap_key': tmap_key}
+        return render(request,"Route/map.html",context)
+
+
