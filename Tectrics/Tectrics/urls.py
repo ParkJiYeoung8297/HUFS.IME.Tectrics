@@ -23,6 +23,8 @@ from Box.views import BoxList
 from Order.views import its
 from Order.views import upload_file 
 from Route.views import Map
+from Login.views import Join
+from Login.views import UserLogin
 
 
 urlpatterns = [
@@ -34,4 +36,6 @@ urlpatterns = [
     path('Route/map', Map.as_view()),
     path('upload/', upload_file, name='upload_file'),
     path("Order/itsdata",its.as_view()),
+    path("Login/join",Join.as_view()),
+    path("Login/userlogin",UserLogin.as_view())
 ]
