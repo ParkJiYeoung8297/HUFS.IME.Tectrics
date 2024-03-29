@@ -20,9 +20,12 @@
 					scrollwheel : true
 		
 				});
-		
+			}
+			function markermap(address){
+			
 					// 2. API 사용요청
-					var fullAddr = $("#fullAddr").val();
+					//var fullAddr = $("#fullAddr").val();
+					var fullAddr=address;
 					var headers = {}; 
 					headers["appKey"]="{{ tmap_key }}";
 					$.ajax({
@@ -78,14 +81,14 @@
 									}
 								}
 									
-                                // 마커 올리기
+								// 마커 올리기
                                 marker1 = new Tmapv2.Marker({
-                                    position : new Tmapv2.LatLng(Number(latEntr), Number(lonEntr)),
+                                    position : new Tmapv2.LatLng(Number(lat), Number(lon)),
                                     //icon : "/upload/tmap/marker/pin_r_m_s.png",
                                     //iconSize : new Tmapv2.Size(24, 38),
                                     map:map
                                 });
-                                map.setCenter(new Tmapv2.LatLng(Number(latEntr), Number(lonEntr)));
+                                map.setCenter(new Tmapv2.LatLng(Number(lat), Number(lon)));
 								
                                 // 검색 결과 표출
 								var matchFlag, newMatchFlag;
@@ -167,7 +170,7 @@
 										newBuildingDong = resultCoordinate.newBuildingDong;
 										newAddress += newBuildingDong + "\n";
 									}
-									// 검색 결과 표출
+									// 검색 결과 표출 
 									if (lonEntr > 0) {
 										var docs = "<a style='color:orange' href='#webservice/docs/fullTextGeocoding'>Docs</a>"
 										var text = "검색결과(새주소) : " + newAddress + ",\n 응답코드:" + newMatchFlag + "(상세 코드 내역은 " + docs + " 에서 확인)" + "</br> 위경도좌표(중심점) : " + lat + ", " + lon + "</br>위경도좌표(입구점) : " + latEntr + ", " + lonEntr;
@@ -247,6 +250,7 @@
 										$("#result").html(text);
 									}
 								}
+
 							}
 						},
 						error : function(request, status, error) {
@@ -262,8 +266,7 @@
 					});	
 
                     
-                
-			}
+			}    
 			
 		</script>
 	</head>
@@ -272,8 +275,7 @@
 			<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
 			<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
 		</div>
-		<input type="text" class="text_custom" id="fullAddr"
-		name="fullAddr" value="서울시 마포구 와우산로29가길 69"> 
+		
 		<div style="display:flex;display-direction:row;justify-content:space-between">
 			<div style="width:800px;height:600px;background-color:red">여기 지도
 				<div id="map_wrap" class="map_wrap" >
@@ -287,8 +289,24 @@
 		<!-- Route/map.html -->
 		<ul>
 			{% for address in address_list %}
-				{{ address.road_address }} {{ address.detail_address }}
+				<div class="roadAddress">{{ address.road_address }}</div>
+				<div class="detailAddress">{{ address.detail_address }}</div>
+				
 			{% endfor %}
 		</ul>
+		<script>
+			var roadAddresses = document.querySelectorAll('.roadAddress');
+			var detailAddresses = document.querySelectorAll('.detailAddress');
+			var Index = roadAddresses.length - 1; // 마지막 인덱스를 가져옵니다.
+			for (i=0;i<roadAddresses.length;i++){
+				var roadAddress = roadAddresses[i].textContent;
+				var detailAddress = detailAddresses[i].textContent;
+				var fullAddress = roadAddress + " " + detailAddress;
+				markermap(fullAddress);
+				console.log(fullAddress)
+			}
+		</script>
+
+		
 
 	</body>
