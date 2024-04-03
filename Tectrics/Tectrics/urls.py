@@ -25,6 +25,7 @@ from Order.views import upload_file
 from Route.views import Map
 from Login.views import Join
 from Login.views import UserLogin
+from Box.views import getbox
 
 
 urlpatterns = [
@@ -37,5 +38,6 @@ urlpatterns = [
     path('upload/', upload_file, name='upload_file'),
     path("Order/itsdata",its.as_view()),
     path("Login/join",Join.as_view()),
-    path("Login/userlogin",UserLogin.as_view())
+    path("Login/userlogin",UserLogin.as_view()),
+    path("getbox/",getbox,name='getbox')  #이거는 추가한거임!!!
 ]

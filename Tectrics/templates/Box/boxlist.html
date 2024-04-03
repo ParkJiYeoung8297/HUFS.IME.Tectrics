@@ -40,6 +40,10 @@
 </head>
 
 <body>
+	{% for box in boxdata_list%}
+		{{ box.length }}
+	{% endfor %}
+
 
 <div style="display:flex;flex-direction:row;">
 	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
@@ -87,6 +91,7 @@
 </div>
 
 <script>
+	//클릭하면 상세정보 뜨기
 	document.addEventListener('DOMContentLoaded', function() {
 		// 모든 'box_table' 클래스를 가진 행을 선택합니다.
 		const rows = document.querySelectorAll('.box_table');
@@ -102,10 +107,33 @@
 				cells.forEach(cell => {
 					rowData.push(cell.textContent.trim());
 				});
-				// div에 행의 데이터를 표시합니다. 예: "1, ABC123, John Doe, 123 Main St, Apt 4, 0123456789"
-				infoDisplay.innerHTML = "송장번호: " + rowData[1] + "<br>고객명: " + rowData[2]+ "<br>주소: " + rowData[3]+
-										"<br>상세주소: " + rowData[4]+ "<br>전화번호: " + rowData[5];
-				$('#info').css({'display': 'none'});
+				//송장번호에 맞는 크기를 db에서 불러옴
+				$.ajax({
+					url:'/getbox/',
+					method:'GET',
+					data:{boxcode:rowData[1]},
+					success: function(response){
+						var l;
+						var w;
+						var h;
+						console.log(response.boxdata[0]);
+						l=response.boxdata[0].length;
+						w=response.boxdata[0].width;
+						h=response.boxdata[0].height;
+						// div에 행의 데이터를 표시합니다. 예: "1, ABC123, John Doe, 123 Main St, Apt 4, 0123456789"
+						infoDisplay.innerHTML = "송장번호: " + rowData[1] + "<br>고객명: " + rowData[2]+ "<br>주소: " + rowData[3]+
+						"<br>상세주소: " + rowData[4]+ "<br>전화번호: " + rowData[5]+"<br>길이 정보: "+l+" * "+w+" * "+h;
+						$('#info').css({'display': 'none'});
+						
+					},
+					error: function(xhr, status, error) {
+						// 오류 처리
+						console.error(error);
+					  }
+
+				});
+				
+				
 			});
 		});
 	});
