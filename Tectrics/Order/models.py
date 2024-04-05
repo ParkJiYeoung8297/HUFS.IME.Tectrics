@@ -14,8 +14,10 @@ class Order(models.Model):
 # 박스 정보
 class BoxData(models.Model):
     box_code=models.TextField(max_length=15)
-    latitude=models.IntegerField(null=True)
-    longitude=models.IntegerField()
+    latitude=models.TextField(null=True)
+    longitude=models.TextField()
+    latitude2=models.TextField()   # 입구 기준
+    longitude2=models.TextField()  # 입구 기준
     length=models.IntegerField()
     width=models.IntegerField()
     height=models.IntegerField()

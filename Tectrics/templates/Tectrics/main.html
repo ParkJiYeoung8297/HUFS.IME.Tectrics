@@ -72,23 +72,9 @@
 		}
 	}
 
-	function updatePageLink() {
-		var includePath = $('#page_link').attr('data-include-path');
-		if (includePath) {
-			$.ajax({
-				url: includePath,
-				type: 'GET',
-				async: false, // 비동기를 false로 설정하여 동기식으로 변경
-				success: function(response) {
-					// 응답으로 받은 HTML로 #page_link 요소의 내용을 업데이트합니다.
-					$('#page_link').html(response);
-				},
-				error: function(xhr, status, error) {
-					console.error("콘텐츠를 불러오는 데 실패했습니다:", error);
-				}
-			});
-		}
-	}
+
+	
+
 
 	$('#menu_button_boxlist').click(function(){
 		$(this).css({
@@ -120,8 +106,8 @@
 			'font-weight': '600'
 		});
 		$('#page_link').attr('data-include-path','/Route/map');
-		console.log("적재 클릭");
-		updatePageLink();
+		console.log("배송 클릭");
+		updatePageLinkContent();
 		
 	});
 
@@ -133,7 +119,7 @@
 			'font-weight': '600'
 		});
 		$('#page_link').attr('data-include-path','/Route/map');
-		console.log("적재 클릭");
+		console.log("지도 클릭");
 		updatePageLinkContent();
 		
 	});
@@ -144,7 +130,7 @@
 			'font-weight': '600'
 		});
 		$('#page_link').attr('data-include-path','/Route/road');
-		console.log("적재 클릭");
+		console.log("배송경로 클릭");
 		updatePageLinkContent();
 		
 	});

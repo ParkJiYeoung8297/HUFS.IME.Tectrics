@@ -12,7 +12,32 @@ from datetime import date
 
 class its(APIView):
     def get (self,request):
-        return render(request,"Order/itsdata.html")
+        tmap_key = open("TmapRestKey.txt", "r").read()
+        address_list = Order.objects.values("road_address", "detail_address")
+        context = {"address_list": address_list,'tmap_key': tmap_key}
+        return render(request,"Order/itsdata.html",context)
+    
+    def patch (self,request):
+        r_address=request.data.get('road_address',None)
+        d_address=request.data.get('detail_address',None)
+        lat=request.data.get('latitude',None)
+        lon=request.data.get('longitude',None)
+        lat2=request.data.get('latitude2',None)
+        lon2=request.data.get('longitude2',None)
+        orders=Order.objects.filter(road_address=r_address,detail_address=d_address)
+        
+        if not orders.exists():
+            return JsonResponse(status=400, data={"message": "해당 주소가 없습니다."})
+        
+        for order in orders:
+            # BoxData 쿼리셋에서 각 객체를 업데이트합니다.
+            BoxData.objects.filter(box_code=order.box_code).update(latitude=lat, longitude=lon,latitude2=lat2, longitude2=lon2)
+
+        return JsonResponse({"message": "성공적으로 업데이트되었습니다."})
+        
+
+
+
     
 @csrf_exempt
 def upload_file(request):
@@ -31,4 +56,7 @@ def upload_file(request):
         return JsonResponse({'message': 'File successfully uploaded and data stored in DB'})
     else:
         return JsonResponse({'message': 'Please upload a valid excel file.'}, status=400)
+
+            
+
     

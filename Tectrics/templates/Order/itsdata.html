@@ -34,6 +34,17 @@
 	<div>Tectrics</div>
 	<div>로그인</div>
 </div>
+
+<button id="getexceldata" type="button">좌표 api 불러오기</button>
+<ul>
+    {% for address in address_list %}
+        <div class="roadAddress" style="display : none">{{ address.road_address }}</div>
+        <div class="detailAddress" style="display : none">{{ address.detail_address }}</div>    
+    {% endfor %}
+</ul>
+
+
+
 <div style="margin:120px; height:600px; border: 2px solid black;">
 	<div style=" display: flex; flex-direction: row ; text-align: center; justify-content: space-between">
 		<div class="box" style="background-color:#BEBEBE">상품 목록</div>
@@ -50,6 +61,11 @@
     </div>
 
 </div>
+
+
+
+    
+
 
 <!-- Optional JavaScript; -->
 <script type="text/javascript">
@@ -80,6 +96,8 @@
                 success: function(response) {
                     console.log(response.message);
                     // 파일이 성공적으로 업로드 되었을 때 로직
+                    alert("파일 업로드가 완료되었습니다.");
+
                 },
                 error: function(xhr, status, error) {
                     // 오류 처리
@@ -88,9 +106,133 @@
             });
         }
     });
+
+    function address_upload(r,d,lat,lon,lat2,lon2){
+
+        $.ajax({
+            url:'/Order/itsdata',
+            data:{
+                road_address:r,
+                detail_address:d,
+                latitude:lat,
+                longitude:lon,
+                latitude2:lat2,
+                longitude2:lon2
+
+            },
+            method:"PATCH",
+
+            success: function(data){
+                  console.log(lat,lon,"성공");
+                  location.replace("/");
+                },
+                error: function (request, status, error){
+                  console.log("에러");
+                },
+                complete: function(){
+                  console.log("완료");
+                }
+      
+        });
+
+    }
+
+
+    function address_api(r,d){
+        // 2. API 사용요청
+        //var fullAddr = $("#fullAddr").val();
+       
+        var roadAddress=r;
+        var detailAddress=d;
+        var fullAddr = roadAddress + " " + detailAddress;
+        var headers = {}; 
+        headers["appKey"]="{{ tmap_key }}";
+        $.ajax({
+            method : "GET",
+            headers : headers,
+            url : "https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=json&callback=result",
+            async : false,  // 동기 요청으로 변경
+            //async: true, 
+            contentType: "application/json",
+            data:  // URL 쿼리 파라미터로 데이터 전송
+                {version: "1",
+                format: "json",
+                callback: "result",
+                coordType: "WGS84GEO",
+                fullAddr: fullAddr},
+                
+            success : function(response) {
+
+                var resultInfo = response.coordinateInfo; // .coordinate[0];
+                console.log(resultInfo);
+                
+
+                // 검색 결과 정보가 없을 때 처리
+                if (resultInfo.coordinate.length == 0) {
+                    $("#result").text(
+                    "요청 데이터가 올바르지 않습니다.");
+                } else {
+                    var lon, lat;
+                    var resultCoordinate = resultInfo.coordinate[0];
+                    if (resultCoordinate.lon.length > 0) {
+                        // 구주소
+                        lon = resultCoordinate.lon;
+                        lat = resultCoordinate.lat;
+                    } else { 
+                        // 신주소
+                        lon = resultCoordinate.newLon;
+                        lat = resultCoordinate.newLat
+                    }
+                
+                    var lonEntr, latEntr;
+                    
+                    if (resultCoordinate.lonEntr == undefined && resultCoordinate.newLonEntr == undefined) {
+                        lonEntr = 0;
+                        latEntr = 0;
+                    } else {
+                        if (resultCoordinate.lonEntr.length > 0) {
+                            lonEntr = resultCoordinate.lonEntr;
+                            latEntr = resultCoordinate.latEntr;
+                        } else {
+                            lonEntr = resultCoordinate.newLonEntr;
+                            latEntr = resultCoordinate.newLatEntr;
+                        }
+                    }
+                    
+                    console.log(Number(lat), Number(lon))
+                    address_upload(roadAddress,detailAddress,Number(lat), Number(lon),Number(latEntr), Number(lonEntr)) // api로 불러온 값 DB에 저장하기
+            
+                }
+            },
+            error : function(request, status, error) {
+                console.log(request);
+                console.log("code:"+request.status + "\n message:" + request.responseText +"\n error:" + error);
+                // 에러가 발생하면 
+                $("#result").html(" ");
+            
+            }
+        });	
+
+        
+}   
+
+    // 버튼 누르면 api 호출
+    $('#getexceldata').click(function() {
+        alert("버튼 클릭");
+        var roadAddresses = document.querySelectorAll('.roadAddress');
+        var detailAddresses = document.querySelectorAll('.detailAddress');
+        var Index = roadAddresses.length - 1; // 마지막 인덱스를 가져옵니다.
+        for (i=0;i<roadAddresses.length;i++){
+            var roadAddress = roadAddresses[i].textContent;
+            var detailAddress = detailAddresses[i].textContent;
+            address_api(roadAddress,detailAddress);      
+
+        }
+    
+    });
+
+
 </script>
-
-
 
 
 </body>

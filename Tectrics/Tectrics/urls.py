@@ -25,8 +25,11 @@ from Order.views import upload_file
 from Route.views import Map
 from Login.views import Join
 from Login.views import UserLogin
+from Box.views import getbox
 from django.conf.urls.static import static  
 from django.conf import settings   
+
+
 
 
 urlpatterns = [
@@ -39,6 +42,7 @@ urlpatterns = [
     path('upload/', upload_file, name='upload_file'),
     path("Order/itsdata",its.as_view()),
     path("Login/join",Join.as_view()),
-    path("Login/userlogin",UserLogin.as_view())
+    path("Login/userlogin",UserLogin.as_view()),
+    path("getbox/",getbox,name='getbox')
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
