@@ -39,7 +39,7 @@ class its(APIView):
 
 
     
-#@csrf_exempt
+@csrf_exempt
 def upload_file(request):
     if request.method == 'POST' and request.FILES.get('file'):
         excel_file = request.FILES['file']
