@@ -25,6 +25,8 @@ from Order.views import upload_file
 from Route.views import Map
 from Login.views import Join
 from Login.views import UserLogin
+from django.conf.urls.static import static  
+from django.conf import settings   
 
 
 urlpatterns = [
@@ -39,3 +41,4 @@ urlpatterns = [
     path("Login/join",Join.as_view()),
     path("Login/userlogin",UserLogin.as_view())
 ]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
