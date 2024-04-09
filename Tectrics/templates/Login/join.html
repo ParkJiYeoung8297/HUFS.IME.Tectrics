@@ -87,18 +87,18 @@
         console.log('이름 :' + name + ', 아이디 :'  + user_id + ', 비밀번호 :'  + password + ', 전화번호 :'  +  phone);
 
         $.ajax({
-            url: "templates/Login/join",
+            url: "/Login/join",
             data: {
-                name: name,
+                dev_name: name,
                 user_id: user_id,
                 password: password,
                 phone: phone
             },
             method: "POST",
-            dataType: "json",
+
             success: function (data){
                 alert(data.message);
-                location.replace("Login/userlogin");
+                location.replace("/Login/userlogin");
             },
             error:function (request, status, error){
                 let data = JSON.parse(request.responseText);

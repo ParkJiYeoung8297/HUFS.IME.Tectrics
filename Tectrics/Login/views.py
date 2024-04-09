@@ -41,16 +41,19 @@ class Join(APIView):
         user_id = request.data.get('use_id', None)
         password = request.data.get('password', None)
         dev_phone = request.data.get('dev_phone', None)
-        dev_ok = request.dataget('dev_ok', None)
-        work_ok = request.dataget('work_ok', None)
-
+        dev_ok = 0
+        work_ok = 0
+        
         if User.objects.filter(user_id=user_id).exists() : 
             return Response(status=500, data=dict(message='사용자 아이디 "' + user_id + '"이(가) 존재합니다.'))
 
-        User.objects.create(dev_name=dev_name, 
+        User.objects.create(dev_name=dev_name,
+                            dev_phone=dev_phone,
                              user_id=user_id, 
-                             password=make_password(password), 
-                             dev_phone=dev_phone)
+                             password=make_password(password),
+                             dev_ok=dev_ok,
+                             work_ok=work_ok
+                             )
         
         return Response(status=200, data=dict(message="가입 완료"))
     

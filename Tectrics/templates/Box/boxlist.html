@@ -15,6 +15,8 @@
 		  display: flex;
 		  justify-content: center;
 		  align-items: center;
+		  font-size:30px;
+		  font-weight: 600;
 	  	}
 		.box:hover{
 			background: #E1EAF8;
@@ -43,6 +45,25 @@
 	{% for box in boxdata_list%}
 		{{ box.length }}
 	{% endfor %}
+
+	<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
+		<div style="width:200px;" ><a href="/" style="text-decoration-line:none" id="Home">
+			<img style="height: 90px;border: 1px solid black; box-shadow: 2px 2px 2px 2px rgb(77, 71, 71) ;object-fit: contain;"src="/static/image/택트리스 로고.png">
+		</a></div>
+		<div style="padding-top:40px;padding-right:20px"><a href="/Login/userlogin" style="text-decoration-line:none;color:white;font-size:20px;"> 로그아웃</a></div>
+	</div>
+	
+	<div style=" display:flex;flex-direction: row;">
+		<div style="height:700px; width:200px; text-align: center; display: flex;flex-direction: column;justify-content:space-evenly;">
+			<div class="box" style="background: #E1EAF8;color:black"><a href="/Box/boxlist" style="font-size:35px;text-decoration-line:none;color:#4676EF">상품 목록</a></div>
+			<div class="box"><a href="/Load/boxload" style="color:black;font-size:30px;text-decoration-line:none">적재</a></div>
+			<div class="box"><a href="/Route/map" style="color:black;text-decoration-line:none">지도</a></div>
+			<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
+		</div>
+		<div style="color:blue;width: 1500px;">
+			<div style="width:1150px;height:700px;content-align:center;margin:50px;"> <!--background-color:#4676EF-->
+			
+
 
 
 <div style="display:flex;flex-direction:row;">
@@ -89,7 +110,10 @@
 		<div id="infoDisplay" style="font-size:18px"> </div>
 	</div>
 </div>
-
+	
+</div>
+</div>
+</div> 
 <script>
 	//클릭하면 상세정보 뜨기
 	document.addEventListener('DOMContentLoaded', function() {

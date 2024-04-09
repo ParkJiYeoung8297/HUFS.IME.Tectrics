@@ -17,7 +17,7 @@
             var map = new Tmapv2.Map("map_div", {
                 center: new Tmapv2.LatLng(37.56701114710962, 126.9973611831669),
                 width: "100%",
-                height: "500px",
+                height: "700px",
                 zoom: 14,
                 zoomControl: true,
                 scrollwheel: true
@@ -39,47 +39,25 @@
                 map:map
             });
 
-            marker = new Tmapv2.Marker({
-                position : new Tmapv2.LatLng(37.56626352138058, 126.98735015742581),
-                //icon : "/upload/tmap/marker/pin_b_m_1.png",
-                //iconSize : new Tmapv2.Size(24, 38),
-                map:map
-            });
-            
-            marker = new Tmapv2.Marker({
-                position : new Tmapv2.LatLng(37.56568310756034, 127.00221495976581),
-                //icon : "/upload/tmap/marker/pin_b_m_2.png",
-                //iconSize : new Tmapv2.Size(24, 38),
-                map:map
-            });
-            
-            marker = new Tmapv2.Marker({
-                position : new Tmapv2.LatLng(37.570369, 126.992153),
-                //icon : "/upload/tmap/marker/pin_b_m_3.png",
-                //iconSize : new Tmapv2.Size(24, 38),
-                map:map
-            });
-            
-            marker = new Tmapv2.Marker({
-                position : new Tmapv2.LatLng(37.56335290252303, 127.00352387777271),
-                //icon : "/upload/tmap/marker/pin_b_m_4.png",
-                //iconSize : new Tmapv2.Size(24, 38),
-                map:map
-            });
-            
-            marker = new Tmapv2.Marker({
-                position : new Tmapv2.LatLng(37.570721714117965, 127.00186090818215),
-                //icon : "/upload/tmap/marker/pin_b_m_5.png",
-                //iconSize : new Tmapv2.Size(24, 38),
-                map:map
-            });
-            
-            marker = new Tmapv2.Marker({
-                position : new Tmapv2.LatLng(37.56515390827723, 126.99066536776698),
-                //icon : "/upload/tmap/marker/pin_b_m_6.png",
-                //iconSize : new Tmapv2.Size(24, 38),
-                map:map
-            });
+			var lats = document.querySelectorAll('.latitude');
+			var lons = document.querySelectorAll('.longitude');
+			var BoxObject = [];
+				for (i=0;i<lats.length-2;i++){
+					var lat = lats[i].textContent;
+					var lon = lons[i].textContent;
+					BoxObject.push({
+						"viaPointId": "test" + (i + 1), // 인덱스가 0부터 시작하므로 1을 더해야 합니다.
+						"viaPointName": "test" + (i + 1),
+						"viaX": lon,
+						"viaY": lat
+					});
+					var marker = new Tmapv2.Marker({
+						position: new Tmapv2.LatLng(Number(lat),Number(lon)), //Marker의 중심좌표 설정.
+						map: map //Marker가 표시될 Map 설정..
+					});
+					map.setCenter(new Tmapv2.LatLng(Number(lat),Number(lon)));
+				}
+
 
             var headers = {}; 
 	headers["appKey"]="{{ tmap_key }}";
@@ -101,44 +79,7 @@
 				  "endX": "127.00973587385866",
 				  "endY": "37.56445848334345",
 				  "searchOption" : "0",
-				  "viaPoints": [
-				    {
-				      "viaPointId": "test01",
-				      "viaPointName": "test01",
-				      "viaX": "126.98735015742581",
-				      "viaY": "37.56626352138058",
-				    },
-				    {
-				      "viaPointId": "test02",
-				      "viaPointName": "test02",
-				      "viaX": "127.00221495976581",
-				      "viaY": "37.56568310756034",
-				    },
-				    {
-				      "viaPointId": "test03",
-				      "viaPointName": "test03",
-				      "viaX": "126.992153",
-				      "viaY": "37.570369",
-				    },
-				    {
-				      "viaPointId": "test04",
-				      "viaPointName": "test04",
-				      "viaX": "127.00352387777271",
-				      "viaY": "37.56335290252303",
-				    },
-				    {
-				      "viaPointId": "test05",
-				      "viaPointName": "test05",
-				      "viaX": "127.00186090818215",
-				      "viaY": "37.570721714117965",
-				    },
-				    {
-				      "viaPointId": "test06",
-				      "viaPointName": "test06",
-				      "viaX": "126.99066536776698", 
-				      "viaY": "37.56515390827723",
-				    }
-				  ]
+				  "viaPoints": BoxObject
 		}),
 		success:function(response){
 			var resultData = response.properties;
@@ -187,28 +128,73 @@
         }
     </script>
 
+	<style>
+		.box{
+			width: 200px;
+			height: 50px; 
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size:30px;
+			font-weight: 600;
+			}
+      .box:hover{
+        background: #E1EAF8;
+    }
+	  </style>
+
 </head>
 
 <body onload="initTmap()">
-<div style="display:flex;flex-direction:row;">
-	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
-	<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
-</div>
 
-<div style="display:flex;display-direction:row;justify-content:space-between">
-	<div style="width:800px;height:600px;background-color:red">여기 지도
-		<div style="width:100%; height:100%;">
-			<div id="map_wrap" class="map_wrap" style="display:flex;flex-direction: row ;">
-				<div id="map_div"></div>
-			</div>
-			<div id="result"></div> 
-		</div>
+	<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
+		<div style="width:200px;" ><a href="/Login/userlogin" style="text-decoration-line:none" id="Home">
+			<img style="height: 90px;border: 1px solid black; box-shadow: 2px 2px 2px 2px rgb(77, 71, 71) ;object-fit: contain;"src="/static/image/택트리스 로고.png">
+		</a></div>
+		<div style="padding-top:40px;padding-right:20px"><a href="/" style="text-decoration-line:none;color:white;font-size:20px;"> 로그아웃</a></div>
 	</div>
-	<div style="width:320px;height:600px;background-color:green">상품 리스트 들어가는 곳</div>
+	
+	<div style=" display:flex;flex-direction: row;">
+		<div style="height:700px; width:200px; text-align: center; display: flex;flex-direction: column;justify-content:space-evenly;">
+			<div class="box"><a href="/Box/boxlist" style="font-size:30px;color:black;text-decoration-line:none">상품 목록</a></div>
+			<div class="box"><a href="/Load/boxload" style="color:black;font-size:30px;text-decoration-line:none">적재</a></div>
+			<div class="box"><a href="/Route/map" style="color:black;text-decoration-line:none">지도</a></div>
+			<div class="box" style="background: #E1EAF8"><a href="/Route/road" style="text-decoration-line:none;color:#4676EF;font-size:35px">배송 경로</a></div>
+		</div>
+		<div style="color:blue;width: 1500px;">
+			<div style="width:1150px;height:700px;content-align:center;margin:50px;"> <!--background-color:#4676EF-->
+
+	<div style="display:flex;flex-direction:row;">
+		<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
+		<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
+	</div>
+	
+	<div style="display:flex;display-direction:row;justify-content:space-between">
+		<div style="width:800px;height:600px;padding-top:30px">
+			<div style="width:100%; height:100%;">
+				<div id="map_wrap" class="map_wrap" style="display:flex;flex-direction: row ;">
+					<div id="map_div"></div>
+				</div>
+				<div id="result"></div> 
+			</div>
+		</div>
+		<div style="width:320px;height:600px;background-color:green">상품 리스트 들어가는 곳</div>
+	</div>
+	
+	</div>
+
+<!--db에서 데이터 가져오기 -->
+<ul>
+	{% for address in address_list %}
+		<div class="latitude" style="display:None">{{ address.latitude2 }}</div>
+		<div class="longitude" style="display:None">{{ address.longitude2 }}</div>
+		
+	{% endfor %}
+</ul>
+
 </div>
-
-
-
 </div>
+</div> 
 </body>
 </html>
