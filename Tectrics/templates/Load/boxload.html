@@ -1,11 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	
     <meta charset="UTF-8">
     <title>택트리스</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static '04_material.css' %}">
+
+    <script type="importmap">
+        
+        {
+            "imports": {
+                "three": "/static/three.module.js"  
+            }
+        }
+    </script>
+
+
+
+    <script src="{% static 'app.js' %}" type="module" defer></script>
 
     <style>
 		.box{
@@ -21,15 +40,38 @@
       	.box:hover{
         background: #E1EAF8;
 		}
+
         input[type="file"]::file-selector-button {
            display:none
           }
+
+		
+		.custom-table td {
+			padding: 5px; /* 셀 내부의 padding 조절 */
+			border: 1px solid black; /* 셀 테두리 설정 */
+		}
+		.custom-table {
+			border-collapse: collapse;
+			width: 100%; /* 필요에 따라 조절 */
+			border-spacing: 5px 5px; /* 셀 사이 간격 조절 */
+		}
+		
+		
+         
           
 	  </style>
 
 </head>
-
 <body>
+
+	<!-- <script type="importmap">
+		{
+		"imports":{
+				"three":"../three.js-master/build/three.module.js",
+				"OrbitControls":"../three.js-master/examples/jsm/controls/OrbitControls.js
+		}
+		}
+</script> -->
 <div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
 	<div style="width:200px;" ><a href=" " style="text-decoration-line:none" id="Home">
 		<img style="height: 90px;border: 1px solid black; box-shadow: 2px 2px 2px 2px rgb(77, 71, 71); ;object-fit: contain;"src="/static/image/택트리스 로고.png">
@@ -45,12 +87,92 @@
 		<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
 	</div>
 	<div style="color:blue;width: 1500px;">
-		<div style="width:1150px;height:700px;content-align:center;margin:50px;"> <!--background-color:#4676EF-->
-			<div data-include-path=" " id="page_link"> </div>
+		<div style="width:1150px;height:700px;content-align:center;margin:50px;"> 
+
+
+
+
+ 
+<!-- Three.js 렌더링을 위한 컨테이너 -->
+ 
+
+
+<div style="display:flex;flex-direction:row;">
+	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
+	<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
+</div>
+<div style="height:70px;width:800px;display:flex;flex-direction:row;justify-content:space-between;text-align:center">
+	<div >배송순서 순</div>
+	<div>주소지 순</div>
+	<div>부피 순</div>
+</div>
+
+
+<div style="width:800px; height:600px;border: 1px solid black; float: left; width: 60%;">
+	
+<div id="webgl-container"></div>
+	
+
+	
+<!-- <script type="module" src="app.js" defer></script> -->
+	<!-- Three.js를 사용하는 커스텀 스크립트 -->
+	<script>
+		
+			// 여기에 App 클래스 및 기타 필요한 JavaScript 코드 작성
+			class App {
+					// 생성자 및 메서드들...
+			}
+
+			window.onload = function() {
+					new App();
+			}
+	</script>
+
+
+
+</div>
+
+		<div id="infoDisplay" style="font-size:18px"> </div>
+</div>
+</div>
+
+
+<div style="width:300px;border: 1px solid black; float: right; width: 30%;">
+		<div class="container" style="position:relative;overflow:auto;height:600px">
+			<table class="table table-striped custom-table">
+				<thead>
+				<tr >
+					<td><B>번호</B></td>
+					<td ><B>송장 코드</B></td>
+					<td><B>고객명</B></td>
+					<td><B>도로명 주소</B></td>
+					<td><B>상세 주소</B></td>
+					<td><B>전화번호</B></td>
+				</tr>
+				</thead>
+				<tbody>
+					{% for order in order_list %}
+					<tr class="box_table" id="box_{{ forloop.counter }}" style="cursor:pointer;">
+						<td>{{ forloop.counter }}</td>
+						<td>{{order.box_code}}</td>
+						<td>{{order.name}}</td>
+						<td>{{order.road_address}}</td>
+						<td>{{order.detail_address}}</td>
+						<td>0{{order.phone}}</td>
+					</tr>
+					{% endfor %}
+				<tbody>
+			</table>
 		</div>
 	</div>
-</div> 
 
+
+			
+		</script>
+		
+	</div>
+</div>
+</div> 
 
 </body>
 </html>
