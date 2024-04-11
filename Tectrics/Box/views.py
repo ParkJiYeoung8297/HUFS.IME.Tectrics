@@ -2,12 +2,21 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from Order.models import Order
 from Order.models import BoxData
+from Login.models import User
 from django.http import JsonResponse
 
 class BoxList(APIView):
     def get(self,request):
-        order_list=Order.objects.values("box_code","name","road_address","detail_address","phone")
-        context={"order_list":order_list}
+        print('로그인한 사용자 : ',request.session['user_id'])
+        user_id=request.session['user_id']
+        user=User.objects.filter(user_id=user_id).values("dev_code").first()
+        if user is not None:
+            # dev_code를 사용하여 필터링
+            dev_code = user['dev_code']
+            order_list = Order.objects.filter(delivery_man_code=dev_code).values("box_code", "name", "road_address", "detail_address", "phone")
+        else:
+            order_list = []
+        context={"order_list":order_list,"user_id":user_id}
         return render(request,"Box/boxlist.html",context)
     
 def getbox(request):

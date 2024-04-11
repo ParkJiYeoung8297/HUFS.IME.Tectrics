@@ -12,23 +12,25 @@ class UserLogin(APIView):
     def post(self, request):
         user_id = request.data.get('user_id', None)
         password = request.data.get('password', None)
+        
+        
         if user_id is None:
-            return Response(status=500, data=dict(message='아이디를 입력해주세요'))
+            return Response(status=400, data=dict(message='아이디를 입력해주세요'))
 
         if password is None:
-            return Response(status=500, data=dict(message='비밀번호를 입력해주세요'))
+            return Response(status=400, data=dict(message='비밀번호를 입력해주세요'))
 
         user = User.objects.filter(user_id=user_id).first()
 
         if user is None:
-            return Response(status=500, data=dict(message='입력정보가 잘못되었습니다.'))
+            return Response(status=401, data=dict(message='입력정보가 잘못되었습니다.'))
 
         if check_password(password, user.password) is False:
-            return Response(status=500, data=dict(message='입력정보가 잘못되었습니다.'))
+            return Response(status=401, data=dict(message='입력정보가 잘못되었습니다.'))
 
         request.session['loginCheck'] = True
-        request.session['user_id'] = user.user_id
-
+        request.session['user_id'] = user_id
+        
         return Response(status=200, data=dict(message='로그인에 성공했습니다.'))
     
 class Join(APIView):
@@ -38,9 +40,9 @@ class Join(APIView):
     def post(self, request):
         # 회원가입
         dev_name = request.data.get('dev_name', None)
-        user_id = request.data.get('use_id', None)
-        password = request.data.get('password', None)
         dev_phone = request.data.get('dev_phone', None)
+        user_id = request.data.get('user_id', None)
+        password = request.data.get('password', None)
         dev_ok = 0
         work_ok = 0
         
@@ -49,11 +51,11 @@ class Join(APIView):
 
         User.objects.create(dev_name=dev_name,
                             dev_phone=dev_phone,
-                             user_id=user_id, 
-                             password=make_password(password),
-                             dev_ok=dev_ok,
-                             work_ok=work_ok
-                             )
+                            user_id=user_id, 
+                            password=make_password(password),
+                            dev_ok=dev_ok,
+                            work_ok=work_ok
+                            )
         
         return Response(status=200, data=dict(message="가입 완료"))
     

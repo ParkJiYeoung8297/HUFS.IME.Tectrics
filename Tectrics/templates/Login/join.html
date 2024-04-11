@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +32,7 @@
     
 </style>
 <body style="background-color: white; height: 100%">
+    {% load static %}
     <div style="font-size:50px; font-weight: bold; text-align: center; color: rgba(142,142,142,1); height:80px; vertical-align : bottom;">
         계정 만들기
     </div>
@@ -61,7 +61,7 @@
             </div>
             <div class="form-floating mb-2 floating_form" style="width: 80%">
                 <input type="text" class="floating_input form-control" id="floatingNumber" placeholder="hong">
-                <label for="floating_form" class="floating_label">전화번호</label>
+                <label for="floatingNumber" class="floating_label">전화번호</label>
             </div>
             
             <div class="floating_form mb-3">
@@ -92,9 +92,10 @@
                 dev_name: name,
                 user_id: user_id,
                 password: password,
-                phone: phone
+                dev_phone: phone
             },
             method: "POST",
+            dataType: "json",
 
             success: function (data){
                 alert(data.message);
