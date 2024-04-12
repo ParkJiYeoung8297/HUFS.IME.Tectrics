@@ -22,3 +22,5 @@ class BoxData(models.Model):
     width=models.IntegerField()
     height=models.IntegerField()
     volume=models.IntegerField()
+    
+    
