@@ -38,15 +38,17 @@
                 //iconSize : new Tmapv2.Size(24, 38),
                 map:map
             });
-
+			var codes = document.querySelectorAll('.box_code');
 			var lats = document.querySelectorAll('.latitude');
 			var lons = document.querySelectorAll('.longitude');
+			//var codes = document.querySelectorAll('.box_code');
 			var BoxObject = [];
-				for (i=0;i<lats.length-2;i++){
+				for (i=0;i<lats.length;i++){
 					var lat = lats[i].textContent;
 					var lon = lons[i].textContent;
+					//var code = codes[i].textContent;
 					BoxObject.push({
-						"viaPointId": "test" + (i + 1), // 인덱스가 0부터 시작하므로 1을 더해야 합니다.
+						"viaPointId": lat+" "+lon, // 인덱스가 0부터 시작하므로 1을 더해야 합니다.
 						"viaPointName": "test" + (i + 1),
 						"viaX": lon,
 						"viaY": lat
@@ -65,7 +67,7 @@
 	$.ajax({
 		type:"POST",
 		headers : headers,
-		url:"https://apis.openapi.sk.com/tmap/routes/routeOptimization100?version=1&format=json",// 경로 30 최적화임
+		url:"https://apis.openapi.sk.com/tmap/routes/routeOptimization100?version=1&format=json",// 경로 100 최적화임
 		async:false,
 		contentType: "application/json",
 		data: JSON.stringify({
@@ -74,29 +76,72 @@
 				  "startName": "출발",
 				  "startX": "127.2145",
 				  "startY": "37.40606",
-				  "startTime": "202411121314",
+				  "startTime": "202401121314",
 				  "endName": "도착",
 				  "endX": "127.2145",
 				  "endY": "37.40606",
 				  "searchOption" : "0",
+				  "carType":"3",
+				  "coordinateFlag":"1",     //경로좌표 표시 안함
 				  "viaPoints": BoxObject
+				  
 		}),
 		success:function(response){
 			var resultData = response.properties;
 			var resultFeatures = response.features;
+			var resultSeq = resultFeatures.reduce(function(Seq, feature) {
+				Seq[feature.properties.index] = {
+					"lat_lon": feature.properties.viaPointId,
+					"viaName": feature.properties.viaPointName
+				};
+				return Seq;
+			}, {}); // 초기값으로 빈 객체 {} 추가
+			var tIndex = "순서 : " + JSON.stringify(resultSeq);
+			console.log(tIndex);
 			
+			//순서와 좌표
+			Object.keys(resultSeq).forEach(function(key) {
+				lat_lon=resultSeq[key].lat_lon.split(' ')
+				$.ajax({
+					url:'/Route/road',
+					data:{
+						"sequence":key,
+						"latitude2":lat_lon[0],
+						"longitude2":lat_lon[1]
+					},
+					method:'PATCH',
+
+					success: function(data){
+						console.log(key,"성공");
+					  },
+					  error: function (request, status, error){
+						console.log("에러");
+					  },
+					  complete: function(){
+						console.log("완료");
+					  }
+			
+			  });
+				//console.log(key,lat_lon[0],lat_lon[1]);
+
+			});
+			
+		
 			// 결과 출력
 			var tDistance = "총 거리 : " + (resultData.totalDistance/1000).toFixed(1) + "km,  ";
 			var tTime = "총 시간 : " + (resultData.totalTime/60).toFixed(0) + "분,  ";
 			var tFare = "총 요금 : " + resultData.totalFare + "원";
-			
+			//var tIndex = "순서 : " + resultIndices.join(", ");
+			//var tIndex = "순서 : "+resultSeq;
 			$("#result").text(tDistance+tTime+tFare);
-			console.log(tDistance,"  ",tTime,"  ",tFare)  ///추가함
+			//$("#result").text(tDistance+tTime+tFare+tIndex);
+			//console.log(tDistance,"  ",tTime,"  ",tFare," ",tIndex)
+			console.log(tDistance,"  ",tTime,"  ",tFare)
 			for(var i in resultFeatures) {
 				var geometry = resultFeatures[i].geometry;
 				var properties = resultFeatures[i].properties;
 				var polyline_;
-				
+				//var Seq=resultIndices[i].index;
 				drawInfoArr = [];
 				
 				if(geometry.type == "LineString") {
@@ -189,10 +234,13 @@
 
 <!--db에서 데이터 가져오기 -->
 <ul>
-	{% for address in address_list %}
-		<div class="latitude" style="display:None">{{ address.latitude2 }}</div>
-		<div class="longitude" style="display:None">{{ address.longitude2 }}</div>
-		
+	{% for box in address_list %}
+				<div class="box_code" style="display:None">{{ box.box_code }}</div>	
+	{% endfor %}
+
+	{% for latlon in unique_latlon2 %}	
+		<div  class="latitude" style="display:None">{{ latlon.latitude2 }}</div>
+		<div  class="longitude" style="display:None">{{ latlon.longitude2 }}</div>		
 	{% endfor %}
 </ul>
 

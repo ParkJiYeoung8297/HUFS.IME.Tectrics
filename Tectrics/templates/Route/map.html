@@ -35,24 +35,35 @@
 			scrollwheel : true
 		});
 		//Marker 객체 생성.
-
+		
 
 		var lats = document.querySelectorAll('.latitude');
 		var lons = document.querySelectorAll('.longitude');
+		var markers = [];
+
 			for (i=0;i<lats.length;i++){
 				var lat = lats[i].textContent;
 				var lon = lons[i].textContent;
-				var marker = new Tmapv2.Marker({
-					position: new Tmapv2.LatLng(Number(lat),Number(lon)), //Marker의 중심좌표 설정.
-					map: map //Marker가 표시될 Map 설정..
+				markers[i] = new Tmapv2.Marker({
+					position: new Tmapv2.LatLng(Number(lat), Number(lon)), // 마커의 중심좌표 설정
+					map: map // 마커가 표시될 지도 설정
 				});
+				
+				//Marker에 클릭이벤트 등록.
+				markers[i].addListener("click", function(evt) {
+					document.getElementById("result").innerHTML = 'Mouse Click!';
+				});
+
 				map.setCenter(new Tmapv2.LatLng(Number(lat),Number(lon)));
 			}
-		
+			
+
+			
 		
 		
 	
 	}
+
 	
 	</script>
 	
@@ -89,14 +100,17 @@
 				<div id="map_div"></div>
 		<p id="result"/>
 			</div>
-			<div style="width:320px;height:570px;border:1px solid black;padding-top:30px;margin-top:30px;margin-left:20px">항목을 클릭하면 상세 정보가 나타납니다.</div>
+			<div style="width:320px;height:570px;border:1px solid black;padding-top:30px;margin-top:30px;margin-left:20px">
+				여기에 정보
+			</div>
 		</div>
 		<!-- Route/map.html -->
+
+
 		<ul>
-			{% for address in address_list %}
-				<div class="latitude" style="display:None">{{ address.latitude }}</div>
-				<div class="longitude" style="display:None">{{ address.longitude }}</div>
-				
+			{% for latlon in unique_latlon %}
+				<div  class="latitude" style="display:None">{{ latlon.latitude }}</div>
+				<div  class="longitude" style="display:None">{{ latlon.longitude }}</div>
 			{% endfor %}
 		</ul>
 		

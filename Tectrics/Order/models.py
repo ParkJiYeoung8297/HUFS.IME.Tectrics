@@ -21,6 +21,6 @@ class BoxData(models.Model):
     length=models.IntegerField()
     width=models.IntegerField()
     height=models.IntegerField()
-    volume=models.IntegerField()
+    sequence=models.IntegerField()
     
     

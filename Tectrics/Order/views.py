@@ -35,7 +35,9 @@ class its(APIView):
             BoxData.objects.filter(box_code=order.box_code).update(latitude=lat, longitude=lon,latitude2=lat2, longitude2=lon2)
 
         return JsonResponse({"message": "성공적으로 업데이트되었습니다."})
-        
+    
+
+
 
 
 
