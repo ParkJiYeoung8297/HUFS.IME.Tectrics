@@ -58,7 +58,7 @@ def read_json_file(file_path):
         data = json.load(file)
     return data
 
-json_data = read_json_file('/Users/hwang-yechan/HUFS.IME.Tectrics/Tectrics/graduation_project-main/packed_items_layer.json')
+json_data = read_json_file('./graduation_project-main/packed_items_layer.json')
 
 # Python 코드에서 JSON 데이터를 Django 모델로 변환하고 저장하기
 from Load.models import LoadedBoxData

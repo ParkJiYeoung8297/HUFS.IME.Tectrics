@@ -9,6 +9,8 @@ from django.http import JsonResponse
 class Road(APIView):
     def get(self,request):
         user_id=request.session['user_id']
+        lat2=request.data.get('sequence',None)
+        lon2=request.data.get('sequence',None)
         print('로그인한 사용자 : ',request.session['user_id'])
         user=User.objects.filter(user_id=user_id).values("dev_code").first()
         if user is not None:
@@ -19,7 +21,7 @@ class Road(APIView):
             address_list=BoxData.objects.filter(box_code__in=box_codes).values("box_code","latitude","longitude","latitude2","longitude2")
             unique_latlon=BoxData.objects.filter(box_code__in=box_codes).values("latitude","longitude").distinct()
             unique_latlon2=BoxData.objects.filter(box_code__in=box_codes).values("latitude2","longitude2").distinct()
-
+            
         else:
             order_list = []
             address_list=[]
@@ -88,3 +90,15 @@ def getmapbox(request):
         return JsonResponse({'count_lat': count_lat})  # 데이터를 JSON 형식으로 반환
     else:
         return JsonResponse({'error': 'No code provided'}, status=400)
+    
+def getaddress(request):  # 좌표로 주소 얻어내기
+
+    lat2 = request.GET.get('latitude2', None)
+    lon2 = request.GET.get('longitude2', None)
+
+    box_code_2=BoxData.objects.filter(latitude2=lat2,longitude2=lon2).values('box_code').first()
+
+    address_2=Order.objects.filter(box_code=box_code_2['box_code']).values("road_address").first()
+    print(address_2)
+    
+    return JsonResponse(address_2)

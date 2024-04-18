@@ -112,13 +112,38 @@
 					map: map //Marker가 표시될 Map 설정..
 				});
 
-				addListener(markers[key], new Tmapv2.LatLng(Number(lat_lon[0], Number(lat_lon[1]))));
-
+				addListener(markers[key], new Tmapv2.LatLng(Number(lat_lon[0], Number(lat_lon[1]))),key);
+				
 				// 클릭이벤트
-				function addListener(marker,latlng){
+				function addListener(marker,latlng,key){
 					marker.addListener("click",function(evt){
 					console.log(marker.getPosition());
-					})
+					$.ajax({
+						url:'/getaddress/',
+						data:{
+							"latitude2": Math.round(marker.getPosition()._lat*1000000)/1000000,
+							"longitude2":Math.round(marker.getPosition()._lng*1000000)/1000000
+
+						},
+						method:'GET',
+	
+						success: function(response){
+							console.log(response.road_address);
+							$("#click_address").html("배송 순서: " + key + "<br>주소: " + response.road_address);
+							
+							
+						  },
+						  error: function (request, status, error){
+							console.log("에러");
+						  },
+						  complete: function(){
+							console.log("완료");
+						  }
+				
+				  });
+
+					
+					});
 					}
 
 				$.ajax({
@@ -141,7 +166,7 @@
 					  }
 			
 			  });
-				//console.log(key,lat_lon[0],lat_lon[1]);
+			
 
 			});
 
@@ -246,7 +271,8 @@
 				<div id="map_wrap" class="map_wrap" style="display:flex;flex-direction: row ;">
 					<div id="map_div"></div>
 				</div>
-				<div id="result"></div> 
+				<div id="result" style="color:black;font-size:20px;text-align:right"></div> 
+				<div id="click_address" style="width:1200px;text-align: left;content-align: right;color:black;font-size:30px"></div> 
 			</div>
 		</div>
 		
