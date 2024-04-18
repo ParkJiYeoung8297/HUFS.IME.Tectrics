@@ -10,8 +10,9 @@ class LoadedBoxData(models.Model):
     volume=models.IntegerField()
     layer = models.IntegerField()
     deliverySequence = models.IntegerField()
-    loadSeuqence = models.IntegerField()
+    loadSequence = models.IntegerField()
     positionX = models.IntegerField()
     positionY = models.IntegerField()
     positionZ = models.IntegerField()
+    color   = models.TextField(max_length=15)
     

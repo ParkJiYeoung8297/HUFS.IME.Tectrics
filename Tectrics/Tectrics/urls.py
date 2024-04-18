@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 #from .views import Main
 from Route.views import Road
-from Load.views import BoxLoad
+from Load.views import BoxLoad, LoadData
 from Box.views import BoxList
 from Order.views import its
 from Order.views import upload_file 
@@ -48,6 +48,7 @@ urlpatterns = [
     path("Login/userlogin",UserLogin.as_view()),
     path("getbox/",getbox,name='getbox'),
     path("Load/index",Index.as_view()),
+    path('Load/loaddata',LoadData.as_view()),
     path("getmapbox/",getmapbox,name='getmapbox'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 

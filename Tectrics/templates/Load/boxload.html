@@ -24,7 +24,7 @@
 
 
 
-    <script src="{% static 'app.js' %}" type="module" defer></script>  
+    <script src="{% static 'app.js' %}" type="module" defer></script>
 
     <style>
 		.box{
@@ -61,83 +61,47 @@
           
 	  </style>
 
+
 </head>
 <body>
 
-	<!-- <script type="importmap">
-		{
-		"imports":{
-				"three":"../three.js-master/build/three.module.js",
-				"OrbitControls":"../three.js-master/examples/jsm/controls/OrbitControls.js
-		}
-		}
-</script> -->
-<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
-	<div style="width:200px;" ><a href=" " style="text-decoration-line:none" id="Home">
-		<img style="height: 90px;border: 1px solid black; box-shadow: 2px 2px 2px 2px rgb(77, 71, 71); ;object-fit: contain;"src="/static/image/택트리스 로고.png">
-	</a></div>
-	<div style="padding-top:40px;padding-right:20px"><a href="/Login/userlogin" style="text-decoration-line:none;color:white;font-size:20px;"> 로그아웃</a></div>
-</div>
-
-<div style=" display:flex;flex-direction: row;">
-	<div style="height:700px; width:200px; text-align: center; display: flex;flex-direction: column;justify-content:space-evenly;">
-		<div class="box" ><a href="/Box/boxlist" style="font-size:30px;;text-decoration-line:none;color:black">상품 목록</a></div>
-		<div class="box" style="background: #E1EAF8;"><a href="/Load/boxload" style="font-size:35px;text-decoration-line:none;color:#4676EF">적재</a></div>
-		<div class="box"><a href="/Route/map" style="color:black;text-decoration-line:none">지도</a></div>
-		<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
+	<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
+		<div style="width:200px;" ><a href="/Box/boxlist" style="text-decoration-line:none" id="Home">
+			<img style="height: 90px;border: 1px solid black; box-shadow: 2px 2px 2px 2px rgb(77, 71, 71) ;object-fit: contain;"src="/static/image/택트리스 로고.png">
+		</a></div>
+		<div style="display:flex;flex-direction: row;">
+			<div style="padding-top:40px;padding-right:20px;color:white;font-size:20px">{{ user_id }}</div>
+			<div style="padding-top:40px;padding-right:20px"><a href="/Login/userlogin" style="text-decoration-line:none;color:white;font-size:20px;"> 로그아웃</a></div>
+		</div>
 	</div>
-	<div style="color:blue;width: 1500px;">
-		<div style="width:1150px;height:700px;content-align:center;margin:50px;"> 
+	
+	<div style=" display:flex;flex-direction: row;">
+		<div style="height:700px; width:200px; text-align: center; display: flex;flex-direction: column;justify-content:space-evenly;">
+			<div class="box" style="color:black"><a href="/Box/boxlist" style="font-size:35px;text-decoration-line:none;color:black">상품 목록</a></div>
+			<div class="box" style="background: #E1EAF8;"><a href="/Load/boxload" style="color:black;font-size:30px;text-decoration-line:none;color:#4676EF">적재</a></div>
+			<div class="box"><a href="/Route/map" style="color:black;text-decoration-line:none">지도</a></div>
+			<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
+		</div>
+		<div style="color:blue;width: 1500px;">
+			<div style="width:1150px;height:700px;content-align:center;margin:50px;"> <!--background-color:#4676EF-->
+			
 
-
-
-
- 
-<!-- Three.js 렌더링을 위한 컨테이너 -->
- 
 
 
 <div style="display:flex;flex-direction:row;">
 	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
 	<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
 </div>
-<div style="height:70px;width:800px;display:flex;flex-direction:row;justify-content:space-between;text-align:center">
+<div style="height:70px;width:800px;display:flex;flex-direction:row;justify-content:space-between;text-align:center;color:black;">
 	<div >배송순서 순</div>
 	<div>주소지 순</div>
 	<div>부피 순</div>
 </div>
 
 
-<div style="width:800px; height:600px;border: 1px solid black; float: left; width: 60%;">
-	
-<div id="webgl-container"></div>
-	
-
-	
-<!-- <script type="module" src="app.js" defer></script> -->
-	<!-- Three.js를 사용하는 커스텀 스크립트 -->
-	<script>
-		
-			// 여기에 App 클래스 및 기타 필요한 JavaScript 코드 작성
-			class App {
-					// 생성자 및 메서드들...
-			}
-
-			window.onload = function() {
-					new App();
-			}
-	</script>
-
-
-
-</div>
-
-		<div id="infoDisplay" style="font-size:18px"> </div>
-</div>
-</div>
-
-
-<div style="width:300px;border: 1px solid black; float: right; width: 30%;">
+<!-- <div style="height:600px;width:1200px;display:flex;flex-direction:row;justify-content:space-between "> -->
+<div style="display: flex; flex-direction: row; justify-content: space-between;">	
+	<div style="width:1000px; height:600px; margin-top: 550px; border: 1px solid black;">
 		<div class="container" style="position:relative;overflow:auto;height:600px">
 			<table class="table table-striped custom-table">
 				<thead>
@@ -148,6 +112,8 @@
 					<td><B>도로명 주소</B></td>
 					<td><B>상세 주소</B></td>
 					<td><B>전화번호</B></td>
+					<td><B>배송순서</B></td>
+					<td><B>레이어</B></td>
 				</tr>
 				</thead>
 				<tbody>
@@ -166,13 +132,69 @@
 		</div>
 	</div>
 
-
+	<!-- <div style="width:500px;border: 1px solid black;margin-left:100px;"> -->
+		<div id="webgl-container" style="width: 1000px; height: 500px; border: 1px solid black;margin-left:50px; margin-top:70px"></div>
+		<div id="info" style="font-size:20px;text-align:center;color:black;">
 			
-		</script>
-		
+			
+			<div id="infoDisplay" style="font-size:20px;color:black;"> </div>
 	</div>
+</div>
+	
+</div>
 </div>
 </div> 
 
+
+<script>
+	//클릭하면 상세정보 뜨기
+	document.addEventListener('DOMContentLoaded', function() {
+		// 모든 'box_table' 클래스를 가진 행을 선택합니다.
+		const rows = document.querySelectorAll('.box_table');
+		const infoDisplay = document.getElementById('infoDisplay'); // 정보를 표시할 div를 선택합니다.
+		
+		// 각 행에 대해 클릭 이벤트 리스너를 추가합니다.
+		rows.forEach(row => {
+			row.addEventListener('click', function() {
+				// 이 행의 모든 데이터 셀(td)을 찾습니다.
+				const cells = this.querySelectorAll('td');
+				// 셀의 데이터를 모아서 표시합니다.
+				let rowData = [];
+				cells.forEach(cell => {
+					rowData.push(cell.textContent.trim());
+				});
+				//송장번호에 맞는 크기를 db에서 불러옴
+				$.ajax({
+					url:'/getbox/',
+					method:'GET',
+					data:{boxcode:rowData[1]},
+					success: function(response){
+						var l;
+						var w;
+						var h;
+						console.log(response.boxdata[0]);
+						l=response.boxdata[0].length;
+						w=response.boxdata[0].width;
+						h=response.boxdata[0].height;
+						// div에 행의 데이터를 표시합니다. 예: "1, ABC123, John Doe, 123 Main St, Apt 4, 0123456789"
+						infoDisplay.innerHTML = "송장번호: " + rowData[1] + "<br>고객명: " + rowData[2]+ "<br>주소: " + rowData[3]+
+						"<br>상세주소: " + rowData[4]+ "<br>전화번호: " + rowData[5]+"<br>길이 정보: "+l+" * "+w+" * "+h;
+						$('#info').css({'display': 'none'});
+						
+					},
+					error: function(xhr, status, error) {
+						// 오류 처리
+						console.error(error);
+					  }
+
+				});
+				
+				
+			});
+		});
+	});
+	
+	
+</script>
 </body>
 </html>
