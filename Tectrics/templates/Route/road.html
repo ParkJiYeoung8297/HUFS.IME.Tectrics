@@ -17,7 +17,7 @@
             var map = new Tmapv2.Map("map_div", {
                 center: new Tmapv2.LatLng(37.56701114710962, 126.9973611831669),
                 width: "100%",
-                height: "700px",
+                height: "600px",
                 zoom: 16,
                 zoomControl: true,
                 scrollwheel: true
@@ -26,16 +26,16 @@
             // 시작
             marker_s = new Tmapv2.Marker({
                 position : new Tmapv2.LatLng(37.40606, 127.2145),
-                //icon : "/upload/tmap/marker/pin_r_m_s.png",
-                //iconSize : new Tmapv2.Size(24, 38),
+                icon : "https://tmapapi.tmapmobility.com/upload/tmap/marker/pin_r_m_s.png",
+                iconSize : new Tmapv2.Size(24, 38),
                 map:map
             });
             
             // 도착 
             marker_e = new Tmapv2.Marker({
                 position : new Tmapv2.LatLng(37.40606, 127.2145),
-                //icon : "/upload/tmap/marker/pin_r_m_e.png",
-                //iconSize : new Tmapv2.Size(24, 38),
+                icon : "https://tmapapi.tmapmobility.com/upload/tmap/marker/pin_r_m_e.png",
+                iconSize : new Tmapv2.Size(24, 38),
                 map:map
             });
 			var codes = document.querySelectorAll('.box_code');
@@ -43,6 +43,7 @@
 			var lons = document.querySelectorAll('.longitude');
 			//var codes = document.querySelectorAll('.box_code');
 			var BoxObject = [];
+			
 				for (i=0;i<lats.length;i++){
 					var lat = lats[i].textContent;
 					var lon = lons[i].textContent;
@@ -53,10 +54,8 @@
 						"viaX": lon,
 						"viaY": lat
 					});
-					var marker = new Tmapv2.Marker({
-						position: new Tmapv2.LatLng(Number(lat),Number(lon)), //Marker의 중심좌표 설정.
-						map: map //Marker가 표시될 Map 설정..
-					});
+					
+
 					map.setCenter(new Tmapv2.LatLng(Number(lat),Number(lon)));
 				}
 
@@ -82,7 +81,8 @@
 				  "endY": "37.40606",
 				  "searchOption" : "0",
 				  "carType":"3",
-				  "coordinateFlag":"1",     //경로좌표 표시 안함
+				  //"coordinateFlag":"1",     //경로좌표 표시 안함
+				  "deliveryAccuracy":"3",   // 탐색 정도
 				  "viaPoints": BoxObject
 				  
 		}),
@@ -99,9 +99,28 @@
 			var tIndex = "순서 : " + JSON.stringify(resultSeq);
 			console.log(tIndex);
 			
+			var markers = [];
 			//순서와 좌표
 			Object.keys(resultSeq).forEach(function(key) {
 				lat_lon=resultSeq[key].lat_lon.split(' ')
+				
+					//마커 출력
+				markers[key] = new Tmapv2.Marker({
+					position: new Tmapv2.LatLng(Number(lat_lon[0]),Number(lat_lon[1])), //Marker의 중심좌표 설정.
+					icon : "/static/image/marker/marker_"+key+".png",
+					iconSize : new Tmapv2.Size(24, 38),
+					map: map //Marker가 표시될 Map 설정..
+				});
+
+				addListener(markers[key], new Tmapv2.LatLng(Number(lat_lon[0], Number(lat_lon[1]))));
+
+				// 클릭이벤트
+				function addListener(marker,latlng){
+					marker.addListener("click",function(evt){
+					console.log(marker.getPosition());
+					})
+					}
+
 				$.ajax({
 					url:'/Route/road',
 					data:{
@@ -125,6 +144,9 @@
 				//console.log(key,lat_lon[0],lat_lon[1]);
 
 			});
+
+			
+
 			
 		
 			// 결과 출력
@@ -170,7 +192,7 @@
 			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
 	});
-        }
+}
     </script>
 
 	<style>
@@ -219,7 +241,7 @@
 	</div>
 	
 	<div style="display:flex;display-direction:row;justify-content:space-between">
-		<div style="width:800px;height:600px;padding-top:30px">
+		<div style="width:1200px;height:600px;padding-top:30px">
 			<div style="width:100%; height:100%;">
 				<div id="map_wrap" class="map_wrap" style="display:flex;flex-direction: row ;">
 					<div id="map_div"></div>
@@ -227,7 +249,7 @@
 				<div id="result"></div> 
 			</div>
 		</div>
-		<div style="width:320px;height:570px;border:1px solid black;padding-top:30px;margin-top:30px;margin-left:20px">항목을 클릭하면 상세 정보가 나타납니다.</div>
+		
 	</div>
 	
 	</div>

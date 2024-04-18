@@ -19,6 +19,21 @@
       .box:hover{
         background: #E1EAF8;
     }
+				
+	.custom-table td {
+		padding: 5px; /* 셀 내부의 padding 조절 */
+		border: 1px solid black; /* 셀 테두리 설정 */
+	}
+	.custom-table {
+		border-collapse: collapse;
+		width: 100%; /* 필요에 따라 조절 */
+		border-spacing: 5px 5px; /* 셀 사이 간격 조절 */
+	}
+	
+	.table.table-striped.custom-table {
+		color: black; /* 텍스트 색상을 검정색으로 설정합니다. */
+	}
+	  
 	  </style>
 	<script type="text/javascript">
 		var map;
@@ -49,20 +64,85 @@
 					map: map // 마커가 표시될 지도 설정
 				});
 				
-				//Marker에 클릭이벤트 등록.
-				markers[i].addListener("click", function(evt) {
-					document.getElementById("result").innerHTML = 'Mouse Click!';
-				});
+				addListener(markers[i], new Tmapv2.LatLng(lat, lon));
+
+				// 클릭이벤트
+				function addListener(marker,latlng){
+					marker.addListener("click",function(evt){
+					console.log(Math.round(marker.getPosition()._lat*1000000)/1000000,Math.round(marker.getPosition()._lng*1000000)/1000000);
+					//송장번호에 맞는 크기를 db에서 불러옴
+					$.ajax({
+						url:'/getmapbox/',
+						method:'GET',
+						data:{latitude:Math.round(marker.getPosition()._lat*1000000)/1000000,longitude:Math.round(marker.getPosition()._lng*1000000)/1000000},
+						success: function(response){
+							console.log("Received count_lat data:", response.count_lat);
+
+							// 리스트의 모든 데이터를 순회하면서 로깅
+							for (var i = 0; i < response.count_lat.length; i++) {
+								console.log("Item " + i + ":", response.count_lat[i].box_code);
+								
+								$('.custom-table').show();
+								$('#clicktext').css("display","none");
+								var tbody = $('#MapTableBody');
+								tbody.css("display", "");
+								tbody.empty(); // 테이블 초기화
+
+								response.count_lat.forEach(function(item, index) {
+									var row = $('<tr class="box_table" style="cursor:pointer;">').append(
+										$('<td>').text(index + 1),
+										$('<td>').text(item.box_code).attr('id', 'code_' + (index + 1))
+									);
+						
+									tbody.append(row); // 새로운 행 추가
+								});
+							}
+				
+
+						},
+						error: function(xhr, status, error) {
+							// 오류 처리
+							console.error(error);
+						}
+
+					});
+
+					})
+					}
 
 				map.setCenter(new Tmapv2.LatLng(Number(lat),Number(lon)));
 			}
-			
 
-			
-		
-		
 	
 	}
+
+	$(document).ready(function() {
+		// 동적으로 생성된 각 요소에 대한 이벤트 핸들러를 설정합니다.
+		$(document).on('click', '[id^="code_"]', function() {
+			var row = $(this).text();  // 클릭된 요소의 텍스트를 가져옵니다.
+			const infoDisplay = document.getElementById('infoDisplay'); // 정보를 표시할 div를 선택합니다.
+	
+			console.log(row);
+	
+			$.ajax({
+				url: '/getbox/',
+				method: 'GET',
+				data: {boxcode: row},
+				success: function(response) {
+					console.log("성공");
+					var ra = response.boxdata[0].road_address;
+					var da = response.boxdata[0].detail_address;
+					// div에 행의 데이터를 표시합니다.
+					infoDisplay.innerHTML = "송장번호: " + row + "<br>주소: " + ra + "<br>상세주소: " + da;
+					$('#info').css({'display': 'none'});  // 필요한 경우 정보를 숨깁니다.
+				},
+				error: function(xhr, status, error) {
+					console.error(error);
+				}
+			});
+		});
+	});
+
 
 	
 	</script>
@@ -100,9 +180,31 @@
 				<div id="map_div"></div>
 		<p id="result"/>
 			</div>
-			<div style="width:320px;height:570px;border:1px solid black;padding-top:30px;margin-top:30px;margin-left:20px">
-				여기에 정보
+			<div style="width:320px;height:600px;border:1px solid black;margin-top:30px;margin-left:20px;color:black"> 
+				<div class="container" style="position:relative;overflow:auto;height:600px">
+					<div id="clicktext" style="padding-top:30px;padding-left:15px;font-size:17px">마커를 누르면 택배 목록이 나타납니다</div>
+					<table class="table table-striped custom-table" style="display:none">
+						<thead id="MapTableHead">
+							<tr >
+								<td><B>번호</B></td>
+								<td><B>송장 코드</B></td>
+							</tr>
+						</thead>
+						<tbody id="MapTableBody">
+							{% for box in count_lat %}
+							<tr class="box_table" id="box_{{ forloop.counter }}" style="cursor:pointer;">
+							
+							</tr>
+							{% endfor %}
+						<tbody>
+					</table>
+				</div>
 			</div>
+		</div>
+
+		<div style="width:845px;height:80px;border: 1px solid black;padding-left:10px;padding-top:10px">
+			
+			<div id="infoDisplay" style="font-size:18px;color:black;"> </div>
 		</div>
 		<!-- Route/map.html -->
 

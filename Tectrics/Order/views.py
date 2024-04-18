@@ -57,7 +57,7 @@ def upload_file(request):
         for _, row in df.iterrows():
             Order.objects.create(box_code=row['송장코드'],delivery_man_code=dev_code ,name=row['고객명'],road_address=row['도로명 주소'],
                                   detail_address=row['상세 주소'],phone=row['전화번호'],date=date.today())
-            BoxData.objects.create(box_code=row['송장코드'],latitude=0,longitude=0,length=row['길이'],width=row['너비'],height=row['높이'],volume=0)
+            BoxData.objects.create(box_code=row['송장코드'],latitude=0,longitude=0,length=row['길이'],width=row['너비'],height=row['높이'],sequence=0)
         dev=User.objects.filter(dev_code=dev_code)
         dev.update(work_ok=1)
         return JsonResponse({'message': 'File successfully uploaded and data stored in DB'})
