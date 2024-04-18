@@ -29,6 +29,7 @@ from Box.views import getbox
 from django.conf.urls.static import static  
 from django.conf import settings 
 from Load.views import Index  
+from Route.views import getmapbox
 
 
 
@@ -47,6 +48,7 @@ urlpatterns = [
     path("Login/userlogin",UserLogin.as_view()),
     path("getbox/",getbox,name='getbox'),
     path("Load/index",Index.as_view()),
-    path('Load/loaddata',LoadData.as_view())
+    path('Load/loaddata',LoadData.as_view()),
+    path("getmapbox/",getmapbox,name='getmapbox'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
