@@ -246,6 +246,9 @@ this._scene.add(axesHelper);
 }
 
 _setupCamera() {
+    const containerWidth = 2700;
+    const containerHeight = 1600;
+    const containerDepth = 1600;
     const width = this._divContainer.clientWidth;
     const height = this._divContainer.clientHeight;
     const depth = this._divContainer.clientDepth;
@@ -255,9 +258,10 @@ _setupCamera() {
         1,
         100000
     );
-    camera.position.set(2000, 4000, 5000); // x = 0, y = 20, z = 0 위치로 설정
-    camera.lookAt(new THREE.Vector3(2500, 2500,0)); // 카메라가 원점을 바라보도록 설정
+    camera.position.set(1350, -3000, 2000); // x = 0, y = 20, z = 0 위치로 설정
+    // camera.lookAt(new THREE.Vector3(2500, 2500,0)); // 카메라가 원점을 바라보도록 설정
     
+    const containerCenter = new THREE.Vector3(containerWidth / 2, containerHeight / 2, containerDepth / 2);
     this._camera = camera;
 }
 
@@ -280,7 +284,12 @@ _setupControls() {
 // this._controls.update();
     // // OrbitControls 객체를 생성하고 this._controls로 할당
     this._controls = new OrbitControls(this._camera, this._divContainer);
-
+    const containerWidth = 2700;
+        const containerHeight = 1600;
+        const containerDepth = 1600;
+        this._controls.screenSpacePanning = false;
+        const containerCenter = new THREE.Vector3(containerWidth / 2, containerHeight / 2, containerDepth / 2);
+    this._controls.target.copy(containerCenter);
     // // 관성 효과를 사용하여 더 부드러운 컨트롤 제공
     this._controls.enableDamping = true;
     this._controls.dampingFactor = 0.05;
@@ -288,27 +297,11 @@ _setupControls() {
     // // 화면 공간 패닝 비활성화
     this._controls.screenSpacePanning = false;
 
-    // 줌 인/아웃 가능 거리 설정
-    // this._controls.minDistance = 5;
-    // this._controls.maxDistance = 50;
 
-    // 카메라가 올라갈 수 있는 최대 각도
-    //this._controls.maxPolarAngle = Math.PI / 2;
-
-    // 회전, 줌, 패닝 속도 설정
-    // this._controls.rotateSpeed = 1.0;
-    // this._controls.zoomSpeed = 1.2;
-    // this._controls.panSpeed = 0.8;
 
     this._controls.update();
 
-    // 패닝 키 설정
-    // this._controls.keys = {
-    //     LEFT: 'ArrowLeft',
-    //     RIGHT: 'ArrowRight',
-    //     UP: 'ArrowUp',
-    //     DOWN: 'ArrowDown'
-    // };
+
 }
 rotateCameraOnZAxis(angle) {
     // 카메라의 현재 쿼터니언에 Z축 회전 추가
