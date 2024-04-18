@@ -49,3 +49,38 @@ class LoadList(APIView):
             order_list = []
         context={"order_list":order_list,"user_id":user_id}
         return render(request,"Box/boxlist.html",context)        
+    
+# Python 코드에서 JSON 파일 읽기
+import json
+
+def read_json_file(file_path):
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    return data
+
+json_data = read_json_file('/Users/hwang-yechan/HUFS.IME.Tectrics/Tectrics/graduation_project-main/packed_items_layer.json')
+
+# Python 코드에서 JSON 데이터를 Django 모델로 변환하고 저장하기
+from Load.models import LoadedBoxData
+
+def save_to_database(json_data):
+    for item in json_data:
+        obj = LoadedBoxData(
+            box_code=item['box_code'],
+            width=item['width'],
+            height=item['height'],
+            depth=item['depth'],
+            volume=item['volume'],
+            layer=item['layer'],
+            deliverySequence=item['deliverySequence'],
+            loadSequence=item['loadSequence'],
+            positionX=item['positionX'],
+            positionY=item['positionY'],
+            positionZ=item['positionZ'],
+            color=item['color']
+            # 필요한 경우 다른 필드들도 여기에 추가합니다.
+        )
+        obj.save()
+
+# 위에서 읽은 JSON 데이터를 데이터베이스에 저장합니다.
+save_to_database(json_data)
