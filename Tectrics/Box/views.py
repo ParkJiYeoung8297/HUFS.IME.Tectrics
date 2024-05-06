@@ -26,7 +26,7 @@ def getbox(request):
     if code:
         boxdata = list(Order.objects.filter(box_code=code).values('name','road_address','detail_address','phone'))
         boxdata2 = list(BoxData.objects.filter(box_code=code).values('length', 'width', 'height'))
-
+        
 
         # 파일 읽기
         with open('static/packed_items2.json', 'r') as file:
@@ -45,3 +45,10 @@ def getbox(request):
         return JsonResponse({'boxdata': boxdata,'boxdata2':boxdata2})  # 데이터를 JSON 형식으로 반환
     else:
         return JsonResponse({'error': 'No code provided'}, status=400)
+
+
+
+class BoxShow(APIView):
+    def get(self,request):
+        
+        return render(request,"Box/BoxShow.html")

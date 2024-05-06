@@ -22,6 +22,7 @@
 
 
 
+
 	<script src="{% static 'app2.js' %}" type="module" defer></script>
 
 
@@ -94,17 +95,14 @@
 
 
 <div style="display:flex;flex-direction:row;">
-	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" id="search_text" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
+	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" id="search_text" placeholder="송장번호를 검색하세요" />
 	<button type="button" id="search_button" style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
 </div>
-<div style="height:70px;width:500px;display:flex;flex-direction:row;justify-content:space-between;text-align:center;color:black;">
-	<div >배송순서 순</div>
-	<div>주소지 순</div>
-</div>
-<div style="height:600px;width:1200px;display:flex;flex-direction:row;justify-content:space-between ">
+
+<div style="height:600px;width:1200px;display:flex;flex-direction:row;justify-content:space-between;margin-top:50px">
 	<div style="width:900px; height:600px;border: 1px solid black;">
 		<div class="container" style="position:relative;overflow:auto;height:600px">
-			<table class="table table-striped custom-table">
+			<table class="table table-striped custom-table" id="tblMain">
 				<thead>
 				<tr >
 					<td><B>번호</B></td>
@@ -118,7 +116,7 @@
 				<tbody id="orderTableBody">
 					{% for order in order_list %}
 					<tr class="box_table" id="box_{{ forloop.counter }}" style="cursor:pointer;">
-						<td>{{ forloop.counter }}</td>
+						<td >{{ forloop.counter }}</td>
 						<td>{{order.box_code}}</td>
 						<td>{{order.name}}</td>
 						<td>{{order.road_address}}</td>
@@ -168,6 +166,7 @@
 					url:'/getbox/',
 					method:'GET',
 					data:{boxcode:rowData[1]},
+					//async : false,
 					success: function(response){
 						var l;
 						var w;
@@ -181,6 +180,9 @@
 						infoDisplay.innerHTML = "송장번호: " + rowData[1] + "<br>고객명: " + rowData[2]+ "<br>주소: " + rowData[3]+
 						"<br>상세주소: " + rowData[4]+ "<br>전화번호: " + rowData[5]+"<br>길이 정보: "+l+" * "+w+" * "+h;
 						$('#info').css({'display': 'none'});
+
+
+						
 						
 					},
 					error: function(xhr, status, error) {
@@ -194,12 +196,55 @@
 			});
 		});
 	});
-
+	
 
 
 	$('#search_button').click(function() {
 		let search = $('#search_text').val();
 
+		$.ajax({
+			url:'/getbox/',
+			method:'GET',
+			data:{boxcode:search},
+			success: function(response){
+
+				n=response.boxdata[0].name;
+				ra=response.boxdata[0].road_address;
+				da=response.boxdata[0].detail_address;
+				p=response.boxdata[0].phone;
+				console.log(response.boxdata[0]);
+				var l;
+				var w;
+				var h;
+				console.log(response.boxdata2[0]);
+				l=response.boxdata2[0].length;
+				w=response.boxdata2[0].width;
+				h=response.boxdata2[0].height;
+
+				$("#orderTableBody").empty();
+				$("#orderTableBody").append(
+					"<tr>" +
+						"<td>" + 1 + "</td>" +
+						"<td>" + search + "</td>" +
+						"<td>" + n + "</td>" +
+						"<td>" + ra + "</td>" +
+						"<td>" + da + "</td>" +
+						"<td>" + p + "</td>"+
+					"</tr>"
+					);
+
+				// div에 행의 데이터를 표시합니다. 예: "1, ABC123, John Doe, 123 Main St, Apt 4, 0123456789"
+				infoDisplay.innerHTML = "송장번호: " + search + "<br>고객명: " + n+ "<br>주소: " + ra+
+				"<br>상세주소: " + da+ "<br>전화번호: " + p+"<br>길이 정보: "+l+" * "+w+" * "+h;
+				$('#info').css({'display': 'none'});
+				
+			},
+			error: function(xhr, status, error) {
+				// 오류 처리
+				console.error(error);
+			  }
+
+		});
 
 
 	}); 
