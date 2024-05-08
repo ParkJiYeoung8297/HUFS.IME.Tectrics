@@ -13,7 +13,7 @@
         "positionX": 0,
         "positionY": 0,
         "positionZ": 0.0,
-        "color": "#c5fe98"
+        "color": "#420b59"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -29,7 +29,7 @@
         "positionX": 0,
         "positionY": 380.0,
         "positionZ": 0.0,
-        "color": "#ec651b"
+        "color": "#576b7f"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -45,7 +45,7 @@
         "positionX": 0,
         "positionY": 760.0,
         "positionZ": 0.0,
-        "color": "#e91452"
+        "color": "#d112b1"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -61,7 +61,7 @@
         "positionX": 0,
         "positionY": 1140.0,
         "positionZ": 0.0,
-        "color": "#7705e4"
+        "color": "#d4ec64"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -77,7 +77,7 @@
         "positionX": 0,
         "positionY": 0,
         "positionZ": 340.0,
-        "color": "#28d2bf"
+        "color": "#f56511"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -93,7 +93,7 @@
         "positionX": 0,
         "positionY": 380.0,
         "positionZ": 340.0,
-        "color": "#7efe81"
+        "color": "#802ba9"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -109,7 +109,7 @@
         "positionX": 0,
         "positionY": 760.0,
         "positionZ": 340.0,
-        "color": "#6daf2e"
+        "color": "#4c6604"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -125,7 +125,7 @@
         "positionX": 0,
         "positionY": 1140.0,
         "positionZ": 340.0,
-        "color": "#a6a235"
+        "color": "#35ff97"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -141,7 +141,7 @@
         "positionX": 0,
         "positionY": 0,
         "positionZ": 680.0,
-        "color": "#345577"
+        "color": "#65a150"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -157,7 +157,7 @@
         "positionX": 0,
         "positionY": 310.0,
         "positionZ": 680.0,
-        "color": "#1fb422"
+        "color": "#5e4820"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -173,7 +173,7 @@
         "positionX": 0,
         "positionY": 620.0,
         "positionZ": 680.0,
-        "color": "#e72a36"
+        "color": "#a38e9b"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -189,7 +189,7 @@
         "positionX": 0,
         "positionY": 1140.0,
         "positionZ": 620.0,
-        "color": "#0dce23"
+        "color": "#d48cb9"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -205,7 +205,7 @@
         "positionX": 0,
         "positionY": 0,
         "positionZ": 960.0,
-        "color": "#6155ef"
+        "color": "#7124b5"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -221,7 +221,7 @@
         "positionX": 0,
         "positionY": 310.0,
         "positionZ": 960.0,
-        "color": "#d849fd"
+        "color": "#cc3f8e"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -237,7 +237,7 @@
         "positionX": 0,
         "positionY": 620.0,
         "positionZ": 960.0,
-        "color": "#70cc08"
+        "color": "#a8a155"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -253,7 +253,7 @@
         "positionX": 0,
         "positionY": 0,
         "positionZ": 1240.0,
-        "color": "#7800af"
+        "color": "#da72d1"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -269,7 +269,7 @@
         "positionX": 0,
         "positionY": 350.0,
         "positionZ": 1240.0,
-        "color": "#ad0565"
+        "color": "#cb808d"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -285,7 +285,7 @@
         "positionX": 0,
         "positionY": 700.0,
         "positionZ": 1170.0,
-        "color": "#fc6c10"
+        "color": "#735443"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -301,7 +301,7 @@
         "positionX": 0,
         "positionY": 700.0,
         "positionZ": 1380.0,
-        "color": "#b94788"
+        "color": "#f025dc"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -317,7 +317,7 @@
         "positionX": 480.0,
         "positionY": 0,
         "positionZ": 0.0,
-        "color": "#319494"
+        "color": "#e9a897"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -333,23 +333,23 @@
         "positionX": 480.0,
         "positionY": 350.0,
         "positionZ": 0.0,
-        "color": "#4f507c"
+        "color": "#f9ba98"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 31,
         "box_code": "906373346528",
-        "width": 250,
-        "height": 100,
-        "depth": 350,
+        "width": 350,
+        "height": 250,
+        "depth": 100,
         "volume": 8750000,
         "layer": 1,
         "deliverySequence": 2,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 1450.0,
-        "positionZ": 340.0,
-        "color": "#79520c"
+        "positionX": 480.0,
+        "positionY": 700.0,
+        "positionZ": 0.0,
+        "color": "#54f186"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -363,9 +363,9 @@
         "deliverySequence": 2,
         "loadSequence": 1,
         "positionX": 480.0,
-        "positionY": 700.0,
+        "positionY": 950.0,
         "positionZ": 0.0,
-        "color": "#88fc6f"
+        "color": "#412263"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -379,9 +379,9 @@
         "deliverySequence": 2,
         "loadSequence": 1,
         "positionX": 480.0,
-        "positionY": 950.0,
+        "positionY": 1200.0,
         "positionZ": 0.0,
-        "color": "#2552ce"
+        "color": "#0e4aeb"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -397,7 +397,7 @@
         "positionX": 0,
         "positionY": 930.0,
         "positionZ": 680.0,
-        "color": "#e6d205"
+        "color": "#f5d1e1"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -411,9 +411,9 @@
         "deliverySequence": 2,
         "loadSequence": 1,
         "positionX": 480.0,
-        "positionY": 1200.0,
+        "positionY": 1450.0,
         "positionZ": 0.0,
-        "color": "#acd380"
+        "color": "#145d83"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -429,7 +429,7 @@
         "positionX": 0,
         "positionY": 1030.0,
         "positionZ": 680.0,
-        "color": "#8754ca"
+        "color": "#0f0e0c"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -445,7 +445,7 @@
         "positionX": 0,
         "positionY": 970.0,
         "positionZ": 830.0,
-        "color": "#172f8c"
+        "color": "#8d0ffd"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -461,7 +461,7 @@
         "positionX": 0,
         "positionY": 970.0,
         "positionZ": 980.0,
-        "color": "#f51fcd"
+        "color": "#ef1a5f"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -474,10 +474,10 @@
         "layer": 1,
         "deliverySequence": 2,
         "loadSequence": 1,
-        "positionX": 480.0,
-        "positionY": 1300.0,
-        "positionZ": 0.0,
-        "color": "#f4c754"
+        "positionX": 0,
+        "positionY": 0,
+        "positionZ": 1450.0,
+        "color": "#ee0cf4"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -490,10 +490,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 480.0,
+        "positionX": 820.0,
         "positionY": 0,
-        "positionZ": 210.0,
-        "color": "#212101"
+        "positionZ": 0.0,
+        "color": "#b55eef"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -507,9 +507,9 @@
         "deliverySequence": 3,
         "loadSequence": 1,
         "positionX": 480.0,
-        "positionY": 700.0,
-        "positionZ": 100.0,
-        "color": "#dc86a1"
+        "positionY": 0,
+        "positionZ": 340.0,
+        "color": "#6a8d11"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -522,10 +522,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 480.0,
+        "positionX": 410.0,
         "positionY": 0,
-        "positionZ": 550.0,
-        "color": "#5eff26"
+        "positionZ": 680.0,
+        "color": "#50ddb1"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -540,8 +540,8 @@
         "loadSequence": 1,
         "positionX": 410.0,
         "positionY": 0,
-        "positionZ": 890.0,
-        "color": "#d8ce0d"
+        "positionZ": 1020.0,
+        "color": "#f5e4d4"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -554,10 +554,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 410.0,
-        "positionY": 0,
-        "positionZ": 1230.0,
-        "color": "#8f77e5"
+        "positionX": 830.0,
+        "positionY": 380.0,
+        "positionZ": 0.0,
+        "color": "#437b73"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -570,10 +570,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 750.0,
-        "positionY": 1200.0,
-        "positionZ": 0.0,
-        "color": "#49ce9f"
+        "positionX": 480.0,
+        "positionY": 380.0,
+        "positionZ": 340.0,
+        "color": "#2b51d7"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -589,7 +589,7 @@
         "positionX": 0,
         "positionY": 1070.0,
         "positionZ": 900.0,
-        "color": "#faa2b1"
+        "color": "#aae541"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -602,10 +602,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 480.0,
+        "positionX": 410.0,
         "positionY": 380.0,
-        "positionZ": 210.0,
-        "color": "#1dca81"
+        "positionZ": 680.0,
+        "color": "#540cf1"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -618,10 +618,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 480.0,
+        "positionX": 410.0,
         "positionY": 380.0,
-        "positionZ": 490.0,
-        "color": "#b2829f"
+        "positionZ": 960.0,
+        "color": "#d5b6e1"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -634,10 +634,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 410.0,
-        "positionY": 380.0,
-        "positionZ": 770.0,
-        "color": "#ad5d84"
+        "positionX": 830.0,
+        "positionY": 760.0,
+        "positionZ": 0.0,
+        "color": "#7bc822"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -650,10 +650,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 410.0,
-        "positionY": 380.0,
-        "positionZ": 1050.0,
-        "color": "#076e85"
+        "positionX": 830.0,
+        "positionY": 1070.0,
+        "positionZ": 0.0,
+        "color": "#d51bbc"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -669,7 +669,7 @@
         "positionX": 0,
         "positionY": 1050.0,
         "positionZ": 1180.0,
-        "color": "#e78288"
+        "color": "#42d003"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -683,9 +683,9 @@
         "deliverySequence": 3,
         "loadSequence": 1,
         "positionX": 480.0,
-        "positionY": 690.0,
-        "positionZ": 440.0,
-        "color": "#d04813"
+        "positionY": 700.0,
+        "positionZ": 100.0,
+        "color": "#61663c"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -698,26 +698,26 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 340.0,
-        "positionY": 380.0,
-        "positionZ": 1330.0,
-        "color": "#ad38a0"
+        "positionX": 480.0,
+        "positionY": 760.0,
+        "positionZ": 310.0,
+        "color": "#c48794"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 76,
         "box_code": "1168501926218",
-        "width": 340,
-        "height": 350,
-        "depth": 210,
+        "width": 350,
+        "height": 210,
+        "depth": 340,
         "volume": 24990000,
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 1050.0,
-        "positionZ": 1390.0,
-        "color": "#a6194a"
+        "positionX": 830.0,
+        "positionY": 1380.0,
+        "positionZ": 0.0,
+        "color": "#8952da"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -731,25 +731,25 @@
         "deliverySequence": 3,
         "loadSequence": 1,
         "positionX": 480.0,
-        "positionY": 690.0,
-        "positionZ": 650.0,
-        "color": "#16db9f"
+        "positionY": 1050.0,
+        "positionZ": 100.0,
+        "color": "#676c47"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 18,
         "box_code": "1300626663035",
-        "width": 250,
-        "height": 100,
-        "depth": 350,
+        "width": 350,
+        "height": 250,
+        "depth": 100,
         "volume": 8750000,
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 480.0,
-        "positionY": 1400.0,
-        "positionZ": 0.0,
-        "color": "#765203"
+        "positionX": 0,
+        "positionY": 100.0,
+        "positionZ": 1450.0,
+        "color": "#d536df"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -762,10 +762,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 0,
-        "positionZ": 1450.0,
-        "color": "#76e846"
+        "positionX": 480.0,
+        "positionY": 1110.0,
+        "positionZ": 310.0,
+        "color": "#3bf6f4"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -778,10 +778,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 410.0,
-        "positionY": 690.0,
-        "positionZ": 860.0,
-        "color": "#31da2b"
+        "positionX": 0,
+        "positionY": 350.0,
+        "positionZ": 1450.0,
+        "color": "#8ca8d7"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -794,10 +794,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 340.0,
-        "positionY": 690.0,
-        "positionZ": 960.0,
-        "color": "#bcc40b"
+        "positionX": 350.0,
+        "positionY": 0,
+        "positionZ": 1360.0,
+        "color": "#08f7a6"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -811,9 +811,9 @@
         "deliverySequence": 3,
         "loadSequence": 1,
         "positionX": 340.0,
-        "positionY": 690.0,
-        "positionZ": 1060.0,
-        "color": "#b5d6f6"
+        "positionY": 380.0,
+        "positionZ": 1240.0,
+        "color": "#4a239a"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -826,10 +826,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 480.0,
-        "positionY": 1080.0,
-        "positionZ": 100.0,
-        "color": "#bbd433"
+        "positionX": 410.0,
+        "positionY": 690.0,
+        "positionZ": 680.0,
+        "color": "#343664"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -843,9 +843,9 @@
         "deliverySequence": 3,
         "loadSequence": 1,
         "positionX": 0,
-        "positionY": 1380.0,
-        "positionZ": 900.0,
-        "color": "#3cd817"
+        "positionY": 600.0,
+        "positionZ": 1450.0,
+        "color": "#48c1e5"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -858,10 +858,10 @@
         "layer": 1,
         "deliverySequence": 3,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 1400.0,
-        "positionZ": 1050.0,
-        "color": "#04e754"
+        "positionX": 350.0,
+        "positionY": 250.0,
+        "positionZ": 1360.0,
+        "color": "#dbdc6d"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -874,10 +874,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 960.0,
-        "positionY": 0,
-        "positionZ": 0.0,
-        "color": "#f168fc"
+        "positionX": 830.0,
+        "positionY": 760.0,
+        "positionZ": 280.0,
+        "color": "#374e7c"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -890,10 +890,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 960.0,
-        "positionY": 380.0,
+        "positionX": 1300.0,
+        "positionY": 0,
         "positionZ": 0.0,
-        "color": "#e19453"
+        "color": "#38089c"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -907,9 +907,9 @@
         "deliverySequence": 4,
         "loadSequence": 1,
         "positionX": 960.0,
-        "positionY": 760.0,
-        "positionZ": 0.0,
-        "color": "#35d4a8"
+        "positionY": 0,
+        "positionZ": 340.0,
+        "color": "#0eea70"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -922,10 +922,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 730.0,
-        "positionY": 1080.0,
-        "positionZ": 340.0,
-        "color": "#5fc15c"
+        "positionX": 890.0,
+        "positionY": 0,
+        "positionZ": 680.0,
+        "color": "#6e6c38"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -938,10 +938,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 960.0,
+        "positionX": 890.0,
         "positionY": 0,
-        "positionZ": 340.0,
-        "color": "#c09935"
+        "positionZ": 1020.0,
+        "color": "#97c746"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -954,10 +954,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 960.0,
+        "positionX": 1310.0,
         "positionY": 380.0,
-        "positionZ": 340.0,
-        "color": "#912d17"
+        "positionZ": 0.0,
+        "color": "#60e78d"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -971,9 +971,9 @@
         "deliverySequence": 4,
         "loadSequence": 1,
         "positionX": 960.0,
-        "positionY": 0,
-        "positionZ": 680.0,
-        "color": "#8c4aea"
+        "positionY": 380.0,
+        "positionZ": 340.0,
+        "color": "#3c233b"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -986,10 +986,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 890.0,
+        "positionX": 820.0,
         "positionY": 380.0,
         "positionZ": 680.0,
-        "color": "#9c8a1c"
+        "color": "#0a94c9"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1002,10 +1002,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 960.0,
-        "positionY": 760.0,
-        "positionZ": 340.0,
-        "color": "#d9519c"
+        "positionX": 820.0,
+        "positionY": 380.0,
+        "positionZ": 1020.0,
+        "color": "#8c5398"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1018,10 +1018,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 890.0,
-        "positionY": 0,
-        "positionZ": 1020.0,
-        "color": "#d4790e"
+        "positionX": 1240.0,
+        "positionY": 760.0,
+        "positionZ": 0.0,
+        "color": "#8f031e"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1034,10 +1034,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 890.0,
-        "positionY": 310.0,
-        "positionZ": 1020.0,
-        "color": "#cfb8ec"
+        "positionX": 1240.0,
+        "positionY": 1070.0,
+        "positionZ": 0.0,
+        "color": "#ada236"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1050,26 +1050,26 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 890.0,
-        "positionY": 0,
-        "positionZ": 1300.0,
-        "color": "#bd38b4"
+        "positionX": 1310.0,
+        "positionY": 760.0,
+        "positionZ": 280.0,
+        "color": "#dcd033"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 14,
         "box_code": "7956753502458",
-        "width": 340,
-        "height": 350,
-        "depth": 210,
+        "width": 350,
+        "height": 210,
+        "depth": 340,
         "volume": 24990000,
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 890.0,
-        "positionY": 310.0,
-        "positionZ": 1300.0,
-        "color": "#685b95"
+        "positionX": 1180.0,
+        "positionY": 1380.0,
+        "positionZ": 0.0,
+        "color": "#3f1335"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1082,26 +1082,26 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 1230.0,
-        "positionY": 1140.0,
-        "positionZ": 0.0,
-        "color": "#7bf111"
+        "positionX": 0,
+        "positionY": 1050.0,
+        "positionZ": 1390.0,
+        "color": "#5c97b5"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 40,
         "box_code": "9734373628261",
-        "width": 340,
-        "height": 350,
-        "depth": 210,
+        "width": 350,
+        "height": 210,
+        "depth": 340,
         "volume": 24990000,
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 1230.0,
+        "positionX": 830.0,
         "positionY": 1140.0,
-        "positionZ": 210.0,
-        "color": "#7cc262"
+        "positionZ": 280.0,
+        "color": "#86c20b"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1114,10 +1114,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 1210.0,
-        "positionY": 1070.0,
-        "positionZ": 420.0,
-        "color": "#393117"
+        "positionX": 700.0,
+        "positionY": 0,
+        "positionZ": 1360.0,
+        "color": "#3b9152"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1130,26 +1130,26 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 1440.0,
-        "positionY": 0,
-        "positionZ": 0.0,
-        "color": "#27c6bd"
+        "positionX": 1310.0,
+        "positionY": 760.0,
+        "positionZ": 560.0,
+        "color": "#623f0a"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 74,
         "box_code": "1013655071541",
-        "width": 340,
-        "height": 350,
-        "depth": 210,
+        "width": 350,
+        "height": 210,
+        "depth": 340,
         "volume": 24990000,
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 1440.0,
-        "positionY": 350.0,
-        "positionZ": 0.0,
-        "color": "#fe91ae"
+        "positionX": 1180.0,
+        "positionY": 1140.0,
+        "positionZ": 280.0,
+        "color": "#45c381"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1162,10 +1162,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 1440.0,
-        "positionY": 700.0,
+        "positionX": 1780.0,
+        "positionY": 0,
         "positionZ": 0.0,
-        "color": "#1d7438"
+        "color": "#931904"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1178,10 +1178,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 1440.0,
+        "positionX": 1780.0,
         "positionY": 0,
         "positionZ": 210.0,
-        "color": "#79207a"
+        "color": "#675b2e"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1194,10 +1194,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 340.0,
-        "positionY": 690.0,
-        "positionZ": 1160.0,
-        "color": "#92ebee"
+        "positionX": 480.0,
+        "positionY": 760.0,
+        "positionZ": 520.0,
+        "color": "#57e147"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1210,26 +1210,26 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 340.0,
-        "positionY": 730.0,
-        "positionZ": 1260.0,
-        "color": "#760f41"
+        "positionX": 680.0,
+        "positionY": 760.0,
+        "positionZ": 620.0,
+        "color": "#fa8176"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 39,
         "box_code": "1696209007287",
-        "width": 250,
-        "height": 100,
-        "depth": 350,
+        "width": 350,
+        "height": 250,
+        "depth": 100,
         "volume": 8750000,
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 1480.0,
-        "positionZ": 690.0,
-        "color": "#36a038"
+        "positionX": 480.0,
+        "positionY": 1110.0,
+        "positionZ": 410.0,
+        "color": "#0f7411"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1242,10 +1242,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 1400.0,
-        "positionZ": 1200.0,
-        "color": "#6da315"
+        "positionX": 480.0,
+        "positionY": 1010.0,
+        "positionZ": 520.0,
+        "color": "#d68097"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1258,10 +1258,10 @@
         "layer": 1,
         "deliverySequence": 4,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 1400.0,
-        "positionZ": 1350.0,
-        "color": "#cbd236"
+        "positionX": 480.0,
+        "positionY": 1110.0,
+        "positionZ": 510.0,
+        "color": "#27aeb7"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1274,10 +1274,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1440.0,
+        "positionX": 1790.0,
         "positionY": 350.0,
-        "positionZ": 210.0,
-        "color": "#b86657"
+        "positionZ": 0.0,
+        "color": "#c3da7c"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1290,10 +1290,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1570.0,
-        "positionY": 1050.0,
+        "positionX": 1790.0,
+        "positionY": 730.0,
         "positionZ": 0.0,
-        "color": "#cb8720"
+        "color": "#3498e6"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1306,10 +1306,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1440.0,
-        "positionY": 730.0,
-        "positionZ": 210.0,
-        "color": "#80ea8f"
+        "positionX": 1650.0,
+        "positionY": 1110.0,
+        "positionZ": 0.0,
+        "color": "#74dd53"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1322,10 +1322,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1440.0,
-        "positionY": 0,
-        "positionZ": 420.0,
-        "color": "#8544ea"
+        "positionX": 750.0,
+        "positionY": 1010.0,
+        "positionZ": 620.0,
+        "color": "#af434d"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1339,9 +1339,9 @@
         "deliverySequence": 5,
         "loadSequence": 1,
         "positionX": 1440.0,
-        "positionY": 310.0,
-        "positionZ": 550.0,
-        "color": "#f9ffa4"
+        "positionY": 350.0,
+        "positionZ": 340.0,
+        "color": "#b2d42a"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1354,10 +1354,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1570.0,
-        "positionY": 1040.0,
+        "positionX": 1720.0,
+        "positionY": 660.0,
         "positionZ": 340.0,
-        "color": "#dee96a"
+        "color": "#5709fb"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1370,10 +1370,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1440.0,
-        "positionY": 730.0,
-        "positionZ": 490.0,
-        "color": "#7fe601"
+        "positionX": 1530.0,
+        "positionY": 1110.0,
+        "positionZ": 280.0,
+        "color": "#d4d93a"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1386,10 +1386,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1210.0,
-        "positionY": 1040.0,
-        "positionZ": 630.0,
-        "color": "#573a09"
+        "positionX": 1440.0,
+        "positionY": 0,
+        "positionZ": 340.0,
+        "color": "#c2e3a1"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1402,10 +1402,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 340.0,
-        "positionY": 730.0,
-        "positionZ": 1360.0,
-        "color": "#3daf02"
+        "positionX": 1780.0,
+        "positionY": 0,
+        "positionZ": 420.0,
+        "color": "#4a3d7e"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1418,10 +1418,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1550.0,
-        "positionY": 1040.0,
-        "positionZ": 620.0,
-        "color": "#91a4cd"
+        "positionX": 1440.0,
+        "positionY": 0,
+        "positionZ": 550.0,
+        "color": "#44d95b"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1434,10 +1434,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1780.0,
-        "positionY": 0,
-        "positionZ": 0.0,
-        "color": "#1f8377"
+        "positionX": 1440.0,
+        "positionY": 350.0,
+        "positionZ": 620.0,
+        "color": "#43840a"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1450,10 +1450,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 1500.0,
-        "positionZ": 1040.0,
-        "color": "#48091e"
+        "positionX": 1530.0,
+        "positionY": 1420.0,
+        "positionZ": 0.0,
+        "color": "#9d7c77"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1466,42 +1466,42 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 730.0,
-        "positionY": 1460.0,
-        "positionZ": 340.0,
-        "color": "#5e5e68"
+        "positionX": 1780.0,
+        "positionY": 1420.0,
+        "positionZ": 0.0,
+        "color": "#a8f9a5"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 38,
         "box_code": "7797920324903",
-        "width": 250,
-        "height": 100,
-        "depth": 350,
+        "width": 350,
+        "height": 250,
+        "depth": 100,
         "volume": 8750000,
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1230.0,
-        "positionY": 1490.0,
-        "positionZ": 0.0,
-        "color": "#f39e8d"
+        "positionX": 350.0,
+        "positionY": 0,
+        "positionZ": 1460.0,
+        "color": "#672390"
     },
     {
         "model": "Load.LoadedBoxData",
         "id": 46,
         "box_code": "356962608929",
-        "width": 250,
-        "height": 100,
-        "depth": 350,
+        "width": 350,
+        "height": 250,
+        "depth": 100,
         "volume": 8750000,
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1570.0,
-        "positionY": 1430.0,
-        "positionZ": 0.0,
-        "color": "#9af8dd"
+        "positionX": 340.0,
+        "positionY": 380.0,
+        "positionZ": 1340.0,
+        "color": "#194669"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1514,10 +1514,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 250.0,
-        "positionZ": 1450.0,
-        "color": "#572a7c"
+        "positionX": 1440.0,
+        "positionY": 660.0,
+        "positionZ": 340.0,
+        "color": "#19685d"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1530,10 +1530,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 820.0,
-        "positionY": 620.0,
-        "positionZ": 1020.0,
-        "color": "#42a4a1"
+        "positionX": 410.0,
+        "positionY": 690.0,
+        "positionZ": 830.0,
+        "color": "#88a13b"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1546,10 +1546,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1440.0,
-        "positionY": 620.0,
-        "positionZ": 550.0,
-        "color": "#5c96b2"
+        "positionX": 1160.0,
+        "positionY": 1110.0,
+        "positionZ": 620.0,
+        "color": "#ee6d6e"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1562,10 +1562,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1780.0,
-        "positionY": 350.0,
-        "positionZ": 0.0,
-        "color": "#46e8d5"
+        "positionX": 680.0,
+        "positionY": 760.0,
+        "positionZ": 720.0,
+        "color": "#480534"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1578,10 +1578,10 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 0,
-        "positionY": 350.0,
-        "positionZ": 1450.0,
-        "color": "#c26db5"
+        "positionX": 480.0,
+        "positionY": 1010.0,
+        "positionZ": 670.0,
+        "color": "#335bf0"
     },
     {
         "model": "Load.LoadedBoxData",
@@ -1594,9 +1594,9 @@
         "layer": 1,
         "deliverySequence": 5,
         "loadSequence": 1,
-        "positionX": 1780.0,
-        "positionY": 450.0,
-        "positionZ": 0.0,
-        "color": "#3da07a"
+        "positionX": 480.0,
+        "positionY": 1110.0,
+        "positionZ": 660.0,
+        "color": "#ac9dd8"
     }
 ]

@@ -83,26 +83,48 @@
 			<div class="box"><a href="/Route/map" style="color:black;text-decoration-line:none">지도</a></div>
 			<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
 		</div>
-		<div style="color:blue;width: 1500px;">
+		<div style="color:blue;width: 2500px;">
 			<div style="width:1150px;height:700px;content-align:center;margin:50px;"> <!--background-color:#4676EF-->
 			
-
+<button id="packButton" type="button">main 함수 실행</button>
+<script type="text/javascript">
+	var csrftoken = '{{ csrf_token }}';
+</script>
+<script>
+	document.getElementById('packButton').addEventListener('click', function() {
+			$.ajax({
+					url: '/pack-items/',  // Django 엔드포인트 URL
+					type: 'POST',
+					headers: {"X-CSRFToken": csrftoken},
+					success: function(response) {
+							console.log('패킹 결과:', response.results);
+							alert("적재 완료");
+							// 결과를 웹 페이지에 표시하는 로직을 여기에 추가
+					},
+					error: function() {
+							//alert('Error processing your request');
+							console.error(error);
+					}
+			});
+	});
+	</script>
 
 
 <div style="display:flex;flex-direction:row;">
 	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
 	<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
 </div>
-<div style="height:70px;width:800px;display:flex;flex-direction:row;justify-content:space-between;text-align:center;color:black;">
+<!-- <div style="height:70px;width:800px;display:flex;flex-direction:row;justify-content:space-between;text-align:center;color:black;">
 	<div >배송순서 순</div>
 	<div>주소지 순</div>
 	<div>부피 순</div>
-</div>
+</div> -->
 
 
 <!-- <div style="height:600px;width:1200px;display:flex;flex-direction:row;justify-content:space-between "> -->
-<div style="display: flex; flex-direction: high; justify-content: space-between;">	
-	<div style="width:1000px; height:600px; margin-top: 550px; border: 1px solid black;">
+
+<!-- <div style="display: flex; flex-direction: high; justify-content: space-between;">	
+	<div style="width:1200px; height:600px; margin-top: 800px;  border: 1px solid black;">
 		<div class="container" style="position:relative;overflow:auto;height:600px">
 			<table class="table table-striped custom-table">
 				<thead>
@@ -131,10 +153,10 @@
 				<tbody>
 			</table>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- <div style="width:500px;border: 1px solid black;margin-left:100px;"> -->
-		<div id="webgl-container" style="width: 60%; height: 50%; border: 1px solid black;margin-left:50px; margin-top:70px"></div>
+		<div id="webgl-container" style="width: 1200px; height: 700px; border: 1px solid black;margin-left:50px; margin-top:50px"></div>
 		<div id="info" style="font-size:20px;text-align:center;color:black;">
 			
 			
