@@ -29,6 +29,7 @@ from Box.views import getbox
 from django.conf.urls.static import static  
 from django.conf import settings 
 from Load.views import Index  
+from Load.views import pack_items
 from Route.views import getmapbox
 from Route.views import getaddress    #추가
 
@@ -49,8 +50,11 @@ urlpatterns = [
     path("Login/userlogin",UserLogin.as_view()),
     path("getbox/",getbox,name='getbox'),
     path("Load/index",Index.as_view()),
-    path('Load/loaddata',LoadData.as_view()),
+    path('Load/loaddata',LoadData.as_view()), 
     path("getmapbox/",getmapbox,name='getmapbox'),
-    path("getaddress/",getaddress,name='getaddress'),   #추가
+    path('pack-items/', pack_items, name='pack-items'), 
+    # path('load_sequence/', load_sequence, name='load_sequence') #적재순서 변환(f. 황예찬)
+    path("getaddress/",getaddress,name='getaddress'), 
+
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
