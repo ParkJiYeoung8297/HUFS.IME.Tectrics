@@ -115,14 +115,6 @@ _loadCubesFromJson() {
         this._scene.add(boxWithEdges);
     });
 
-        //             this._scene.add(boxWithEdges);
-        //   // 중심 좌표로 상자 위치 설정
-        //   cube.position.set(centerX, centerY, centerZ);
-
-        //   this._scene.add(cube);
-
-          
-          //this._cube = group;
         
       })
       .catch(error => {
@@ -182,21 +174,7 @@ _loadCubesFromJson() {
     
     
     _setupModel() {
-        // 기존 모델 설정 코드
-        // ...
-    
-        // const cubeSize = 20;
-        // //const cubePosition = 0;
-        // const cubeGeometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-        // const cubeMaterial = new THREE.MeshBasicMaterial({ 
-        //     color: 0x000000, 
-        //     transparent: true, 
-        //     opacity: 0.1,
-        //     side: THREE.DoubleSide // 양면을 표시하도록 설정
-        // });
-        // const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        // cube.position.set(0, 0, 0); // 큐브의 위치를 원점으로 설정
-        // this._scene.add(cube);
+      
 
         // GridHelper 추가
         const gridSize = 20; // GridHelper의 크기를 큐브의 크기와 동일하게 설정
@@ -210,99 +188,11 @@ _loadCubesFromJson() {
         const axesHelper = new THREE.AxesHelper(15);
     this._scene.add(axesHelper);
 
-    // const gridSize = 20;
-        // const gridStep = 1;
-
-        // for (let i = 1; i <= gridSize; i += gridStep) {
-        //     if (i !== 0) {  // 원점에서는 레이블을 생성하지 않음
-        //         const posXLabel = this._createLabel(i.toString(), new THREE.Vector3(i, 0, 0));
-        //         const posYLabel = this._createLabel(i.toString(), new THREE.Vector3(0, i, 1));
-        //         const posZLabel = this._createLabel(i.toString(), new THREE.Vector3(-1, 0, i));
-        //         this._scene.add(posXLabel);
-        //         this._scene.add(posYLabel);
-        //         this._scene.add(posZLabel);
-        //         }
-        //     }
     
-    
-    
-    
-            // GridHelper 추가
-    // const size = 20;
-    // const divisions = 20;
-    // //const gridHelper = new THREE.GridHelper(size, divisions);
-    // gridHelper.rotateX(Math.PI / 2); // X축을 따라 90도 회전
-    // this._scene.add(gridHelper);
-    
-
-    // // AxesHelper 추가
-    // const axesHelper = new THREE.AxesHelper(15);
-    // this._scene.add(axesHelper);
-
-    
-        // 기존 모델 설정 코드
-        // ...
-    
-        //축을 직접 생성
-        // const axes = new THREE.Group();
-        // const xAxisMaterial = new THREE.LineBasicMaterial({ color: 0xff0000, linewidth: 5 }); // 빨간색 X축
-        // const yAxisMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00, linewidth: 5}); // 초록색 Y축
-        // const zAxisMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff, linewidth: 5 }); // 파란색 Z축
-    
-        // const axisLength = 5;
-        // const xAxisGeometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(axisLength, 0, 0)]);
-        // const yAxisGeometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, axisLength, 0)]);
-        // const zAxisGeometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, axisLength)]);
-    
-        // const xAxis = new THREE.Line(xAxisGeometry, xAxisMaterial);
-        // const yAxis = new THREE.Line(yAxisGeometry, yAxisMaterial);
-        // const zAxis = new THREE.Line(zAxisGeometry, zAxisMaterial);
-    
-        // axes.add(xAxis);
-        // axes.add(yAxis);
-        // axes.add(zAxis);
-    
-        // this._scene.add(axes);
-
-
-
-    
-        // 나머지 모델 추가 코드
-        // ...
-    
-    
-        
-            // 기존 모델 설정 코드
-            // ...
         
             this._loadCubesFromJson(); // JSON 파일에서 직육면체 로드 및 생성
         
-            // 나머지 모델 추가 코드
-            // ..
-        
             
-                    
-            
-        
-        // const geometry1 = new THREE.BoxGeometry();
-        // const material1 = new THREE.MeshPhongMaterial({color: 0x44a88});
-        // const cube1 = new THREE.Mesh(geometry1, material1);
-        // cube1.position.x = -2;
-        // cube1.position.y = 0.5;
-        // cube1.position.z = 1;
-        // this._scene.add(cube1);
-
-        // const geometry2 = new THREE.BoxGeometry();
-        // const material2 = new THREE.MeshPhongMaterial({color: 0xff0000});
-        // const cube2 = new THREE.Mesh(geometry2, material2);
-        // cube2.position.x = -1;
-        // cube2.position.y = 0.5;
-        // this._scene.add(cube2);
-    
-        
-
-        // this._scene.add(cube);
-        // this._cube = cube;
     }
 
     _setupControls() {

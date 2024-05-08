@@ -43,6 +43,14 @@
     {% endfor %}
 </ul>
 
+<button id="loadsequence" type="button">main 함수 실행</button>
+<ul>
+    {% for address in address_list %}
+        <div class="roadAddress" style="display : none">{{ address.road_address }}</div>
+        <div class="detailAddress" style="display : none">{{ address.detail_address }}</div>    
+    {% endfor %} 
+</ul>
+
 
 <div style=" display: flex; flex-direction: row ; text-align: center; justify-content: center;padding-top:100px;">
     <div class="box" style="border: None; font-size:50px;">데이터 업로드</div>
@@ -54,14 +62,9 @@
                 <span id="add_excel" class="material-symbols-outlined" style="font-size: 150px; cursor: pointer;">upload_file</span>
                 <input id="input-excel" type="file" id='excelupload' accept=".xlsx, .xls" style="font-size:20px" > 
             </div>
-
     </div>
 
 </div>
-
-
-
-    
 
 
 <!-- Optional JavaScript; -->
