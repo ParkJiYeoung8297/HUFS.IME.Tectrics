@@ -56,7 +56,42 @@
 			width: 100%; /* 필요에 따라 조절 */
 			border-spacing: 5px 5px; /* 셀 사이 간격 조절 */
 		}
-		
+		.popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid black;
+            padding: 40px;
+            z-index: 1000;
+						width: 600px;
+						height: 400px;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            color: red;
+            font-weight: bold;
+            text-align: center;
+						margin-top: auto;
+						padding-top: 20px;
+        }
 		
          
           
@@ -65,7 +100,70 @@
 
 </head>
 <body>
+	<div class="popup-overlay"></div>
+	<div id="popup" class="popup">
+			<h2>Order Details</h2>
+			
+			<p id="popup-info"></p>
+			<span class="close-btn">Close</span>
+	</div>
 
+	<!-- 테이블 콘텐츠 -->
+	<!-- <h2>Order Table</h2>
+	<table border="1">
+			<thead>
+					<tr>
+							<th>Number</th>
+							<th>Box Code</th>
+							<th>Name</th>
+							<th>Road Address</th>
+					</tr>
+			</thead>
+			<tbody>
+					<tr class="box_table" data-info="Box Code: ABC123, Name: John Doe, Road Address: 123 Main St">
+							<td>1</td>
+							<td>ABC123</td>
+							<td>John Doe</td>
+							<td>123 Main St</td>
+					</tr>
+					<tr class="box_table" data-info="Box Code: XYZ456, Name: Jane Doe, Road Address: 456 Elm St">
+							<td>2</td>
+							<td>XYZ456</td>
+							<td>Jane Doe</td>
+							<td>456 Elm St</td>
+					</tr>
+			</tbody>
+	</table> -->
+
+	<!-- 팝업을 위한 JavaScript 코드 -->
+	<script>
+			document.addEventListener('DOMContentLoaded', function () {
+					// 테이블의 행을 클릭하면 팝업을 띄움
+					const rows = document.querySelectorAll('.box_table');
+					const popup = document.getElementById('popup');
+					const popupOverlay = document.querySelector('.popup-overlay');
+					const popupInfo = document.getElementById('popup-info');
+					const closeBtn = document.querySelector('.close-btn');
+
+					// 행을 클릭하면 팝업을 표시하는 이벤트 리스너
+					rows.forEach(row => {
+							row.addEventListener('click', function () {
+									const info = row.getAttribute('data-info');
+									popupInfo.textContent = info;
+									popup.style.display = 'block';
+									popupOverlay.style.display = 'block';
+							});
+					});
+
+					// 닫기 버튼 및 오버레이를 클릭하면 팝업을 숨김
+					[closeBtn, popupOverlay].forEach(element => {
+							element.addEventListener('click', function () {
+									popup.style.display = 'none';
+									popupOverlay.style.display = 'none';
+							});
+					});
+			});
+	</script>
 	<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
 		<div style="width:200px;" ><a href="/Box/boxlist" style="text-decoration-line:none" id="Home">
 			<img style="height: 90px;border: 1px solid black; box-shadow: 2px 2px 2px 2px rgb(77, 71, 71) ;object-fit: contain;"src="/static/image/택트리스 로고.png">
@@ -85,7 +183,35 @@
 		</div>
 		<div style="color:blue;width: 2500px;">
 			<div style="width:1150px;height:700px;content-align:center;margin:50px;"> <!--background-color:#4676EF-->
-			
+				<button id="loadsequence" type="button"> 적재 순서 변환 </button>
+				<ul>
+						{% for address in address_list %}
+								<div class="roadAddress" style="display : none">{{ address.road_address }}</div>
+								<div class="detailAddress" style="display : none">{{ address.detail_address }}</div>    
+						{% endfor %} 
+				</ul>
+				<script type="text/javascript">
+					var csrftoken = '{{ csrf_token }}';
+				</script>
+				<script>
+					document.getElementById('loadsequence').addEventListener('click', function() {
+							$.ajax({
+									url: '/load_sequence/',  // Django 엔드포인트 URL
+									type: 'POST',
+									headers: {"X-CSRFToken": csrftoken},
+									success: function(response) {
+											console.log('패킹 결과:', response.results);
+											alert("적재 순서 변환 완료");
+											// 결과를 웹 페이지에 표시하는 로직을 여기에 추가
+									},
+									error: function() {
+											//alert('Error processing your request');
+											console.error(error);
+									}
+							});
+					});
+					</script>
+
 <button id="packButton" type="button">main 함수 실행</button>
 <script type="text/javascript">
 	var csrftoken = '{{ csrf_token }}';
@@ -109,6 +235,31 @@
 	});
 	</script>
 
+<button id="layer" type="button"> layer 입력 </button>
+				<ul>
+						{% for address in address_list %}
+								<div class="roadAddress" style="display : none">{{ address.road_address }}</div>
+								<div class="detailAddress" style="display : none">{{ address.detail_address }}</div>    
+						{% endfor %} 
+				</ul>
+<script>
+	document.getElementById('layer').addEventListener('click', function() {
+			$.ajax({
+					url: '/layer/',  // Django 엔드포인트 URL
+					type: 'POST',
+					headers: {"X-CSRFToken": csrftoken},
+					success: function(response) {
+							console.log('패킹 결과:', response.results);
+							alert("레이어 설정 완료");
+							// 결과를 웹 페이지에 표시하는 로직을 여기에 추가
+					},
+					error: function() {
+							//alert('Error processing your request');
+							console.error(error);
+					}
+			});
+	});
+	</script>
 
 <div style="display:flex;flex-direction:row;">
 	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
@@ -120,10 +271,44 @@
 	<div>부피 순</div>
 </div> -->
 
+	<div style="width:1100px; height:600px; margin-top:800px; border: 1px solid black;">
+		<div class="container" style="position:relative;overflow:auto;height:600px">
+			<table class="table table-striped custom-table">
+				<thead>
+				<tr >
+					<td><B>번호</B></td>
+					<td ><B>송장 코드</B></td>
+					<td><B>고객명</B></td>
+					<td><B>도로명 주소</B></td>
+					<td><B>상세 주소</B></td>
+					<td><B>전화번호</B></td>
+					<td><B>배송순서</B></td>
+					<td><B>적재순서</B></td>
+					<td><B>레이어</B></td>
+				</tr>
+				</thead>
+				<tbody id="orderTableBody">
+					{% for order in combined_list %}
+					<tr class="box_table" id="box_{{ forloop.counter }}" style="cursor:pointer;">
+						<td>{{ forloop.counter }}</td>
+						<td>{{order.box_code}}</td>
+						<td>{{order.name}}</td>
+						<td>{{order.road_address}}</td>
+						<td>{{order.detail_address}}</td>
+						<td>0{{order.phone}}</td>
+						<td>{{order.deliverySequence}}</td>
+						<td>{{order.loadSequence}}</td>
+						<td>{{order.layer}}</td>
+					</tr>
+					{% endfor %}
+				<tbody>
+			</table>
+		</div>
+	</div>
 
-<!-- <div style="height:600px;width:1200px;display:flex;flex-direction:row;justify-content:space-between "> -->
+<!-- <div style="height:600px;width:1200px;display:flex;flex-direction:row;justify-content:space-between "> 
 
-<!-- <div style="display: flex; flex-direction: high; justify-content: space-between;">	
+<div style="display: flex; flex-direction: high; justify-content: space-between;">	
 	<div style="width:1200px; height:600px; margin-top: 800px;  border: 1px solid black;">
 		<div class="container" style="position:relative;overflow:auto;height:600px">
 			<table class="table table-striped custom-table">
@@ -139,7 +324,7 @@
 					<td><B>레이어</B></td>
 				</tr>
 				</thead>
-				<tbody>
+				<tbody id="orderTabBody">
 					{% for order in order_list %}
 					<tr class="box_table" id="box_{{ forloop.counter }}" style="cursor:pointer;">
 						<td>{{ forloop.counter }}</td>
@@ -155,7 +340,7 @@
 		</div>
 	</div> -->
 
-	<!-- <div style="width:500px;border: 1px solid black;margin-left:100px;"> -->
+	 <div style="width:500px;border: 1px solid black;margin-left:100px;">
 		<div id="webgl-container" style="width: 1200px; height: 700px; border: 1px solid black;margin-left:50px; margin-top:50px"></div>
 		<div id="info" style="font-size:20px;text-align:center;color:black;">
 			

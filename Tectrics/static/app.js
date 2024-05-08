@@ -93,30 +93,53 @@ class App {
         requestAnimationFrame(this.render.bind(this));
 }
 // JSON 파일에서 로드하는 직육면체를 생성하는 함수
-_loadCubesFromJson() {
-    // fetch('../static/packed_items.json')
-    fetch('../static/packed_items.json')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach((item, index) => {
-            setTimeout(() => {
-          // 직육면체의 중심 좌표를 계산합니다.
-                const centerX = item.positionX + item.width / 2;
-                const centerY = item.positionY + item.height / 2;
-                const centerZ = item.positionZ + item.depth / 2;
+// _loadCubesFromJson() {
+//     // fetch('../static/packed_items.json')
+//     fetch('../static/packed_items.json')
+//     .then(response => response.json())
+//     .then(data => {
+//         data.forEach((item, index) => {
+//             setTimeout(() => {
+//           // 직육면체의 중심 좌표를 계산합니다.
+//                 const centerX = item.positionX + item.width / 2;
+//                 const centerY = item.positionY + item.height / 2;
+//                 const centerZ = item.positionZ + item.depth / 2;
         
-                const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.color, 0.5);
-                boxWithEdges.position.set(centerX, centerY, centerZ);
+//                 const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.color, 0.5);
+//                 boxWithEdges.position.set(centerX, centerY, centerZ);
 
-                this._scene.add(boxWithEdges);
-                }, index*1000);
-            });
+//                 this._scene.add(boxWithEdges);
+//                 }, index*1000);
+//             });
 
-    })
-    .catch(error => {
-        console.error('Error loading JSON:', error);
+//     })
+//     .catch(error => {
+//         console.error('Error loading JSON:', error);
+//     });
+// }
+_loadCubesFromJson() {
+    fetch('../static/packed_items.json')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(item => {
+          // 직육면체의 중심 좌표를 계산합니다.
+          const centerX = item.positionX + item.width / 2;
+          const centerY = item.positionY + item.height / 2;
+          const centerZ = item.positionZ + item.depth / 2;
+        
+        const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.color, 1);
+        boxWithEdges.position.set(centerX, centerY, centerZ);
+
+        this._scene.add(boxWithEdges);
     });
+
+        
+      })
+      .catch(error => {
+        console.error('Error loading JSON:', error);
+      });
 }
+
 _setupLight() {
 
     this._scene.background = new THREE.Color(0xffffff);
