@@ -43,14 +43,34 @@
     {% endfor %}
 </ul>
 
-<button id="loadsequence" type="button">main 함수 실행</button>
+<button id="loadsequence" type="button"> 적재 순서 변환 </button>
 <ul>
     {% for address in address_list %}
         <div class="roadAddress" style="display : none">{{ address.road_address }}</div>
         <div class="detailAddress" style="display : none">{{ address.detail_address }}</div>    
     {% endfor %} 
 </ul>
-
+<script type="text/javascript">
+	var csrftoken = '{{ csrf_token }}';
+</script>
+<script>
+	document.getElementById('loadsequence').addEventListener('click', function() {
+			$.ajax({
+					url: '/load_sequence/',  // Django 엔드포인트 URL
+					type: 'POST',
+					headers: {"X-CSRFToken": csrftoken},
+					success: function(response) {
+							console.log('패킹 결과:', response.results);
+							alert("적재 순서 변환 완료");
+							// 결과를 웹 페이지에 표시하는 로직을 여기에 추가
+					},
+					error: function() {
+							//alert('Error processing your request');
+							console.error(error);
+					}
+			});
+	});
+	</script>
 
 <div style=" display: flex; flex-direction: row ; text-align: center; justify-content: center;padding-top:100px;">
     <div class="box" style="border: None; font-size:50px;">데이터 업로드</div>

@@ -92,9 +92,6 @@ def pack_items(request):
         ]
 
         # 가정: 한 개의 빈만 사용
-        
-
-
         packer = Packer()
         box = Bin('example', (2700, 1600, 1600), 500, 0, 0)
         packer.addBin(box)
