@@ -94,11 +94,13 @@ def pack_items(request):
         # 가정: 한 개의 빈만 사용
         
 
+
         packer = Packer()
         box = Bin('example', (2700, 1600, 1600), 500, 0, 0)
         packer.addBin(box)
         for item in items:
             packer.addItem(item)
+
 
         packer.pack(bigger_first=True, distribute_items=True, fix_point=True, check_stable=True, support_surface_ratio=0.75)
         

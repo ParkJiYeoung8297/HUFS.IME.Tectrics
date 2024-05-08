@@ -59,12 +59,31 @@
 			for (i=0;i<lats.length;i++){
 				var lat = lats[i].textContent;
 				var lon = lons[i].textContent;
-				markers[i] = new Tmapv2.Marker({
-					position: new Tmapv2.LatLng(Number(lat), Number(lon)), // 마커의 중심좌표 설정
-					map: map // 마커가 표시될 지도 설정
+				$.ajax({
+					url:'/getmapbox/',
+					method:'GET',
+					async : false,
+					data:{
+						latitude:lat,
+						longitude:lon
+					},
+					success: function(response){
+						console.log(response.count_lat.length);
+						markers[i] = new Tmapv2.Marker({
+							position: new Tmapv2.LatLng(Number(lat), Number(lon)), // 마커의 중심좌표 설정
+							icon : "/static/image/marker/marker_"+response.count_lat.length+".png",
+							iconSize : new Tmapv2.Size(24, 38),
+							map: map // 마커가 표시될 지도 설정
+						});
+						
+						addListener(markers[i], new Tmapv2.LatLng(lat, lon));
+						
+					},
+					error: function(xhr, status, error) {
+						console.error(error);
+					}
 				});
 				
-				addListener(markers[i], new Tmapv2.LatLng(lat, lon));
 
 				// 클릭이벤트
 				function addListener(marker,latlng){
