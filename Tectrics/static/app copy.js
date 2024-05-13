@@ -1,11 +1,8 @@
-//import * as THREE from '../three.js-master/build/three.module.js';
 import * as THREE from './three.module.js';
-//import { OrbitControls } from "../three.js-master/examples/jsm/controls/OrbitControls.js";
 import {OrbitControls} from './OrbitControls.js';
 // import {TrackballControls} from './TrackballControls.js';
 
-// 카메라를 Z축 주위로 회전시키는 함수
-
+// 컨테이너 생성 함수
 function createContainer(width, height, depth, color) {
     const geometry = new THREE.BoxGeometry(width, height, depth);
     const material = new THREE.MeshBasicMaterial({
@@ -22,24 +19,24 @@ function createContainer(width, height, depth, color) {
 }
 
 // 상자와 외곽선을 만드는 함수
-// function createBoxWithEdges(width, height, depth, color) {
-//     // 상자 생성
-//     const geometry = new THREE.BoxGeometry(width, height, depth);
-//     const material = new THREE.MeshBasicMaterial({ color:color, transparent : true, opacity: 0.7});
-//     const box = new THREE.Mesh(geometry, material);
+function createBoxWithEdges(width, height, depth, color) {
+    // 상자 생성
+    const geometry = new THREE.BoxGeometry(width, height, depth);
+    const material = new THREE.MeshBasicMaterial({ color:color, transparent : true, opacity: 0});
+    const box = new THREE.Mesh(geometry, material);
 
-//     // 상자 외곽선 생성
-//     const edges = new THREE.EdgesGeometry(geometry);
-//     const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
-//     const edgesMesh = new THREE.LineSegments(edges, edgesMaterial);
+    // 상자 외곽선 생성
+    const edges = new THREE.EdgesGeometry(geometry);
+    const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+    const edgesMesh = new THREE.LineSegments(edges, edgesMaterial);
 
-//     // 상자와 외곽선을 하나의 그룹으로 묶음
-//     const group = new THREE.Group();
-//     group.add(box);
-//     group.add(edgesMesh);
+    // 상자와 외곽선을 하나의 그룹으로 묶음
+    const group = new THREE.Group();
+    group.add(box);
+    group.add(edgesMesh);
 
-//     return group;
-// }
+    return group;
+}
 
 function createCustomGrid(width, height, divisionsWidth, divisionsHeight, color) {
     const gridHelper = new THREE.Group();
@@ -69,16 +66,12 @@ function createCustomGrid(width, height, divisionsWidth, divisionsHeight, color)
         const verticalLine = new THREE.Line(geometryV, material);
         gridHelper.add(verticalLine);
     }
-
     return gridHelper;
 }
 
-
 class App {
-    
-
     constructor () {
-        const divContainer = document.querySelector("#webgl-container");
+        const divContainer = document.querySelector("#webgl-container2");
         this._divContainer = divContainer; /*밑줄로 시작하는 필드와 매서드는 private으로 클래스 외부에서 호출 불가 */
 
         const renderer = new THREE.WebGLRenderer({antialias: true});
@@ -98,57 +91,53 @@ class App {
         this.resize();
 
         requestAnimationFrame(this.render.bind(this));
-        
-        this.rotateCameraOnZAxis(Math.PI / 4);
-
 }
-rotateCameraOnZAxis(angle) {
-    const quaternion = new THREE.Quaternion();
-    quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), angle);
-    this._camera.quaternion.multiplyQuaternions(quaternion, this._camera.quaternion);
-    this._camera.quaternion.normalize();
-    this._controls.update();
-}
-
-
 // JSON 파일에서 로드하는 직육면체를 생성하는 함수
 // _loadCubesFromJson() {
 //     // fetch('../static/packed_items.json')
-//     fetch('../static/packed_items copy.json')
-//       .then(response => response.json())
-//       .then(data => {
-//         data.forEach(item => {
+//     fetch('../static/packed_items.json')
+//     .then(response => response.json())
+//     .then(data => {
+//         data.forEach((item, index) => {
+//             setTimeout(() => {
 //           // 직육면체의 중심 좌표를 계산합니다.
-//           const centerX = item.positionX + item.width / 2;
-//           const centerY = item.positionY + item.height / 2;
-//           const centerZ = item.positionZ + item.depth / 2;
+//                 const centerX = item.positionX + item.width / 2;
+//                 const centerY = item.positionY + item.height / 2;
+//                 const centerZ = item.positionZ + item.depth / 2;
         
-//         const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.color, 0.5);
-//         boxWithEdges.position.set(centerX, centerY, centerZ);
+//                 const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.color, 0.5);
+//                 boxWithEdges.position.set(centerX, centerY, centerZ);
 
-//         this._scene.add(boxWithEdges);
-//     });
+//                 this._scene.add(boxWithEdges);
+//                 }, index*1000);
+//             });
 
-//       })
-//       .catch(error => {
+//     })
+//     .catch(error => {
 //         console.error('Error loading JSON:', error);
-//       });
+//     });
 // }
+_loadCubesFromJson() {
+    fetch('../static/packed_items.json')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(item => {
+          // 직육면체의 중심 좌표를 계산합니다.
+          const centerX = item.positionX + item.width / 2;
+          const centerY = item.positionY + item.height / 2;
+          const centerZ = item.positionZ + item.depth / 2;
+        
+        const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.color, 1);
+        boxWithEdges.position.set(centerX, centerY, centerZ);
 
-_setupCamera() {
-    const width = this._divContainer.clientWidth;
-    const height = this._divContainer.clientHeight;
-    const depth = this._divContainer.clientDepth;
-    const camera = new THREE.PerspectiveCamera(
-        60,
-        width / height,
-        1,
-        100000
-    );
-    camera.position.set(2000, 4000, 5000); // x = 0, y = 20, z = 0 위치로 설정
-    camera.lookAt(new THREE.Vector3(2500, 2500,0)); // 카메라가 원점을 바라보도록 설정
-    
-    this._camera = camera;
+        this._scene.add(boxWithEdges);
+    });
+
+        
+      })
+      .catch(error => {
+        console.error('Error loading JSON:', error);
+      });
 }
 
 _setupLight() {
@@ -158,7 +147,6 @@ _setupLight() {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     this._scene.add(ambientLight);
 
-    
     const directionLight = new THREE.DirectionalLight(0xffffff, 0.5);
     directionLight.position.set(-1,2,4);
     this._scene.add(directionLight);
@@ -232,16 +220,7 @@ this._scene.add(axesHelper);
 
     this._scene.add(axes);
 
-    // 나머지 모델 추가 코드
-    // ...
-
-
-    
-        // 기존 모델 설정 코드
-        // ...
-    
-        this._loadCubesFromJson(); // JSON 파일에서 직육면체 로드 및 생성
-    
+    this._loadCubesFromJson(); // JSON 파일에서 직육면체 로드 및 생성
 
 }
 
@@ -258,61 +237,38 @@ _setupCamera() {
         1,
         100000
     );
-    camera.position.set(1350, -3000, 2000); // x = 0, y = 20, z = 0 위치로 설정
-    // camera.lookAt(new THREE.Vector3(2500, 2500,0)); // 카메라가 원점을 바라보도록 설정
-    
+    camera.position.set(1350, -3000, 2000);
     const containerCenter = new THREE.Vector3(containerWidth / 2, containerHeight / 2, containerDepth / 2);
     this._camera = camera;
 }
 
 _setupControls() {
         // OrbitControls 설정
-// this._controls = new TrackballControls(this._camera, this._divContainer);
-
-//     // 수직축(Y축) 회전 제한 해제
-//     this._controls.minPolarAngle = 0;  // 하단 제한 없음
-//     this._controls.maxPolarAngle = Math.PI;  // 상단 제한 없음
-
-//     // 수평축(X축) 회전 제한 해제
-//     this._controls.minAzimuthAngle = -Infinity;  // 왼쪽 회전 제한 없음
-//     this._controls.maxAzimuthAngle = Infinity;  // 오른쪽 회전 제한 없음
-// // X축을 중심으로 회전 제한
-// //this._controls.minPolarAngle = -Math.PI/2; // 하단 제한
-// //this._controls.maxPolarAngle = Math.PI / 2; // 상단 제한
-// this._controls.target.set(5,5,5);
-// // 초기화
-// this._controls.update();
     // // OrbitControls 객체를 생성하고 this._controls로 할당
     this._controls = new OrbitControls(this._camera, this._divContainer);
     const containerWidth = 2700;
         const containerHeight = 1600;
         const containerDepth = 1600;
-        this._controls.screenSpacePanning = false;
+
+        //this._controls.screenSpacePanning = false;
         const containerCenter = new THREE.Vector3(containerWidth / 2, containerHeight / 2, containerDepth / 2);
     this._controls.target.copy(containerCenter);
-    // // 관성 효과를 사용하여 더 부드러운 컨트롤 제공
-    this._controls.enableDamping = true;
+
+    // this._controls.minPolarAngle = Math.PI/2 //각 (수직으로 아래로는 회전 불가)
+    this._controls.maxPolarAngle = Infinity; // 최대 극각 (수직으로 위로는 90도까지 가능)
+
+    // 화면 공간 패닝 비활성화 (필요에 따라 활성화 가능)
+    this._controls.screenSpacePanning = true;
+
+    // 관성 효과를 사용하여 더 부드러운 컨트롤 제공
+    this._controls.enableDamping = true;    
     this._controls.dampingFactor = 0.05;
 
-    // // 화면 공간 패닝 비활성화
-    this._controls.screenSpacePanning = false;
-
-
 
     this._controls.update();
 
-
 }
-rotateCameraOnZAxis(angle) {
-    // 카메라의 현재 쿼터니언에 Z축 회전 추가
-    const quaternion = new THREE.Quaternion();
-    quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), angle);
-    this._camera.quaternion.multiplyQuaternions(quaternion, this._camera.quaternion);
-    this._camera.quaternion.normalize();
 
-    // 컨트롤 업데이트
-    this._controls.update();
-}
 resize() {
     const width = this._divContainer.clientWidth;
     const height = this._divContainer.clientHeight;

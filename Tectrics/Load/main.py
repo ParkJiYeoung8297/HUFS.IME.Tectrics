@@ -16,7 +16,7 @@ import os
 
 class Item:
 
-    def __init__(self, partno,name,typeof, WHD, weight, level, loadbear, updown, color):
+    def __init__(self, partno,name,typeof, WHD, weight, level, sequence, loadbear, updown, color):
         ''' '''
         self.partno = partno
         self.name = name
@@ -27,6 +27,7 @@ class Item:
         self.weight = weight
         # Packing Priority level ,choose 1-3
         self.level = level
+        self.sequence = sequence
         # loadbear
         self.loadbear = loadbear
         # Upside down? True or False
