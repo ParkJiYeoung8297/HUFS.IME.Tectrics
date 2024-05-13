@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+    <meta charset="UTF-8">
+    <title>택트리스</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="{% static '04_material.css' %}"> -->
+		
+    <script type="importmap">
+        
+        {
+            "imports": {
+                "three": "/static/three.module.js"  
+            }
+        }
+    </script>
+		<script src="{% static 'layer.js' %}" type="module" defer></script>
+
+
+    
+
+    <style>
+		.box{
+			width: 200px;
+			height: 50px; 
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size:30px;
+			font-weight: 600;
+			}
+      	.box:hover{
+        background: #E1EAF8;
+		}
+
+        input[type="file"]::file-selector-button {
+           display:none
+          }
+
+		
+		.custom-table td {
+			padding: 5px; /* 셀 내부의 padding 조절 */
+			border: 1px solid black; /* 셀 테두리 설정 */
+		}
+		.custom-table {
+			border-collapse: collapse;
+			width: 100%; /* 필요에 따라 조절 */
+			border-spacing: 5px 5px; /* 셀 사이 간격 조절 */
+		}
+
+		.modal_overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+    }
+
+    .modal_window {
+        background: white;
+        backdrop-filter: blur(13.5px);
+        -webkit-backdrop-filter: blur(13.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        width: 800px;
+        height: 600px;
+        position: relative;
+        padding: 10px;
+    }
+		.close-btn {
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+            margin-top: auto;
+            padding-top: 10px;
+        }
+		/* .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid black;
+            padding: 40px;
+            z-index: 1000;
+						width: 600px;
+						height: 400px;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+        }
+
+        /* .popup-overlay {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        } */
+
+        /* .close-btn {
+            cursor: pointer;
+            color: red;
+            font-weight: bold;
+            text-align: center;
+						margin-top: auto;
+						padding-top: 20px;
+        } */ 
+		
+         
+          
+	  </style>
+
+
+</head>
+<body>
+	
+	<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
+		<div style="width:200px;" ><a href="/Box/boxlist" style="text-decoration-line:none" id="Home">
+			<img style="height: 90px;border: 1px solid black; box-shadow: 2px 2px 2px 2px rgb(77, 71, 71) ;object-fit: contain;"src="/static/image/택트리스 로고.png">
+		</a></div>
+		<div style="display:flex;flex-direction: row;">
+			<div style="padding-top:40px;padding-right:20px;color:white;font-size:20px">{{ user_id }}</div>
+			<div style="padding-top:40px;padding-right:20px"><a href="/Login/userlogin" style="text-decoration-line:none;color:white;font-size:20px;"> 로그아웃</a></div>
+		</div>
+	</div>
+	
+	<div style=" display:flex;flex-direction: row;">
+		<div style="height:700px; width:200px; text-align: center; display: flex;flex-direction: column;justify-content:space-evenly;">
+			<div class="box" style="color:black"><a href="/Box/boxlist" style="font-size:35px;text-decoration-line:none;color:black">상품 목록</a></div>
+			<div class="box" style="background: #E1EAF8;"><a href="/Load/boxload" style="color:black;font-size:30px;text-decoration-line:none;color:#4676EF">적재</a></div>
+			<div class="box"><a href="/Route/map" style="color:black;text-decoration-line:none">지도</a></div>
+			<div class="box"><a href="/Route/road" style="color:black;text-decoration-line:none">배송 경로</a></div>
+		</div>
+		<div style="color:blue;width: 2500px;">
+			<div style="width:1150px;height:700px;content-align:center;margin:50px;"> <!--background-color:#4676EF-->
+			
+	</script>
+		<button id="layer" type="button" style="margin-left:1000px"> layer 보기 </button>
+
+
+<div>
+	
+	<div id="info" style="font-size:20px;text-align:center;color:black;">
+		<div id="infoDisplay" style="font-size:20px;color:black;"> </div>
+</div>
+</div>
+<div id="webgl-container2" style="width: 1200px; height: 600px; border: 1px solid black; margin-top:30px"></div>
+</div>
+
+<div style="width:1200px; height:600px; margin-left:50px; margin-top:50px; border: 1px solid black;">
+	<div class="container" style="position:relative;overflow:auto;height:600px">
+		<table class="table table-striped custom-table">
+			<thead>
+			<tr >
+				<td><B>번호</B></td>
+				<td ><B>송장 코드</B></td>
+				<td><B>고객명</B></td>
+				<td><B>도로명 주소</B></td>
+				<td><B>상세 주소</B></td>
+				<td><B>전화번호</B></td>
+				<td><B>길이</B></td>
+				<td><B>너비</B></td>
+				<td><B>높이</B></td>
+				<td><B>배송순서</B></td>
+				<td><B>적재순서</B></td>
+				<td><B>레이어</B></td>
+				<td><B>X좌표</B></td>
+				<td><B>Y좌표</B></td>
+				<td><B>Z좌표</B></td>
+			</tr>
+			</thead>
+			<tbody id="orderTableBody">
+				{% for order in combined_list %}
+				<tr class="box_table" id="box_{{ forloop.counter }}" style="cursor:pointer;">
+					<td>{{ forloop.counter }}</td>
+					<td>{{order.box_code}}</td>
+					<td>{{order.name}}</td>
+					<td>{{order.road_address}}</td>
+					<td>{{order.detail_address}}</td>
+					<td>0{{order.phone}}</td>
+					<td>{{order.width}}</td>
+					<td>{{order.height}}</td>
+					<td>{{order.depth}}</td>
+					<td>{{order.deliverySequence}}</td>
+					<td>{{order.loadSequence}}</td>
+					<td>{{order.layer}}</td>
+					<td>{{order.positionX}}</td>
+					<td>{{order.positionY}}</td>
+					<td>{{order.positionZ}}</td>
+				</tr>
+				{% endfor %}
+			<tbody>
+		</table>
+	</div>
+</div>
+
+<div class="modal_overlay" id="modal">
+	<div class="modal_window">
+		<div style="display: flex; flex-direction: row; justify-content: space-between;">
+		<div>
+			&nbsp;
+		</div>
+		<div>
+			새 이미지
+		</div>
+		<span class="close-btn">Close</span>
+	</div>
+	<div id="Display" class = "layer_image" style="width:778px; height:540px; margin-top:10px;">
+	<!-- <div id="webgl-container2" style="width: 770px; height: 500px; border: 1px solid black;"></div> -->
+		
+</div>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('modal');
+            const closeBtn = document.querySelector('.close-btn');
+
+						//const rows = document.querySelectorAll('.box_table');
+						const infoDisplay = document.getElementById('infoDisplay');
+        		const rows = document.querySelectorAll('.box_table');
+            rows.forEach(row => {
+                row.addEventListener('click', function () {
+									const cells = this.querySelectorAll('td');
+				// 셀의 데이터를 모아서 표시합니다.
+									let rowData = [];
+									cells.forEach(cell => {
+										rowData.push(cell.textContent.trim());
+									});
+                    // AJAX 요청으로 DB에서 데이터 가져오기
+                    $.ajax({
+                        url: '/getloaddata/',
+                        type: 'GET',
+                        data: { boxcode: rowData[1] },
+                        success: function (response) {
+                            // 서버로부터 받은 데이터를 모달 창에 표시
+                            Display.innerHTML = 
+														"송장번호: " + rowData[1] + "<br>고객명: " + rowData[2]+ "<br>주소: " + rowData[3]+
+														"<br>상세주소: " + rowData[4]+ "<br>전화번호: " + rowData[5] + "<br>배송순서: " + rowData[6]+ "<br>적재순서: " + rowData[7]+ "<br>레이어: " + rowData[8];
+														
+														$('#info').css({'display': 'none'});
+                            
+                            modal.style.display = 'flex'; // 모달 열기
+														
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('AJAX 요청 실패:', error);
+                        }
+                    });
+                });
+            });
+
+            // 모달 닫기 버튼 클릭 시 모달을 숨기는 이벤트
+            closeBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

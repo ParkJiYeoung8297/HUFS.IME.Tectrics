@@ -10,9 +10,9 @@
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static '04_material.css' %}">
-
+	<meta name="viewport" content="width=device-width,user-scalable=no, minimum-scale:1.0, maximum-sclae:1.0, initial-scale=1">
+    <!-- <link rel="stylesheet" href="{% static '04_material.css' %}"> -->
+		
     <script type="importmap">
         
         {
@@ -21,13 +21,31 @@
             }
         }
     </script>
+		<script src="{% static 'app.js' %}" type="module" defer></script>
+		<!-- <script src="{% static 'app copy.js' %}" type="module" defer></script> -->
 
 
+    
 
-    <script src="{% static 'app.js' %}" type="module" defer></script>
-		
-
-    <style>
+<style>
+	/* #webgl-container {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+} */
+#webgl-container2 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
 		.box{
 			width: 200px;
 			height: 50px; 
@@ -56,7 +74,41 @@
 			width: 100%; /* 필요에 따라 조절 */
 			border-spacing: 5px 5px; /* 셀 사이 간격 조절 */
 		}
-		.popup {
+
+		.modal_overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+    }
+
+    .modal_window {
+        background: white;
+        backdrop-filter: blur(13.5px);
+        -webkit-backdrop-filter: blur(13.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        width: 1000px;
+        height: 800px;
+        position: relative;
+        padding: 10px;
+    }
+		.close-btn {
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+            margin-top: auto;
+            padding-top: 10px;
+        }
+		/* .popup {
             display: none;
             position: fixed;
             left: 50%;
@@ -73,7 +125,7 @@
 						justify-content: space-between;
         }
 
-        .popup-overlay {
+        /* .popup-overlay {
             display: none;
             position: fixed;
             left: 0;
@@ -82,16 +134,16 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
             z-index: 999;
-        }
+        } */
 
-        .close-btn {
+        /* .close-btn {
             cursor: pointer;
             color: red;
             font-weight: bold;
             text-align: center;
 						margin-top: auto;
 						padding-top: 20px;
-        }
+        } */ 
 		
          
           
@@ -100,13 +152,13 @@
 
 </head>
 <body>
-	<div class="popup-overlay"></div>
+	<!-- <div class="popup-overlay"></div>
 	<div id="popup" class="popup">
 			<h2>Order Details</h2>
 			
 			<p id="popup-info"></p>
 			<span class="close-btn">Close</span>
-	</div>
+	</div> -->
 
 	<!-- 테이블 콘텐츠 -->
 	<!-- <h2>Order Table</h2>
@@ -136,7 +188,7 @@
 	</table> -->
 
 	<!-- 팝업을 위한 JavaScript 코드 -->
-	<script>
+	<!-- <script>
 			document.addEventListener('DOMContentLoaded', function () {
 					// 테이블의 행을 클릭하면 팝업을 띄움
 					const rows = document.querySelectorAll('.box_table');
@@ -163,7 +215,7 @@
 							});
 					});
 			});
-	</script>
+	</script> -->
 	<div style="height:100px;background-color:#4676EF;display: flex; flex-direction: row ; text-align: center; justify-content: space-between;">
 		<div style="width:200px;" ><a href="/Box/boxlist" style="text-decoration-line:none" id="Home">
 			<img style="height: 90px;border: 1px solid black; box-shadow: 2px 2px 2px 2px rgb(77, 71, 71) ;object-fit: contain;"src="/static/image/택트리스 로고.png">
@@ -260,18 +312,31 @@
 			});
 	});
 	</script>
+		<button id="layer_view" type="button" style="margin-left:1000px"><a href="{% url 'layer_view' %}" style="text-decoration: none; color: inherit;">레이어 보기</a></button>
 
-<div style="display:flex;flex-direction:row;">
+
+<!-- <div style="display:flex;flex-direction:row;">
 	<input type="search" style="width: 700px;height:50px;color:gray;padding-left:20px;font-size:20px" placeholder="주소, 송장번호, 고객 전화번호 등을 검색하세요" />
 	<button type="button"  style="width:100px;background-color:#4676EF;border:none;border-radius:3px;color:white;font-size:30px" > 검색</button>
-</div>
+</div> -->
 <!-- <div style="height:70px;width:800px;display:flex;flex-direction:row;justify-content:space-between;text-align:center;color:black;">
 	<div >배송순서 순</div>
 	<div>주소지 순</div>
 	<div>부피 순</div>
 </div> -->
+<div>
+	
+	<div id="info" style="font-size:20px;text-align:center;color:black;">
+		<div id="infoDisplay" style="font-size:20px;color:black;"> </div>
+</div>
+</div>
+<div id="webgl-container" style="width: 1200px; height: 600px; border: 1px solid black; margin-top:30px; position: relative; overflow:none;" > </div>   
+	<!-- <canvas id="canvas" width="1200" height="600"></canvas> -->
+	<!-- <div id="webgl-container"> </div> -->
 
-	<div style="width:1100px; height:600px; margin-top:800px; border: 1px solid black;">
+</div>
+
+	<div style="width:1200px; height:600px; margin-left:50px; margin-top:50px; border: 1px solid black;">
 		<div class="container" style="position:relative;overflow:auto;height:600px">
 			<table class="table table-striped custom-table">
 				<thead>
@@ -282,9 +347,15 @@
 					<td><B>도로명 주소</B></td>
 					<td><B>상세 주소</B></td>
 					<td><B>전화번호</B></td>
+					<td><B>길이</B></td>
+					<td><B>너비</B></td>
+					<td><B>높이</B></td>
 					<td><B>배송순서</B></td>
 					<td><B>적재순서</B></td>
 					<td><B>레이어</B></td>
+					<td><B>X좌표</B></td>
+					<td><B>Y좌표</B></td>
+					<td><B>Z좌표</B></td>
 				</tr>
 				</thead>
 				<tbody id="orderTableBody">
@@ -296,9 +367,15 @@
 						<td>{{order.road_address}}</td>
 						<td>{{order.detail_address}}</td>
 						<td>0{{order.phone}}</td>
+						<td>{{order.width}}</td>
+						<td>{{order.height}}</td>
+						<td>{{order.depth}}</td>
 						<td>{{order.deliverySequence}}</td>
 						<td>{{order.loadSequence}}</td>
 						<td>{{order.layer}}</td>
+						<td>{{order.positionX}}</td>
+						<td>{{order.positionY}}</td>
+						<td>{{order.positionZ}}</td>
 					</tr>
 					{% endfor %}
 				<tbody>
@@ -306,103 +383,463 @@
 		</div>
 	</div>
 
-<!-- <div style="height:600px;width:1200px;display:flex;flex-direction:row;justify-content:space-between "> 
-
-<div style="display: flex; flex-direction: high; justify-content: space-between;">	
-	<div style="width:1200px; height:600px; margin-top: 800px;  border: 1px solid black;">
-		<div class="container" style="position:relative;overflow:auto;height:600px">
-			<table class="table table-striped custom-table">
-				<thead>
-				<tr >
-					<td><B>번호</B></td>
-					<td ><B>송장 코드</B></td>
-					<td><B>고객명</B></td>
-					<td><B>도로명 주소</B></td>
-					<td><B>상세 주소</B></td>
-					<td><B>전화번호</B></td>
-					<td><B>배송순서</B></td>
-					<td><B>레이어</B></td>
-				</tr>
-				</thead>
-				<tbody id="orderTabBody">
-					{% for order in order_list %}
-					<tr class="box_table" id="box_{{ forloop.counter }}" style="cursor:pointer;">
-						<td>{{ forloop.counter }}</td>
-						<td>{{order.box_code}}</td>
-						<td>{{order.name}}</td>
-						<td>{{order.road_address}}</td>
-						<td>{{order.detail_address}}</td>
-						<td>0{{order.phone}}</td>
-					</tr>
-					{% endfor %}
-				<tbody>
-			</table>
+<!-- <div class="modal_overlay" id="modal">
+	<div class="modal_window">
+		<div style="display: flex; flex-direction: row; justify-content: space-between; position:relative; overflow: none;">
+			<div>&nbsp;</div>
+			<div>상세 정보</div>
+			<span class="close-btn">Close</span>
 		</div>
+		<div id="modal_content" style="width: 200px; height: 80%; display: flex;">
+			<div style="flex: 1; padding: 10px;">
+				<div id="Display"></div>
+			</div>
+			<div id="threejs_container" style="width: 700px; height: 100%;"></div>
+		
+		</div>
+			<div style="display: flex; justify-content: center;">
+				<button class="modal_button" id="confirmBtn" >적재</button>
+				<button class="modal_button" id="cancelBtn">분류</button>
+			</div>
 	</div> -->
-
-	 <div style="width:500px;border: 1px solid black;margin-left:100px;">
-		<div id="webgl-container" style="width: 1200px; height: 700px; border: 1px solid black;margin-left:50px; margin-top:50px"></div>
-		<div id="info" style="font-size:20px;text-align:center;color:black;">
-			
-			
-			<div id="infoDisplay" style="font-size:20px;color:black;"> </div>
-	</div>
+	<div class="modal_overlay" id="modal">
+    <div class="modal_window">
+			<div class="modal_header">
+				<span class="close-btn" id="closeModal" style="cursor: pointer;">&times; Close</span>
+		</div>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; position: relative; height: 100%;">
+            <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                <div id="Display" style="width: 300px; padding: 10px;">상세 정보 표시 부분</div>
+                <div id="threejs_container" style="flex-grow: 1; height: 100%;"></div>
+            </div>
+            <div style="display: flex; justify-content: center; padding: 10px;">
+                <button class="modal_button" id="confirmBtn">적재</button>
+                <button class="modal_button" id="cancelBtn">분류</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script type="module">
+	import * as THREE from '/static/three.module.js';
+	import { TrackballControls } from '/static/TrackballControls.js';
 	
-</div>
-</div>
-</div> 
+	let scene, renderer, camera, controls;
+	
 
+		
+	document.addEventListener('DOMContentLoaded', async () => {
+		await initializeThreeJS();
+    const modal = document.getElementById('modal');
+    const closeBtn = document.querySelector('.close-btn');
+    const rows = document.querySelectorAll('.box_table');
+		
+    rows.forEach(row => {
+        row.addEventListener('click', async () => {
+            // modal.style.display = 'block';
+						const data = await loadJSONData();
+						updateScene(data);
+            // initializeThreeJS(); // 모달 창이 표시될 때 Three.js 초기화
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+				while (scene.children.length > 0) {
+            scene.remove(scene.children[0]);
+        }
+    });
+});
+async function loadJSONData() {
+        const response = await fetch('/static/saved_data.json');
+        return await response.json();
+	}
+function createContainer(width, height, depth, color) {
+	    const geometry = new THREE.BoxGeometry(width, height, depth);
+	    const material = new THREE.MeshBasicMaterial({
+	        color: color,
+	        wireframe: true,
+	        transparent: true,
+	        opacity: 0.5
+	    });
+	    const containerMesh = new THREE.Mesh(geometry, material);
+	    // 컨테이너의 중심이 원점에 위치하도록 설정
+	    containerMesh.position.set(width / 2, height / 2, depth / 2);
+	    return containerMesh;
+}
+
+// 상자와 외곽선을 만드는 함수
+function createBoxWithEdges(width, height, depth, color) {
+    // 상자 생성
+    const geometry = new THREE.BoxGeometry(width, height, depth);
+    const material = new THREE.MeshBasicMaterial({ color:color, transparent : true, opacity: 0.7});
+    const box = new THREE.Mesh(geometry, material);
+
+    // 상자 외곽선 생성
+    const edges = new THREE.EdgesGeometry(geometry);
+    const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+    const edgesMesh = new THREE.LineSegments(edges, edgesMaterial);
+
+    // 상자와 외곽선을 하나의 그룹으로 묶음
+    const group = new THREE.Group();
+    group.add(box);
+    group.add(edgesMesh);
+
+    return group;
+}
+
+function createCustomGrid(width, height, divisionsWidth, divisionsHeight, color) {
+    const gridHelper = new THREE.Group();
+    const stepWidth = width / divisionsWidth;
+    const stepHeight = height / divisionsHeight;
+
+    const material = new THREE.LineBasicMaterial({ color: color });
+
+    // 수평선 생성
+    for (let i = 0; i <= divisionsHeight; i++) {
+        const horizontalPoints = [
+            new THREE.Vector3(0, i * stepHeight, 0),
+            new THREE.Vector3(width, i * stepHeight, 0)
+        ];
+        const geometryH = new THREE.BufferGeometry().setFromPoints(horizontalPoints);
+        const horizontalLine = new THREE.Line(geometryH, material);
+        gridHelper.add(horizontalLine);
+    }
+
+    // 수직선 생성
+    for (let j = 0; j <= divisionsWidth; j++) {
+        const verticalPoints = [
+            new THREE.Vector3(j * stepWidth, 0, 0),
+            new THREE.Vector3(j * stepWidth, height, 0)
+        ];
+        const geometryV = new THREE.BufferGeometry().setFromPoints(verticalPoints);
+        const verticalLine = new THREE.Line(geometryV, material);
+        gridHelper.add(verticalLine);
+    }
+    return gridHelper;
+}
+async function initializeThreeJS() {
+		// const data = await loadJSONData();
+		// const boxes = data.boxes;
+    const container = document.getElementById('threejs_container');
+		if (!container) return;
+    // if (!container.firstChild) { // Prevent multiple initializations
+        const renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        const scene = new THREE.Scene();
+				scene.background = new THREE.Color(0xffffff);
+        // const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        // camera.position.z = 5;
+				const containerWidth = 2700;
+				const containerHeight = 1600;
+				const containerDepth = 1600;
+				const width = container.clientWidth;
+				const height = container.clientHeight;
+				const depth = container.clientDepth;
+				const camera = new THREE.PerspectiveCamera(
+						60,
+						width / height,
+						1,
+						100000
+				);
+				camera.position.set(1350, -3000, 2000);
+				const containerCenter = new THREE.Vector3(containerWidth / 2, containerHeight / 2, containerDepth / 2);
+
+        const controls = new TrackballControls(camera, renderer.domElement);
+				controls.target.copy(containerCenter);
+				controls.update();
+
+        const containerMesh = createContainer(2700, 1600, 1600, 0xaaaaaa);
+	      scene.add(containerMesh);
+
+        // 상자 추가하는 부분 (옵션)
+        // const box = createBoxWithEdges(410, 310, 210, 0xff0000);
+        // box.position.set(0, 0, 0); // 상자 위치 조정
+        // scene.add(box);
+				// const box = createBoxWithEdges(parseInt(data.width), parseInt(data.height), parseInt(data.depth), 0xff0000);
+				// const centerX = data.positionX + data.width / 2;
+        // const centerY = data.positionY + data.height / 2;
+        // const centerZ = data.positionZ + data.depth / 2;
+        // box.position.set(centerX, centerY, centerZ);
+        // scene.add(box);
+
+
+
+        // 그리드 추가 (옵션)
+        const grid = createCustomGrid(2700, 1600, 16, 27, 0x888888);
+        scene.add(grid);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            // cube.rotation.x += 0.01;
+            // cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+						controls.update();
+        }
+
+        animate();
+    }
+		function updateScene(data) {
+    // 씬에서 기존 상자 제거
+    const existingObject = scene.getObjectByName('boxMesh');
+    if (existingObject) {
+        scene.remove(existingObject);
+    }
+
+    // 새 상자 생성
+    const box = createBoxWithEdges(parseInt(data.width), parseInt(data.height), parseInt(data.depth), 0xff0000);
+    box.name = 'boxMesh';  // 새 상자에 이름 할당
+    scene.add(box);
+
+}
+
+</script>			
+<!-- <script type="module">
+	import * as THREE from '/static/three.module.js';
+	import { TrackballControls } from '/static/TrackballControls.js';
+	
+	let scene, renderer, camera, controls;
+	
+	async function loadJSONData() {
+        const response = await fetch('/static/saved_data.json');
+        return await response.json();
+	}
+		
+	document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('modal');
+    const closeBtn = document.querySelector('.close-btn');
+    const rows = document.querySelectorAll('.box_table');
+
+    rows.forEach(row => {
+        row.addEventListener('click', () => {
+            modal.style.display = 'block';
+						
+            initializeThreeJS(); // 모달 창이 표시될 때 Three.js 초기화
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        const container = document.getElementById('threejs_container');
+        while (container.firstChild) {
+            container.removeChild(container.firstChild); // Clean up the scene
+        }
+    });
+});
+function createContainer(width, height, depth, color) {
+	    const geometry = new THREE.BoxGeometry(width, height, depth);
+	    const material = new THREE.MeshBasicMaterial({
+	        color: color,
+	        wireframe: true,
+	        transparent: true,
+	        opacity: 0.5
+	    });
+	    const containerMesh = new THREE.Mesh(geometry, material);
+	    // 컨테이너의 중심이 원점에 위치하도록 설정
+	    containerMesh.position.set(width / 2, height / 2, depth / 2);
+	    return containerMesh;
+}
+
+// 상자와 외곽선을 만드는 함수
+function createBoxWithEdges(width, height, depth, color) {
+    // 상자 생성
+    const geometry = new THREE.BoxGeometry(width, height, depth);
+    const material = new THREE.MeshBasicMaterial({ color:color, transparent : true, opacity: 0.7});
+    const box = new THREE.Mesh(geometry, material);
+
+    // 상자 외곽선 생성
+    const edges = new THREE.EdgesGeometry(geometry);
+    const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+    const edgesMesh = new THREE.LineSegments(edges, edgesMaterial);
+
+    // 상자와 외곽선을 하나의 그룹으로 묶음
+    const group = new THREE.Group();
+    group.add(box);
+    group.add(edgesMesh);
+
+    return group;
+}
+
+function createCustomGrid(width, height, divisionsWidth, divisionsHeight, color) {
+    const gridHelper = new THREE.Group();
+    const stepWidth = width / divisionsWidth;
+    const stepHeight = height / divisionsHeight;
+
+    const material = new THREE.LineBasicMaterial({ color: color });
+
+    // 수평선 생성
+    for (let i = 0; i <= divisionsHeight; i++) {
+        const horizontalPoints = [
+            new THREE.Vector3(0, i * stepHeight, 0),
+            new THREE.Vector3(width, i * stepHeight, 0)
+        ];
+        const geometryH = new THREE.BufferGeometry().setFromPoints(horizontalPoints);
+        const horizontalLine = new THREE.Line(geometryH, material);
+        gridHelper.add(horizontalLine);
+    }
+
+    // 수직선 생성
+    for (let j = 0; j <= divisionsWidth; j++) {
+        const verticalPoints = [
+            new THREE.Vector3(j * stepWidth, 0, 0),
+            new THREE.Vector3(j * stepWidth, height, 0)
+        ];
+        const geometryV = new THREE.BufferGeometry().setFromPoints(verticalPoints);
+        const verticalLine = new THREE.Line(geometryV, material);
+        gridHelper.add(verticalLine);
+    }
+    return gridHelper;
+}
+async function initializeThreeJS() {
+		const data = await loadJSONData();
+		// const boxes = data.boxes;
+    const container = document.getElementById('threejs_container');
+    if (!container.firstChild) { // Prevent multiple initializations
+        const renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        const scene = new THREE.Scene();
+				scene.background = new THREE.Color(0xffffff);
+        // const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        // camera.position.z = 5;
+				const containerWidth = 2700;
+				const containerHeight = 1600;
+				const containerDepth = 1600;
+				const width = container.clientWidth;
+				const height = container.clientHeight;
+				const depth = container.clientDepth;
+				const camera = new THREE.PerspectiveCamera(
+						60,
+						width / height,
+						1,
+						100000
+				);
+				camera.position.set(1350, -3000, 2000);
+				const containerCenter = new THREE.Vector3(containerWidth / 2, containerHeight / 2, containerDepth / 2);
+
+        const controls = new TrackballControls(camera, renderer.domElement);
+				controls.target.copy(containerCenter);
+				controls.update();
+
+        const containerMesh = createContainer(2700, 1600, 1600, 0xaaaaaa);
+	      scene.add(containerMesh);
+
+        // 상자 추가하는 부분 (옵션)
+        // const box = createBoxWithEdges(410, 310, 210, 0xff0000);
+        // box.position.set(0, 0, 0); // 상자 위치 조정
+        // scene.add(box);
+				const box = createBoxWithEdges(parseInt(data.width), parseInt(data.height), parseInt(data.depth), 0xff0000);
+				const centerX = data.positionX + data.width / 2;
+        const centerY = data.positionY + data.height / 2;
+        const centerZ = data.positionZ + data.depth / 2;
+        box.position.set(centerX, centerY, centerZ);
+        scene.add(box);
+
+
+
+        // 그리드 추가 (옵션)
+        const grid = createCustomGrid(2700, 1600, 16, 27, 0x888888);
+        scene.add(grid);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            // cube.rotation.x += 0.01;
+            // cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+						controls.update();
+        }
+
+        animate();
+    }
+		document.addEventListener('DOMContentLoaded', initializeThreeJS);
+}
+</script> -->
+	
 
 <script>
-	//클릭하면 상세정보 뜨기
-	document.addEventListener('DOMContentLoaded', function() {
-		// 모든 'box_table' 클래스를 가진 행을 선택합니다.
-		const rows = document.querySelectorAll('.box_table');
-		const infoDisplay = document.getElementById('infoDisplay'); // 정보를 표시할 div를 선택합니다.
-		
-		// 각 행에 대해 클릭 이벤트 리스너를 추가합니다.
-		rows.forEach(row => {
-			row.addEventListener('click', function() {
-				// 이 행의 모든 데이터 셀(td)을 찾습니다.
-				const cells = this.querySelectorAll('td');
-				// 셀의 데이터를 모아서 표시합니다.
-				let rowData = [];
-				cells.forEach(cell => {
-					rowData.push(cell.textContent.trim());
-				});
-				//송장번호에 맞는 크기를 db에서 불러옴
-				$.ajax({
-					url:'/getbox/',
-					method:'GET',
-					data:{boxcode:rowData[1]},
-					success: function(response){
-						var l;
-						var w;
-						var h;
-						console.log(response.boxdata[0]);
-						l=response.boxdata[0].length;
-						w=response.boxdata[0].width;
-						h=response.boxdata[0].height;
-						// div에 행의 데이터를 표시합니다. 예: "1, ABC123, John Doe, 123 Main St, Apt 4, 0123456789"
-						infoDisplay.innerHTML = "송장번호: " + rowData[1] + "<br>고객명: " + rowData[2]+ "<br>주소: " + rowData[3]+
-						"<br>상세주소: " + rowData[4]+ "<br>전화번호: " + rowData[5]+"<br>길이 정보: "+l+" * "+w+" * "+h;
-						$('#info').css({'display': 'none'});
-						
-					},
-					error: function(xhr, status, error) {
-						// 오류 처리
-						console.error(error);
-					  }
+	document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('modal');
+            const closeBtn = document.querySelector('.close-btn');
 
-				});
-				
-				
-			});
-		});
-	});
-	
-	
+						//const rows = document.querySelectorAll('.box_table');
+						// const infoDisplay = document.getElementById('infoDisplay');
+        		const rows = document.querySelectorAll('.box_table');
+            rows.forEach(row => {
+                row.addEventListener('click', function () {
+									const cells = this.querySelectorAll('td');
+				// 셀의 데이터를 모아서 표시합니다.
+									let rowData = [];
+									cells.forEach(cell => {
+										rowData.push(cell.textContent.trim());
+									});
+                    // AJAX 요청으로 DB에서 데이터 가져오기
+                    $.ajax({
+                        url: '/getloaddata/',
+                        type: 'GET',
+                        data: { boxcode: rowData[1] },
+                        success: function (response) {
+                            // 서버로부터 받은 데이터를 모달 창에 표시
+                            Display.innerHTML = 
+														"송장번호: " + rowData[1] + "<br>고객명: " + rowData[2]+ "<br>주소: " + rowData[3]+
+														"<br>상세주소: " + rowData[4]+ "<br>전화번호: " + rowData[5] + "<br>길이:" + rowData[6]+ "<br>너비:" + rowData[7]+ "<br>높이:" + rowData[8]+ "<br>배송순서: " + rowData[9]+ "<br>적재순서: " + rowData[10]+ "<br>레이어: " + rowData[11]+ "<br>X좌표: " + rowData[12]+ "<br>Y좌표: " + rowData[13]+ "<br>Z좌표: " + rowData[14];
+														
+														$('#info').css({'display': 'none'});
+                            
+                            modal.style.display = 'flex'; // 모달 열기
+														
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('AJAX 요청 실패:', error);
+                        }
+                    });
+                });
+            });
+
+            // 모달 닫기 버튼 클릭 시 모달을 숨기는 이벤트
+            closeBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const rows = document.querySelectorAll('.box_table');
+    rows.forEach(row => {
+        row.addEventListener('click', function () {
+            const rowData = {};
+            const cells = this.querySelectorAll('td');
+            cells.forEach((cell, index) => {
+                // 예시로 각 열에 대한 키를 설정합니다. 실제 열 이름에 맞게 조정해야 합니다.
+                const header = ["id", "box_code", "name", "road_address", "detail_address", "phone", "width", "height", "depth", "deliverySequence", "loadSequence", "layer", "positionX", "positionY", "positionZ"][index];
+                rowData[header] = cell.textContent.trim();
+            });
+            console.log(JSON.stringify(rowData)); // 콘솔에 JSON 출력
+            // 서버로 데이터 전송
+            sendDataToServer(rowData);
+        });
+    });
+});
+
+function sendDataToServer(data) {
+    $.ajax({
+        url: '/save_row_data/', // Django URL
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+        success: function(response) {
+            alert('데이터가 서버에 성공적으로 저장되었습니다.');
+        },
+        error: function(xhr, status, error) {
+            console.error('저장 실패:', error);
+        }
+    });
+}
+
 </script>
 </body>
 </html>

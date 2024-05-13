@@ -15,4 +15,5 @@ class LoadedBoxData(models.Model):
     positionY = models.IntegerField()
     positionZ = models.IntegerField()
     color   = models.TextField(max_length=15)
+    layerColor = models.TextField(max_length=15,null=True, blank=True)
     

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from networkx import is_path
 from rest_framework.views import APIView
 import json
 from django.http import JsonResponse
@@ -22,13 +23,21 @@ from django.db import transaction
 from django.core.paginator import Paginator 
 import os
 from django.db.models import F
-
+from django.conf import settings
+import os
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # class BoxLoad(APIView):
 #     def get(self,request):
 #         user_id=request.session['user_id']
 #         context = {"user_id":user_id}
 #         return render(request,"Load/boxload.html",context)
+
+def get_box_data(request):
+    boxes = LoadedBoxData.objects.all().values()
+    return JsonResponse(list(boxes), safe=False)
+
 class BoxLoad(APIView):
     def get(self,request):
         print('로그인한 사용자 : ',request.session['user_id'])
@@ -42,8 +51,8 @@ class BoxLoad(APIView):
             combined_list = []
             for order in orders:
                 box_code = order['box_code']
-                load_data = LoadedBoxData.objects.filter(box_code=box_code).values(
-                    "deliverySequence", "loadSequence", "layer"
+                load_data = LoadedBoxData.objects.filter(box_code=box_code).values( "width", "height", "depth", 
+                    "deliverySequence", "loadSequence", "layer", "positionX", "positionY", "positionZ"
                 ).first()
                 
                 # 결합된 딕셔너리 생성
@@ -53,9 +62,15 @@ class BoxLoad(APIView):
                     "road_address": order['road_address'],
                     "detail_address": order['detail_address'],
                     "phone": order['phone'],
+                    "width": load_data['width'] if load_data else None,
+                    "height": load_data['height'] if load_data else None,
+                    "depth": load_data['depth'] if load_data else None,
                     "deliverySequence": load_data['deliverySequence'] if load_data else None,
                     "loadSequence": load_data['loadSequence'] if load_data else None,
-                    "layer": load_data['layer'] if load_data else None
+                    "layer": load_data['layer'] if load_data else None,
+                    "positionX": load_data['positionX'] if load_data else None,
+                    "positionY": load_data['positionY'] if load_data else None,
+                    "positionZ": load_data['positionZ'] if load_data else None
                 }
                 combined_list.append(combined_entry)
             
@@ -71,6 +86,98 @@ class BoxLoad(APIView):
         context = {"combined_list": combined_list, "user_id": user_id}
         return render(request, "Load/boxload.html", context)
     
+class LayerLoad(APIView):
+    def get(self,request):
+        print('로그인한 사용자 : ',request.session['user_id'])
+        user_id=request.session['user_id']
+        user=User.objects.filter(user_id=user_id).values("dev_code").first()
+        if user is not None:
+            # dev_code를 사용하여 필터링
+            dev_code = user['dev_code']
+            orders2 = Order.objects.filter(delivery_man_code=dev_code).values("box_code", "name", "road_address", "detail_address", "phone")
+            
+            combined_list2 = []
+            for order2 in orders2:
+                box_code2 = order2['box_code']
+                load_data2 = LoadedBoxData.objects.filter(box_code=box_code2).values(
+                    "width", "height", "depth", 
+                    "deliverySequence", "loadSequence", "layer", "positionX", "positionY", "positionZ"
+                ).first()
+                
+                # 결합된 딕셔너리 생성
+                combined_entry2 = {
+                    "box_code": order2['box_code'],
+                    "name": order2['name'],
+                    "road_address": order2['road_address'],
+                    "detail_address": order2['detail_address'],
+                    "phone": order2['phone'],
+                    "width": load_data2['width'] if load_data2 else None,
+                    "height": load_data2['height'] if load_data2 else None,
+                    "depth": load_data2['depth'] if load_data2 else None,
+                    "deliverySequence": load_data2['deliverySequence'] if load_data2 else None,
+                    "loadSequence": load_data2['loadSequence'] if load_data2 else None,
+                    "layer": load_data2['layer'] if load_data2 else None,
+                    "positionX": load_data2['positionX'] if load_data2 else None,
+                    "positionY": load_data2['positionY'] if load_data2 else None,
+                    "positionZ": load_data2['positionZ'] if load_data2 else None
+                }
+                combined_list2.append(combined_entry2)
+            
+            combined_list2 = sorted(
+                combined_list2,
+                key=lambda x: (x['loadSequence'] is None, x['loadSequence']),
+                reverse=False
+            )
+        else:
+            combined_list2 = []
+        
+        # 하나의 리스트로 병합된 결과를 템플릿에 전달
+        context2 = {"combined_list2": combined_list2, "user_id": user_id}
+        return render(request, "Load/layer.html", context2)
+        
+# def getloaddata(request):
+#     boxcode = request.GET.get('boxcode')
+#     if boxcode:
+#         try:
+#             order = Order.objects.filter(box_code=boxcode).values(
+#                 'box_code', 'name', 'road_address', 'detail_address', 'phone'
+#             ).first()
+#             load_data = LoadedBoxData.objects.filter(box_code=boxcode).values(
+#                 'deliverySequence', 'loadSequence', 'layer', 'positionX', 'positionY', 'positionZ'
+#             ).first()
+#             if order and load_data:
+#                 data = {**order, **load_data}
+#                 return JsonResponse({'data': data}, safe=False)
+#             else:
+#                 return JsonResponse({'error': 'No data found for provided box code'}, status=404)
+#         except Exception as e:
+#             return JsonResponse({'error': str(e)}, status=500)
+#     return JsonResponse({'error': 'No boxcode provided'}, status=400)
+def getloaddata(request):
+    code = request.GET.get('boxcode', None)  # GET 요청에서 파라미터 추출
+    if code:
+        boxdata = list(Order.objects.filter(box_code=code).values('name','road_address','detail_address','phone'))
+        boxdata2 = list(LoadedBoxData.objects.filter(box_code=code).values('deliverySequence', 'loadSequence', 'layer','positionX','positionY','positionZ' ))
+
+
+        # 파일 읽기
+        # with open('static/packed_items.json', 'r') as file:
+        #     data = json.load(file)
+
+        # # 데이터 수정
+        #     # print(boxdata2[0])
+        #     # data[0]['width']=boxdata2[0]['width']/30
+        #     # data[0]['height']=boxdata2[0]['height']/30
+        #     # data[0]['depth']=boxdata2[0]['length']/30
+
+        # # 파일 쓰기
+        # with open('static/packed_items.json', 'w') as file:
+        #     json.dump(data, file, indent=4)
+        
+        return JsonResponse({'boxdata': boxdata,'boxdata2':boxdata2})  # 데이터를 JSON 형식으로 반환
+    else:
+        return JsonResponse({'error': 'No code provided'}, status=400)
+        
 class Index(APIView):
     def get(self,request):
         
@@ -171,6 +278,7 @@ def generate_random_color():
     """ RGB 형식의 랜덤 색상 생성 """
     return "#{:02x}{:02x}{:02x}".format(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))           
 
+# 메인함수 실행 버튼 클릭 시 실행
 def pack_items(request):
     user_id = request.session.get("user_id")
     
@@ -261,70 +369,83 @@ def pack_items(request):
     
         results = [{'bin': bin.partno, 'items': [item.name for item in bin.items]} for bin in packer.bins]
         return JsonResponse({'results': results})
-            
+
+# 레이어 입력 버튼 클릭 시 실행            
 def layer(request):
+        layer_colors = {
+            1: 'red',    # 레이어 1: 빨강
+            2: 'blue',   # 레이어 2: 파랑
+            3: 'green',  # 레이어 3: 초록
+            4: 'yellow', # 레이어 4: 노랑
+            5: 'purple', # 레이어 5: 보라
+            6: 'orange'  # 레이어 6: 오렌지 
+        }
         # Layer 1: (0,0) ~ (900,800)
-        boxes_layer_1 = LoadedBoxData.objects.filter(
-            positionX__gte=0,
-            positionX__lte=900 - F('width') / 2,
-            positionY__gte=0,
-            positionY__lte=800 - F('height') / 2
-        )
-        boxes_layer_1.update(layer=1)
+        boxes = LoadedBoxData.objects.all()
+        boxes_data = []
+    # 각 박스를 반복하면서 중심점을 기준으로 레이어 할당
+        for box in boxes:
+            center_x = box.positionX + box.width / 2
+            center_y = box.positionY + box.height / 2
 
-        # Layer 2: (0,800) ~ (900,1600)
-        boxes_layer_2 = LoadedBoxData.objects.filter(
-            positionX__gte=0,
-            positionX__lte=900 - F('width') / 2,
-            positionY__gte=800,
-            positionY__lte=1600 - F('height') / 2
-        )
-        boxes_layer_2.update(layer=2)
+        # 중심점을 기준으로 레이어 결정
+            if 0 <= center_x < 900:
+                if 0 <= center_y < 800:
+                    layer = 1
+                elif 800 <= center_y < 1600:
+                    layer = 2
+            elif 900 <= center_x < 1800:
+                if 0 <= center_y < 800:
+                    layer = 3
+                elif 800 <= center_y < 1600:
+                    layer = 4
+            elif 1800 <= center_x < 2700:
+                if 0 <= center_y < 800:
+                    layer = 5
+                elif 800 <= center_y < 1600:
+                    layer = 6
+            
+            # 레이어 및 색상 업데이트
+            box.layer = layer
+            box.layerColor = layer_colors[layer]
+            box.save()
 
-        # Layer 3: (900,0) ~ (1800,800)
-        boxes_layer_3 = LoadedBoxData.objects.filter(
-            positionX__gte=900,
-            positionX__lte=1800 - F('width') / 2,
-            positionY__gte=0,
-            positionY__lte=800 - F('height') / 2
-        )
-        boxes_layer_3.update(layer=3)
+    # 총 업데이트된 박스 수 반환
+            boxes_data.append({
+                "id": box.id,
+                "positionX": box.positionX,
+                "positionY": box.positionY,
+                "positionZ": box.positionZ,
+                "width": box.width,
+                "height": box.height,
+                "depth": box.depth,
+                "layer": box.layer,
+                "layerColor": box.layerColor
+            })
 
-        # Layer 4: (900,800) ~ (1800,1600)
-        boxes_layer_4 = LoadedBoxData.objects.filter(
-            positionX__gte=900,
-            positionX__lte=1800 - F('width') / 2,
-            positionY__gte=800,
-            positionY__lte=1600 - F('height') / 2
-        )
-        boxes_layer_4.update(layer=4)
+        # 파일로 저장
+        
+        if settings.STATIC_ROOT:
+            file_path = os.path.join(settings.STATIC_ROOT, 'packed_boxes_layer.json')
+        else:
+                # STATIC_ROOT가 설정되어 있지 않은 경우 대체 경로 사용
+                file_path = os.path.join(settings.BASE_DIR, 'static', 'packed_boxes_layer.json')
 
-        # Layer 5: (1800,0) ~ (2700,800)
-        boxes_layer_5 = LoadedBoxData.objects.filter(
-            positionX__gte=1800,
-            positionX__lte=2700 - F('width') / 2,
-            positionY__gte=0,
-            positionY__lte=800 - F('height') / 2
-        )
-        boxes_layer_5.update(layer=5)
+            # 파일로 저장
+        with open(file_path, 'w') as json_file:
+            json.dump(boxes_data, json_file, indent=4)
 
-        # Layer 6: (1800,800) ~ (2700,1600)
-        boxes_layer_6 = LoadedBoxData.objects.filter(
-            positionX__gte=1800,
-            positionX__lte=2700 - F('width') / 2,
-            positionY__gte=800,
-            positionY__lte=1600 - F('height') / 2
-        )
-        boxes_layer_6.update(layer=6)
+        updated_count = len(boxes)
+        return JsonResponse({"message": f"Updated {updated_count} boxes across six layers, data saved to {file_path}."}, status=200)
 
-        # 총 업데이트된 박스 수를 계산
-        updated_count = sum([
-            boxes_layer_1.count(),
-            boxes_layer_2.count(),
-            boxes_layer_3.count(),
-            boxes_layer_4.count(),
-            boxes_layer_5.count(),
-            boxes_layer_6.count()
-        ])
+def layer_view(request):
+    return render(request, 'Load/layer.html')
 
-        return JsonResponse({"message": f"Updated {updated_count} boxes across six layers."}, status=200)
+# 표의 행 클릭스 행 정보 json 파일로 생성하여 static 폴더에 저장
+def save_row_data(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        with open('static/saved_data.json', 'w') as f:
+            json.dump(data, f)
+        return JsonResponse({'status': 'success', 'message': 'Data saved successfully'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)

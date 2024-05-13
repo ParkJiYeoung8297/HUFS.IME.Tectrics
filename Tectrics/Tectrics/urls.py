@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 #from .views import Main
 from Route.views import Road
-from Load.views import BoxLoad, LoadData
+from Load.views import BoxLoad, LoadData, LayerLoad
 from Box.views import BoxList
 from Order.views import its
 from Order.views import upload_file 
@@ -35,6 +35,9 @@ from Route.views import getaddress
 from Load.views import load_sequence#추가
 from Load.views import layer
 from Load.views import LoadList
+from Load.views import getloaddata
+from . import views
+from Load.views import save_row_data
 
 
 
@@ -45,6 +48,7 @@ urlpatterns = [
     path("",UserLogin.as_view()),
     path("Route/road",Road.as_view()),
     path("Load/boxload",BoxLoad.as_view()),
+    path("Load/layer",LayerLoad.as_view()),
     path("Box/boxlist",BoxList.as_view()),
     path('Route/map', Map.as_view()),
     path('upload/', upload_file, name='upload_file'),
@@ -59,7 +63,10 @@ urlpatterns = [
     path("getaddress/",getaddress,name='getaddress'), 
     path("load_sequence/",load_sequence,name='load_sequence'), # 적재순서 변환
     path("layer/",layer,name='layer'),
-    path("Load/boxload",LoadList.as_view())
+    path("Load/boxload",LoadList.as_view()),
+    path("getloaddata/",getloaddata,name='getloaddata'), 
+    path("layer_view/",views.layer_view,name='layer_view'),
+    path("save_row_data/",save_row_data,name='save_row_data'),
     
 
 ]
