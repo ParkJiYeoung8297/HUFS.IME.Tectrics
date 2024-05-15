@@ -30,8 +30,8 @@ from django.conf.urls.static import static
 from django.conf import settings 
 from Load.views import Index  
 from Route.views import getmapbox
-from Route.views import getaddress    #추가
-from Box.views import BoxShow     # 추가
+from Route.views import getaddress   
+from Box.views import BoxShow     
 
 
 
@@ -52,7 +52,7 @@ urlpatterns = [
     path("Load/index",Index.as_view()),
     path('Load/loaddata',LoadData.as_view()),
     path("getmapbox/",getmapbox,name='getmapbox'),
-    path("getaddress/",getaddress,name='getaddress'),   #추가
-    path('Box/boxshow',BoxShow.as_view()),    # 추가
+    path("getaddress/",getaddress,name='getaddress'), 
+    path('Box/boxshow',BoxShow.as_view()),    
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 

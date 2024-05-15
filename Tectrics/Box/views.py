@@ -49,6 +49,5 @@ def getbox(request):
 
 
 class BoxShow(APIView):
-    def get(self,request):
-        
+    def get(self,request):    
         return render(request,"Box/BoxShow.html")
