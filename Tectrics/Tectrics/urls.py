@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include   #추가
 #from .views import Main
 from Route.views import Road
 from Load.views import BoxLoad, LoadData, LayerLoad
@@ -32,14 +32,12 @@ from Load.views import Index
 from Load.views import pack_items
 from Route.views import getmapbox
 from Route.views import getaddress
-from Load.views import load_sequence#추가
+from Load.views import load_sequence
 from Load.views import layer
 from Load.views import LoadList
 from Load.views import getloaddata
 from . import views
-from Load.views import save_row_data
-from Route.views import getaddress   
-from Box.views import BoxShow     
+from Load.views import save_row_data   
 
 
 
@@ -62,15 +60,14 @@ urlpatterns = [
     path('Load/loaddata',LoadData.as_view()), 
     path("getmapbox/",getmapbox,name='getmapbox'),
     path('pack-items/', pack_items, name='pack-items'), 
-    path("getaddress/",getaddress,name='getaddress'), 
-    path('Box/boxshow',BoxShow.as_view()),        
+    path("getaddress/",getaddress,name='getaddress'),      
     path("load_sequence/",load_sequence,name='load_sequence'), # 적재순서 변환
     path("layer/",layer,name='layer'),
     path("Load/boxload",LoadList.as_view()),
     path("getloaddata/",getloaddata,name='getloaddata'), 
     path("layer_view/",views.layer_view,name='layer_view'),
     path("save_row_data/",save_row_data,name='save_row_data'),
-    
+    path("Api/",include('Api.urls')),       #추가
 
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
