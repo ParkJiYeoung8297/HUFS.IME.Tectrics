@@ -67,7 +67,7 @@ urlpatterns = [
     path("getloaddata/",getloaddata,name='getloaddata'), 
     path("layer_view/",views.layer_view,name='layer_view'),
     path("save_row_data/",save_row_data,name='save_row_data'),
-    path("Api/",include('Api.urls')),       #추가
+    path("Api_Flutter/",include('Api_Flutter.urls')),
 
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
