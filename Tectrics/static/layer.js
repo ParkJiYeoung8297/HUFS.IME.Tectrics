@@ -1,7 +1,7 @@
 import * as THREE from './three.module.js';
 import {OrbitControls} from './OrbitControls.js';
-import {TrackballControls} from './TrackballControls.js';
-
+import { TrackballControls } from './TrackballControls.js';
+// import {TrackballControls} from './TrackballControls.js';
 
 
 // 컨테이너 생성 함수
@@ -21,10 +21,10 @@ function createContainer(width, height, depth, color) {
 }
 
 // 상자와 외곽선을 만드는 함수
-function createBoxWithEdges(width, height, depth, color) {
+function createBoxWithEdges(width, height, depth, layerColor) {
     // 상자 생성
     const geometry = new THREE.BoxGeometry(width, height, depth);
-    const material = new THREE.MeshBasicMaterial({ color:color, transparent : true, opacity: 0.7});
+    const material = new THREE.MeshBasicMaterial({ color: layerColor, transparent : true, opacity: 0.7});
     const box = new THREE.Mesh(geometry, material);
 
     // 상자 외곽선 생성
@@ -71,9 +71,9 @@ function createCustomGrid(width, height, divisionsWidth, divisionsHeight, color)
     return gridHelper;
 }
 
-class App {
+class Layer {
     constructor () {
-        const divContainer = document.querySelector("#webgl-container");
+        const divContainer = document.querySelector("#webgl-container2");
         this._divContainer = divContainer; /*밑줄로 시작하는 필드와 매서드는 private으로 클래스 외부에서 호출 불가 */
 
         const renderer = new THREE.WebGLRenderer({antialias: true});
@@ -94,10 +94,33 @@ class App {
 
         requestAnimationFrame(this.render.bind(this));
 }
+// JSON 파일에서 로드하는 직육면체를 생성하는 함수
+// _loadCubesFromJson() {
+//     // fetch('../static/packed_items.json')
+//     fetch('../static/packed_items.json')
+//     .then(response => response.json())
+//     .then(data => {
+//         data.forEach((item, index) => {
+//             setTimeout(() => {
+//           // 직육면체의 중심 좌표를 계산합니다.
+//                 const centerX = item.positionX + item.width / 2;
+//                 const centerY = item.positionY + item.height / 2;
+//                 const centerZ = item.positionZ + item.depth / 2;
+        
+//                 const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.color, 0.5);
+//                 boxWithEdges.position.set(centerX, centerY, centerZ);
 
+//                 this._scene.add(boxWithEdges);
+//                 }, index*1000);
+//             });
+
+//     })
+//     .catch(error => {
+//         console.error('Error loading JSON:', error);
+//     });
+// }
 _loadCubesFromJson() {
-    
-    fetch('../static/packed_items.json')
+    fetch('../static/packed_boxes_layer.json')
       .then(response => response.json())
       .then(data => {
         data.forEach(item => {
@@ -106,7 +129,7 @@ _loadCubesFromJson() {
           const centerY = item.positionY + item.height / 2;
           const centerZ = item.positionZ + item.depth / 2;
         
-        const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.color, 1);
+        const boxWithEdges = createBoxWithEdges(item.width, item.height, item.depth, item.layerColor, 1);
         boxWithEdges.position.set(centerX, centerY, centerZ);
 
         this._scene.add(boxWithEdges);
@@ -157,8 +180,8 @@ _createLabel(text, position = new THREE.Vector3(0,0,0)) {
 _setupModel() {
 
     const customGrid = createCustomGrid(2700, 1600, 16, 27, 0x888888); // 어두운 회색으로 그리드 생성
-    customGrid.position.set(0, 0, 0); // 그리드 위치 설정 (원점)
-    this._scene.add(customGrid);
+customGrid.position.set(0, 0, 0); // 그리드 위치 설정 (원점)
+this._scene.add(customGrid);
 
     const containerWidth = 2700;
     const containerHeight = 1600;
@@ -171,7 +194,7 @@ _setupModel() {
 
 
     const axesHelper = new THREE.AxesHelper(15);
-    this._scene.add(axesHelper);
+this._scene.add(axesHelper);
 
 
 
@@ -233,15 +256,15 @@ _setupControls() {
     const containerCenter = new THREE.Vector3(containerWidth / 2, containerHeight / 2, containerDepth / 2);
     this._controls.target.copy(containerCenter);
 
-    // this._controls.minPolarAngle = Math.PI/2 //각 (수직으로 아래로는 회전 불가)
+    // // this._controls.minPolarAngle = Math.PI/2 //각 (수직으로 아래로는 회전 불가)
     // this._controls.maxPolarAngle = Infinity; // 최대 극각 (수직으로 위로는 90도까지 가능)
 
-    // 화면 공간 패닝 비활성화 (필요에 따라 활성화 가능)
-    this._controls.screenSpacePanning = true;
+    // // 화면 공간 패닝 비활성화 (필요에 따라 활성화 가능)
+    // this._controls.screenSpacePanning = true;
 
-    // 관성 효과를 사용하여 더 부드러운 컨트롤 제공
-    this._controls.enableDamping = true;    
-    this._controls.dampingFactor = 0.05;
+    // // 관성 효과를 사용하여 더 부드러운 컨트롤 제공
+    // this._controls.enableDamping = true;    
+    // this._controls.dampingFactor = 0.05;
 
 
     this._controls.update();
@@ -273,6 +296,5 @@ update(time) {
 }
 
 window.onload = function() {
-    new App();
-    }
-
+new Layer();
+}
