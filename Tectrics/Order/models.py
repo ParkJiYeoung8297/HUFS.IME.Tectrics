@@ -23,4 +23,7 @@ class BoxData(models.Model):
     height=models.IntegerField()
     sequence=models.IntegerField()
     loadsequence = models.IntegerField(null=True, blank=True)
+    customerLoadSequence=models.IntegerField(null=True,blank=True)
+    layer=models.IntegerField(null=True,blank=True)  # layer 번호
+    load_ok=models.IntegerField(default=0, null=True, blank=True)  #적재여부
     
